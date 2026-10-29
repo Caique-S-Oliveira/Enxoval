@@ -1,0 +1,12 @@
+# nunca suba segredos ou arquivos pessoais
+.env
+.env.*
+*.key
+*.pem
+*secret*
+*service_role*
+backup*.json
+*.bak
+.DS_Store
+Thumbs.db
+node_modules/

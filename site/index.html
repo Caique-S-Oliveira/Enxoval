@@ -1,0 +1,1262 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="referrer" content="no-referrer">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; img-src data:; connect-src https://ldsyogtmdrpawtpdmzga.supabase.co; form-action 'none'; base-uri 'none'">
+<meta name="color-scheme" content="light dark">
+<title>Enxoval do bebê</title>
+<style>
+:root{
+  --bg:#FAF6EE; --card:#FFFFFF; --ink:#2B2A26; --muted:#645E52; --line:#E6DDCB;
+  --btn:#4A6B50; --on-btn:#FFFFFF; --sage-t:#E4ECDD; --sage-d:#2F4A35;
+  --sand:#F1E9D7; --sand-ink:#5A4A28;
+  --terra:#9C4A2E; --terra-t:#F7E4DB;
+  --focus:#1F4E79; --shadow:0 1px 2px rgba(60,50,30,.06),0 6px 18px rgba(60,50,30,.06);
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,"Times New Roman",serif;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#1C1A16; --card:#27241F; --ink:#F1ECE1; --muted:#B9B1A1; --line:#3C382F;
+    --btn:#8DB594; --on-btn:#12200F; --sage-t:#2B3A2E; --sage-d:#C6E2CA;
+    --sand:#3A3426; --sand-ink:#E6D8B4;
+    --terra:#F0A98C; --terra-t:#43281E;
+    --focus:#9CC4F0; --shadow:0 1px 2px rgba(0,0,0,.3);
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:1.0625rem;line-height:1.45;
+  overflow-wrap:normal;word-break:normal;hyphens:manual}
+[hidden]{display:none!important}
+h1,h2,h3{font-family:var(--serif);font-weight:600;line-height:1.2;margin:0}
+p{margin:0}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px;border-radius:8px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.user{overflow-wrap:break-word}
+
+.top{padding:calc(14px + env(safe-area-inset-top)) 16px 4px;max-width:760px;margin:0 auto}
+.top h1{font-size:1.5rem}
+.top .upd{color:var(--muted);font-size:.9375rem;margin-top:2px}
+.warn{margin:10px 16px 0;padding:12px 14px;border-radius:14px;background:var(--terra-t);color:var(--terra);font-size:.9375rem;max-width:728px}
+main{max-width:760px;margin:0 auto;padding:12px 16px calc(150px + env(safe-area-inset-bottom))}
+main:focus{outline:none}
+.page-title{font-size:1.75rem;margin:8px 0 14px}
+
+.dock{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--line);z-index:20;padding-bottom:env(safe-area-inset-bottom)}
+.dock .note{margin:0;padding:6px 12px 0;text-align:center;font-size:.8125rem;color:var(--muted)}
+.tabs{display:flex;max-width:760px;margin:0 auto;padding:2px 4px 4px}
+.tab{flex:1 1 0;min-width:0;min-height:56px;border:0;background:none;border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
+  font-size:.8125rem;color:var(--muted);cursor:pointer;white-space:nowrap}
+.tab svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.tab[aria-current="page"]{color:var(--sage-d);background:var(--sage-t);font-weight:600}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px;margin:0 0 14px;box-shadow:var(--shadow)}
+.card h3{font-size:1.2rem;margin-bottom:6px}
+.small{font-size:.9375rem;color:var(--muted)}
+.btn{min-height:48px;padding:10px 18px;border-radius:14px;border:1.5px solid var(--btn);background:transparent;color:var(--btn);font-weight:600;cursor:pointer;white-space:nowrap}
+.btn.primary{background:var(--btn);color:var(--on-btn)}
+.btn.danger{border-color:var(--terra);color:var(--terra)}
+.btn.block{width:100%}
+.btn-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
+.btn-row .btn{flex:1 1 150px}
+.link{background:none;border:0;padding:10px 0;min-height:44px;color:var(--btn);font-weight:600;text-decoration:underline;cursor:pointer}
+
+.big{background:var(--sage-t);border-color:transparent}
+.big.over{background:var(--terra-t)}
+.big-label{font-size:1rem;color:var(--sage-d);font-weight:600}
+.big.over .big-label,.big.over .big-num{color:var(--terra)}
+.big-num{font-family:var(--serif);font-weight:600;font-size:clamp(2.2rem,11.5vw,3.8rem);line-height:1.1;color:var(--sage-d);white-space:nowrap;margin:2px 0 6px}
+.big-sub{font-size:.9375rem}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 14px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px}
+.stat b{display:block;font-family:var(--serif);font-size:1.4rem;line-height:1.2}
+.stat span{font-size:.875rem;color:var(--muted)}
+.bar{height:12px;border-radius:99px;background:var(--line);overflow:hidden;margin:8px 0 4px}
+.bar>i{display:block;height:100%;background:var(--btn);border-radius:99px;width:0}
+
+.field{display:block;margin:10px 0 0}
+.field>span{display:block;font-size:.9375rem;font-weight:600;margin-bottom:4px}
+input[type=text],input[type=date],input[type=search],select,textarea{width:100%;min-height:48px;padding:10px 12px;font:inherit;font-size:1rem;color:var(--ink);background:var(--bg);border:1.5px solid var(--line);border-radius:12px}
+textarea{min-height:84px;resize:vertical}
+input[type=checkbox]{width:26px;height:26px;margin:0;accent-color:var(--btn);flex:none}
+.cb{display:flex;align-items:center;gap:12px;min-height:48px;cursor:pointer}
+
+.pill{display:inline-block;padding:2px 10px;border-radius:99px;font-size:.8125rem;white-space:nowrap;font-weight:600}
+.lv-E{background:var(--sage-t);color:var(--sage-d)}
+.lv-U{background:var(--sand);color:var(--sand-ink)}
+.lv-D{border:1.5px dashed var(--muted);color:var(--muted)}
+.tag{display:inline-block;padding:2px 8px;border-radius:8px;font-size:.8125rem;background:var(--bg);border:1px solid var(--line);white-space:nowrap}
+.tag.ok{background:var(--sage-t);color:var(--sage-d);border-color:transparent}
+
+.items,.crows{list-style:none;margin:0;padding:0}
+.item{border-top:1px solid var(--line)}
+.item:first-child{border-top:0}
+.item-head{display:flex;align-items:flex-start;gap:8px;padding:6px 0}
+.check{flex:none;width:48px;height:48px;border-radius:50%;border:2px solid var(--btn);background:transparent;color:var(--on-btn);display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0}
+.check svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;opacity:0}
+.check[aria-pressed="true"]{background:var(--btn)}
+.check[aria-pressed="true"] svg{opacity:1}
+.item-main{flex:1 1 0;min-width:0;display:block;text-align:left;background:none;border:0;padding:8px 4px;min-height:48px;cursor:pointer}
+.item-name{display:block;font-weight:600}
+.item.done .item-name{color:var(--muted);text-decoration:line-through;text-decoration-thickness:1px}
+.item-meta{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:4px;font-size:.875rem;color:var(--muted)}
+.det{padding:4px 0 14px 56px}
+.det p{margin:0 0 8px;font-size:.9375rem}
+.det b{font-weight:600}
+.hint{font-size:.875rem;color:var(--muted);margin-top:4px}
+.custom-tag{font-size:.8125rem;color:var(--btn);font-weight:600}
+
+.cat-head{width:100%;display:flex;align-items:center;gap:10px;background:none;border:0;padding:6px 0;min-height:56px;text-align:left;cursor:pointer}
+.cat-head .t{flex:1 1 0;min-width:0}
+.cat-head .t b{display:block;font-family:var(--serif);font-size:1.15rem;font-weight:600}
+.cat-head .t span{font-family:var(--sans);font-weight:400;font-size:.875rem;color:var(--muted)}
+.cat-head svg{width:22px;height:22px;flex:none;fill:none;stroke:currentColor;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;transition:transform .15s}
+.cat-head[aria-expanded="true"] svg{transform:rotate(180deg)}
+.aviso{background:var(--terra-t);color:var(--terra);border-radius:12px;padding:10px 12px;font-size:.9375rem;margin:6px 0 8px}
+
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.chip{min-height:44px;padding:6px 14px;border-radius:99px;border:1.5px solid var(--line);background:var(--card);cursor:pointer;white-space:nowrap}
+.chip[aria-pressed="true"],.chip.on{background:var(--sage-t);border-color:var(--btn);color:var(--sage-d);font-weight:600}
+fieldset{border:0;margin:12px 0 0;padding:0;min-width:0}
+legend{font-weight:600;font-size:.9375rem;padding:0}
+.tools{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 12px}
+.tools .btn{flex:1 1 140px;min-height:48px}
+
+.month-h{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px;margin-bottom:4px}
+.here{background:var(--btn);color:var(--on-btn);padding:2px 10px;border-radius:99px;font-size:.8125rem;font-weight:600;white-space:nowrap}
+.crow{display:flex;align-items:flex-start;gap:8px;padding:6px 0;border-top:1px solid var(--line)}
+.crow:first-child{border-top:0}
+.crow-main{flex:1 1 0;min-width:0;padding:6px 0}
+
+.chiplist{list-style:none;margin:8px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.chiplist li{display:flex;align-items:center;gap:2px;background:var(--sage-t);color:var(--sage-d);border-radius:99px;padding:0 4px 0 14px;min-height:44px}
+.chiplist button{width:44px;height:44px;border:0;background:none;color:inherit;font-size:1.25rem;cursor:pointer;border-radius:50%}
+.row-form{display:flex;gap:8px;margin-top:10px}
+.row-form input{flex:1 1 0;min-width:0}
+.row-form .btn{flex:none}
+ol.steps{margin:6px 0;padding-left:22px}
+ol.steps li{margin:6px 0}
+
+.scrim{position:fixed;inset:0;background:rgba(20,16,10,.5);display:flex;align-items:flex-end;justify-content:center;z-index:50;padding:0}
+.sheet{background:var(--card);width:100%;max-width:560px;max-height:92vh;overflow:auto;border-radius:24px 24px 0 0;padding:20px 16px calc(20px + env(safe-area-inset-bottom))}
+@media (min-width:600px){.scrim{align-items:center;padding:16px}.sheet{border-radius:24px}}
+.sheet h2{font-size:1.4rem;margin-bottom:8px}
+.sheet-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.sheet-actions .btn{flex:1 1 130px}
+.err{color:var(--terra);font-size:.9375rem;margin-top:8px;font-weight:600}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(112px + env(safe-area-inset-bottom));max-width:calc(100% - 32px);background:var(--ink);color:var(--bg);padding:12px 18px;border-radius:14px;z-index:40;font-size:.9375rem;text-align:center}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+.q{margin:14px 0 0}
+.q legend{font-weight:600;font-size:1rem;padding:0;margin-bottom:2px}
+.opts{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.opt{display:flex;align-items:center;gap:10px;min-height:48px;padding:6px 14px;border:1.5px solid var(--line);border-radius:14px;background:var(--card);cursor:pointer}
+.opt input{width:22px;height:22px;accent-color:var(--btn);margin:0;flex:none}
+.opt:has(input:checked){border-color:var(--btn);background:var(--sage-t)}
+.jt{border-top:1px solid var(--line);padding:4px 0}
+.jt summary{min-height:48px;display:flex;align-items:center;font-weight:600;cursor:pointer}
+
+.codebig{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:1.2rem;font-weight:600;letter-spacing:.03em;margin:10px 0;line-height:1.7}
+.codebig span{white-space:nowrap;margin-right:.35em}
+.btn{white-space:normal;text-align:center;line-height:1.25}
+</style>
+</head>
+<body>
+<header class="top">
+  <h1>Enxoval do bebê</h1>
+  <p class="upd" data-b="upd"></p>
+  <p class="upd" data-b="syncs" hidden></p>
+</header>
+<p class="warn" data-b="storewarn" role="alert" hidden>Este navegador não está guardando os dados. Use "Exportar backup" para não perder o que foi preenchido.</p>
+<main id="main" tabindex="-1"></main>
+<div class="dock">
+  <p class="note">Este material não substitui o obstetra e o pediatra.</p>
+  <nav class="tabs" aria-label="Telas do app" id="tabs"></nav>
+</div>
+<input type="file" id="imp" accept=".json,application/json" hidden>
+<div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+<div id="modal-root"></div>
+
+<script>
+(function(){
+'use strict';
+
+/* ---------- Configuração da sincronização (preencha ao publicar) ---------- */
+/* Deixe como está para usar o app só neste aparelho, sem internet. */
+var CONFIG={url:'https://ldsyogtmdrpawtpdmzga.supabase.co',key:'sb_publishable_IVpF3fEWdMJ20Jdi0h9PRw_NBC9mLqQ'};
+var SYNC_ON=/^https?:\/\/\S+$/.test(CONFIG.url)&&String(CONFIG.key).length>20;
+
+/* ---------- Dados da lista mestra aprovada ---------- */
+var CATS=[
+ {id:1,nome:'Quarto e sono',aviso:'Sono seguro: bebê de barriga para cima, em superfície firme, no berço e no mesmo quarto dos pais (orientação comum da pediatria; confirme com o pediatra). Não usar no berço: protetor de grade, almofadas e travesseiros, ninho ou redutor, cobertas soltas, pelúcias, cunhas e posicionadores.'},
+ {id:2,nome:'Roupas',aviso:'Pegar leve no RN: ele usa por poucas semanas e muita gente dá roupa nessa idade. Lavar tudo antes do primeiro uso.'},
+ {id:3,nome:'Higiene e banho'},
+ {id:4,nome:'Troca de fraldas'},
+ {id:5,nome:'Alimentação',aviso:'Como pretendem amamentar, com fórmula e mamadeira de apoio, nada aqui é essencial antes do nascimento.'},
+ {id:6,nome:'Passeio e carro',aviso:'Bebê conforto ou cadeirinha adequada ao peso e com selo do Inmetro é exigência do trânsito desde a saída da maternidade. Instalar e treinar antes do mês 8. Não usar acessório que não veio com ela. No canguru ou sling, o rosto do bebê fica sempre visível e livre.'},
+ {id:7,nome:'Saúde e segurança',aviso:'Febre em bebê muito novo: ligar logo para o pediatra. Não dar remédio, chá nem xarope sem o pediatra.'},
+ {id:8,nome:'Mala da maternidade',aviso:'Mala pronta no início do mês 8. A cadeirinha instalada está na categoria 6; os documentos, na categoria 9.'},
+ {id:9,nome:'Documentos e burocracias'},
+ {id:10,nome:'Casa e rotina dos pais'}
+];
+var LV={E:'Essencial',U:'Útil',D:'Dispensável/esperar'};
+var MORDER=[3,4,5,6,7,8,9,'P','E','S'];
+function mLabel(m){return typeof m==='number'?'Mês '+m:(m==='P'?'Depois do nascimento':(m==='E'?'Só se precisar ou indicar':'Sem mês definido'));}
+
+var MASTER=[], cnt={};
+function r(c,n,l,q,u,w,o,m,x){
+  cnt[c]=(cnt[c]||0)+1;
+  var f=(x||'').split(' ');
+  var g=null; if(f.indexOf('mb')>=0)g='mb'; else if(f.indexOf('mm')>=0)g='mm'; else if(f.indexOf('ma')>=0)g='ma';
+  MASTER.push({id:c+'.'+(cnt[c]<10?'0':'')+cnt[c],c:c,n:n,l:l,q:q,u:u,w:w,o:o,m:m,t:f.indexOf('t')>=0,g:g});
+}
+/* 1 Quarto e sono */
+r(1,'Berço (ou mini-berço/berço acoplado: decisão de vocês)','E','1','Lugar próprio e seguro para dormir','Mês 7-8','Caro. Procurar o selo do Inmetro (certificação de segurança) e montar como manda o manual. Não usar berço usado sem saber o histórico. Mini-berço serve por menos tempo: ver o limite de peso no manual.',7);
+r(1,'Colchão firme do tamanho exato do berço','E','1','Superfície firme, sem vão nas laterais','Mês 7-8, junto com o berço','Médio. Comprar para aquele berço específico.',7);
+r(1,'Lençol com elástico','E','3','Trocar rápido quando sujar','Mês 8','Barato. Tem que ficar bem esticado no colchão.',8);
+r(1,'Protetor impermeável de colchão (justo)','U','1 a 2','Protege o colchão de xixi e leite','Mês 8','Barato. Sem dobras nem folga.',8);
+r(1,'Saco de dormir de bebê','U','2','Esquenta no frio sem cobertas soltas','Mês 8-9','Barato/médio. Tamanho certo. Confirmar com o pediatra o modelo e a temperatura ideal do quarto.',8);
+r(1,'Cortina que escurece','U','1','Ajuda nas sonecas de dia','Mês 8','Médio. Pode servir a que já existe na casa.',8);
+r(1,'Luz noturna fraca','U','1','Trocar e olhar o bebê à noite sem luz forte','Mês 8','Barato.',8);
+r(1,'Cômoda para roupas e fraldas','U','1','Guardar roupas e fraldas','Mês 8','Médio/caro. Pode aproveitar um móvel que já têm.',8);
+r(1,'Decoração do quarto (quadros, tapete, nichos)','U','A definir','Deixar o quarto do jeito que vocês querem','Mês 8-9, depois dos itens de segurança','Varia muito. Nada pendurado sobre o berço.',8);
+r(1,'Babá eletrônica','D','1','Ouvir o bebê de outro cômodo','Só se ele for para quarto separado','Barato/médio. Por quê: dormindo no quarto de vocês, já o escutam.','E');
+r(1,'Poltrona de amamentação','D','1','Sentar confortável para amamentar','Depois do nascimento','Caro. Por quê: cadeira ou sofá com almofada costuma servir no começo, e dá para ver depois o que falta.','P');
+r(1,'Móbile e enfeites de berço','D','','Enfeitar','Depois','Barato. Por quê: o bebê quase não aproveita no começo. Se quiserem, só fora do alcance.','P');
+/* 2 Roupas */
+r(2,'RN: body manga longa','E','4','Peça básica por baixo de tudo','Mês 8-9, depois do chá','Barato. Se o bebê nascer grande, pode pular o RN.',8);
+r(2,'RN: macacão com pé','E','4','Roupa principal do dia e da noite no frio','Mês 8-9, depois do chá','Barato/médio.',8);
+r(2,'RN: casaquinho ou moletom','U','2','Camada extra no inverno','Mês 8-9','Barato.',8);
+r(2,'RN: meias','E','4 pares','Esquentar os pés','Mês 8-9','Barato.',8);
+r(2,'RN: touca','E','2','Manter a cabeça quente na saída','Mês 8-9','Barato. Para passeio, não para dormir (confirmar com o pediatra).',8);
+r(2,'RN: manta de colo e passeio','E','2','Cobrir no colo, no carrinho e na saída da maternidade','Mês 8-9','Barato/médio. Só para colo e passeio, nunca solta no berço.',8);
+r(2,'RN: luvas','D','1 par','Evitar arranhão no rosto','Depois','Barato. Por quê: muitos macacões já têm a dobra que cobre a mão.','P');
+r(2,'RN: roupa de festa, sapatinho, fantasia','D','','Enfeitar','Só se ganharem','Barato. Por quê: uso de poucos dias, e o bebê nem anda.','E');
+r(2,'P: body manga longa','E','5','Peça básica','Depois do nascimento, ou do chá','Barato. P é o tamanho que dura mais e é o que mais vale comprar.','P');
+r(2,'P: macacão com pé','E','5','Roupa principal no frio','Depois do nascimento','Barato/médio.','P');
+r(2,'P: calça ou culote','U','3','Combinar com o body','Depois do nascimento','Barato.','P');
+r(2,'P: casaquinho','U','2','Camada extra','Depois do nascimento','Barato. Cai no fim do inverno.','P');
+r(2,'P: meias','E','5 pares','Esquentar os pés','Depois do nascimento','Barato.','P');
+r(2,'P: body manga curta','U','3','Para os dias mais quentes de fim de inverno','Depois do nascimento','Barato.','P');
+r(2,'M: bodies e regatas leves','U','4','O M chega perto do verão','Só depois, quando souberem o tamanho','Barato. Muita coisa vem de presente.','P');
+r(2,'M: conjuntos leves','U','4','Roupa do dia a dia no calor','Depois do nascimento','Barato.','P');
+r(2,'M: chapéu de sol','D','1','Sombra no passeio','Só no verão','Barato. Por quê: só vale na época de sol forte, e dá para comprar depois.','E');
+/* 3 Higiene e banho */
+r(3,'Banheira','E','1','Dar banho com segurança','Mês 8','Barato/médio. Pode ser ganha.',8);
+r(3,'Toalha com capuz','E','2','Secar e esquentar depois do banho','Mês 8','Barato.',8);
+r(3,'Paninhos de pano (fraldas de boca)','E','8','Limpar baba, arroto e proteger o ombro','Mês 8-9','Barato. Costumam ser dados no chá.',8);
+r(3,'Fraldas descartáveis RN','E','1 a 2 pacotes pequenos','Trocar nas primeiras semanas','Mês 9','Médio, e o gasto se repete. Alguns bebês já nascem grandes para o RN.',9);
+r(3,'Fraldas descartáveis P','E','2 pacotes','Fralda do tamanho que dura mais','Mês 9','Médio. Repor conforme o peso. Pano ou misto: decisão de vocês.',9);
+r(3,'Sabonete líquido neutro','E','1','Banho do corpo e do cabelo','Mês 9','Barato. Sem perfume. Confirmar com o pediatra qual produto.',9);
+r(3,'Gaze estéril e hastes flexíveis','E','1 pacote de cada','Cuidar do umbigo até cair','Mês 9','Barato. O produto varia: perguntar à maternidade e ao pediatra.',9);
+r(3,'Cortador ou lixa de unhas de bebê','E','1','Evitar arranhões','Mês 9','Barato.',9);
+r(3,'Lenços umedecidos','U','1 pacote','Limpeza rápida na troca','Mês 9','Barato. Alguns pediatras preferem algodão e água nas primeiras semanas.',9);
+r(3,'Algodão','U','1 pacote','Limpar com água na troca','Mês 9','Barato.',9);
+r(3,'Termômetro de banho','U','1','Conferir a água','Mês 8','Barato. O cotovelo também serve.',8);
+r(3,'Sabão neutro para roupa de bebê','U','1','Lavar a roupa do bebê','Mês 9','Barato. Confirmar qual o pediatra indica.',9);
+r(3,'Escova ou pente macio','D','1','Pentear','Se precisar','Barato. Por quê: o bebê tem pouco cabelo.','E');
+r(3,'Ofurô','D','1','Banho em pé','Depois','Médio. Por quê: compra por empolgação, e a banheira simples resolve.','P');
+r(3,'Perfume, talco, hidratante e cosméticos','D','','Cheirinho e pele macia','Só se o pediatra indicar','Barato. Por quê: a pele é sensível, e perfume e talco costumam ser desaconselhados.','E');
+/* 4 Troca de fraldas */
+r(4,'Trocador (colchonete firme sobre a cômoda ou cama)','E','1','Superfície limpa para trocar','Mês 8','Médio. Nunca deixar o bebê sozinho em cima.',8);
+r(4,'Capa lavável para o trocador','U','2','Trocar quando sujar','Mês 8','Barato.',8);
+r(4,'Cesto ou lixeira com tampa','U','1','Descartar fraldas','Mês 8','Barato. Pode usar uma que já têm.',8);
+r(4,'Pomada para assadura','E','1 a 2','Proteger a pele da fralda','Mês 9','Barato. Perguntar ao pediatra qual tipo.',9);
+r(4,'Sacos para fralda suja','U','1 pacote','Levar fralda usada de passeio','Mês 9','Barato.',9);
+/* 5 Alimentação */
+r(5,'Almofada de amamentação','U','1','Apoiar o bebê e poupar as costas','Mês 9','Médio. Pode ser ganha.',9);
+r(5,'Absorventes de seio','U','1 caixa','Proteger a roupa se vazar leite','Mês 9','Barato. Vão 2 pares na mala.',9,'mm');
+r(5,'Pomada para os mamilos','U','1','Se os mamilos ficarem sensíveis','Só depois do nascimento, se precisar','Barato. Confirmar o produto com o obstetra ou o pediatra.','E');
+r(5,'Mamadeira pequena','U','2','Apoio, se precisarem','Depois do nascimento, ou ganhar','Barato/médio. O bico depende de como o bebê pega.','P');
+r(5,'Escova para limpar mamadeira','U','1','Limpar o bico e o fundo','Junto com a mamadeira','Barato.','P');
+r(5,'Panela só para esterilizar (ou esterilizador de micro-ondas)','U','1','Esterilizar mamadeiras no começo','Junto com a mamadeira','Barato/médio. A panela de casa serve.','P');
+r(5,'Babadores','U','3','Baba e leite que escorre','Depois do nascimento','Barato.','P');
+r(5,'Bomba de leite','D','1','Tirar leite','Só depois, se for preciso','Médio. Por quê: depende de como for a amamentação. Perguntar à maternidade antes.','E');
+r(5,'Potes ou saquinhos de leite','D','','Guardar leite tirado','Só se usarem bomba','Barato.','E');
+r(5,'Bicos extras','D','','Trocar o bico','Só se precisar','Barato. Por quê: depende do bebê.','E');
+r(5,'Fórmula infantil','D','','Complementar','Só com indicação do pediatra','Médio. Por quê: o tipo depende do bebê.','E');
+r(5,'Chupeta','D','','Acalmar','Só se vocês decidirem usar','Barato. Decisão de vocês, e pode ser ganha.','E');
+r(5,'Cadeirinha de alimentação','D','1','Sentar na hora da papa','Quando começar a comer, por volta dos 6 meses (confirmar com o pediatra)','Médio/caro. Por quê: só serve depois.','P');
+r(5,'Pratinhos, copo e talheres de bebê','D','','Começar a comer','Depois dos 6 meses','Barato. Por quê: ainda não usa.','P');
+/* 6 Passeio e carro */
+r(6,'Bebê conforto ou cadeirinha para recém-nascido, adequada ao peso e com selo do Inmetro','E','1','Transporte seguro desde a saída da maternidade (exigência do trânsito)','Mês 7-8. Instalar e treinar antes do mês 8','Médio/caro. Decisão: bebê conforto (tira do carro, serve por menos meses) ou cadeirinha que dura mais. Conferir no manual como instalar no carro de vocês. Não usar acessório que não veio com ela.',7);
+r(6,'Carrinho','U','1','Passear','Mês 8-9, ou depois','Caro. Decisão: com ou sem canguru. Pode esperar o chá.',8);
+r(6,'Canguru ou sling','U','1','Levar o bebê junto, de mãos livres','Mês 8-9','Médio. Usar sempre com o rosto do bebê visível e livre. Pedir orientação ao pediatra ou a quem ensina.',8);
+r(6,'Bolsa de passeio','U','1','Levar fraldas e roupa extra','Mês 9','Barato. Uma bolsa que já têm serve.',9);
+r(6,'Para-sol de janela do carro','U','2','Proteger do sol','Mês 9','Barato.',9);
+r(6,'Espelho retrovisor para o bebê','D','1','Ver o bebê de costas','Só se a mãe for na frente','Barato. Por quê: só andam o pai e a mãe, e ela pode ir ao lado do bebê.','E');
+r(6,'Capa de chuva para carrinho','D','1','Chuva','Depois','Barato. Por quê: só vale se tiverem carrinho.','P');
+/* 7 Saúde e segurança */
+r(7,'Termômetro digital','E','1','Medir febre','Mês 9','Barato. Febre em bebê muito novo: ligar logo para o pediatra, sem remédio por conta própria.',9);
+r(7,'Escolher o pediatra e salvar o telefone','E','1','Ter quem chamar desde o primeiro dia','Mês 7-8','Grátis. Perguntar se atende pelo plano e faz consulta antes do parto.',7,'t');
+r(7,'Lista de contatos de emergência (pediatra, maternidade, plano, SAMU 192)','E','1','Achar rápido em uma urgência','Mês 8','Grátis. Deixar na geladeira e no celular.',8,'t');
+r(7,'Kit de primeiros cuidados: soro fisiológico e gaze','U','1 kit','Limpar o nariz e pequenos cuidados','Mês 9','Barato. Não dar remédio, chá nem xarope sem o pediatra.',9);
+r(7,'Curso de primeiros socorros para bebês','U','1 vez','Saber o que fazer em engasgo, para os pais e as avós','Mês 8','Grátis a médio. Perguntar à maternidade ou ao plano.',8,'t');
+r(7,'Aspirador de nariz','D','1','Limpar o nariz','Só se o pediatra indicar','Barato. Por quê: nem todo bebê precisa.','E');
+r(7,'Umidificador de ar','D','1','Ar seco do inverno','Só se o pediatra indicar','Médio. Por quê: dá trabalho de limpeza.','E');
+r(7,'Protetor solar','D','1','Sol','Só com o pediatra','Barato. Por quê: em bebê pequeno costuma-se evitar sol direto. Confirmar.','E');
+r(7,'Protetor de tomada','D','','Quando engatinhar','Perto dos 6 meses','Barato. Por quê: ainda não se mexe.','P');
+r(7,'Protetor de quina e trava de gaveta ou armário','D','','Quando engatinhar e andar','Perto dos 6 meses','Barato. Por quê: só depois.','P');
+r(7,'Portão de escada ou de ambiente','D','','Evitar quedas','Só se a casa tiver degrau ou escada','Médio. Por quê: depende da casa.','E');
+/* 8 Mala da maternidade */
+r(8,'Pedir à maternidade a lista do que levar e as regras de acompanhante','E','1','Não levar o que ela já dá','Mês 7-8','Grátis.',7,'t');
+r(8,'Bebê: roupa de saída (macacão, touca, manta)','E','1 conjunto RN e 1 P','Sair no frio','Mês 8','Levar P também, caso ele nasça grande.',8,'mb');
+r(8,'Bebê: roupas da estadia','E','3 bodies e 3 macacões, meias','Trocar nos 2-3 dias','Mês 8','Confirmar se a maternidade dá alguma.',8,'mb');
+r(8,'Bebê: fraldas e lenços ou algodão','E','1 pacote RN pequeno','Trocar','Mês 8','Confirmar o que a maternidade fornece.',8,'mb');
+r(8,'Mãe: camisola ou pijama que abre na frente','E','2','Amamentar com facilidade','Mês 8','Barato.',8,'mm');
+r(8,'Mãe: absorventes pós-parto','E','2 pacotes','Sangramento normal depois do parto','Mês 8','Barato. Confirmar se a maternidade dá.',8,'mm');
+r(8,'Mãe: calcinhas confortáveis','E','5','Conforto','Mês 8','Barato.',8,'mm');
+r(8,'Mãe: roupa de saída larga','E','1','Sair confortável','Mês 8','Provavelmente já tem.',8,'mm');
+r(8,'Mãe: chinelo','E','1 par','Andar no hospital','Mês 8','Provavelmente já tem.',8,'mm');
+r(8,'Mãe: itens de higiene pessoal','E','1 kit','Banho e higiene','Mês 8','Provavelmente já tem.',8,'mm');
+r(8,'Mãe: carregador de celular com fio comprido','U','1','Usar o celular deitada','Mês 8','Barato.',8,'mm');
+r(8,'Acompanhante: troca de roupa e calçado confortável','E','2 mudas','Ficar o tempo todo','Mês 8','Provavelmente já tem.',8,'ma');
+r(8,'Acompanhante: documento de identidade','E','1','Entrar e ficar','Mês 8','Confirmar a regra com a maternidade.',8,'ma');
+r(8,'Acompanhante: higiene pessoal','U','1 kit','Banho e higiene','Mês 8','Provavelmente já tem.',8,'ma');
+r(8,'Acompanhante: lanches e carregador','U','1','Passar horas sem sair','Mês 8','Barato.',8,'ma');
+/* 9 Documentos e burocracias */
+r(9,'Pasta única com cartão da gestante, exames e documentos','E','1','Levar tudo junto no dia do parto','Desde o mês 3','Grátis.',3,'t mm');
+r(9,'Cobertura do plano para o parto e a internação do bebê','E','','Saber o que está coberto e se precisa de autorização','Mês 7-8','Grátis. Perguntar ao plano e à maternidade: carência, tipo de quarto e quem paga o quê.',7,'t');
+r(9,'Cadastro prévio na maternidade','U','','Agilizar a entrada','Mês 8','Grátis.',8,'t');
+r(9,'Incluir o bebê no plano de saúde','E','','Bebê ter cobertura','Logo após o nascimento','Grátis. O prazo costuma ser curto: confirmar quantos dias com o plano.','P','t');
+r(9,'Declaração de Nascido Vivo','E','1','Documento que a maternidade entrega para o registro','No dia da alta','Grátis. Conferir nomes e dados antes de sair.','P','t');
+r(9,'Certidão de nascimento','E','1','Registrar o bebê no cartório','Depois da alta','Grátis. Confirmar prazo e CPF no cartório. Decidam o nome antes.','P','t');
+r(9,'Caderneta de vacinação','E','1','Registrar vacinas','No dia da alta','Grátis. Confirmar com a maternidade quais vacinas já foram dadas.','P','t');
+r(9,'Testes do recém-nascido (pezinho, orelhinha, olhinho, coraçãozinho)','E','','Descobrir problemas cedo','Perguntar no mês 8','Grátis a médio. Confirmar quais a maternidade faz e quais precisam agendar.',8,'t');
+r(9,'Primeira consulta com o pediatra','E','1','Acompanhar o bebê nos primeiros dias','Combinar no mês 8-9','Grátis. Confirmar com o pediatra o prazo.',8,'t');
+r(9,'Licença-maternidade e licença-paternidade','E','','Direito de afastamento','Mês 7','Grátis. Se trabalham com carteira assinada, confirmar com o RH de cada um.',7,'t');
+/* 10 Casa e rotina dos pais */
+r(10,'Sutiã de amamentação','E','3','Amamentar com conforto','Mês 8-9','Barato/médio. 2 vão na mala. Comprar no fim, com o tamanho da barriga já definido.',8,'mm');
+r(10,'Blusas que abrem na frente','U','2 a 3','Amamentar sem tirar a roupa toda','Mês 8-9','Barato. Camisetas que já têm podem servir.',8);
+r(10,'Refeições congeladas e potes de freezer','U','10 a 15 porções','Ter comida pronta no começo','Mês 9','Barato. Cozinhar e congelar nas últimas semanas. As avós podem ajudar.',9);
+r(10,'Estoque de despensa e de limpeza','U','1 compra grande','Não sair para mercado nos primeiros dias','Mês 9','Médio.',9);
+r(10,'Garrafa de água e lanches perto de onde amamenta','U','1','Comer e beber sem levantar','Mês 9','Barato.',9);
+r(10,'Caderno ou app para registrar mamadas e fraldas','U','1','Muitos pediatras pedem esse registro','Mês 9','Grátis.',9,'t');
+r(10,'Contato de apoio para amamentação (enfermeira ou consultora)','U','1','Ter alguém para dúvidas logo no começo','Mês 8','Grátis a caro. Perguntar à maternidade ou ao plano.',8,'t');
+r(10,'Combinar a escala de ajuda das avós','U','','Saber quem vem quando e faz o quê','Mês 8','Grátis.',8,'t');
+r(10,'Combinar as regras de visita','U','','Proteger o descanso e a saúde do bebê','Mês 8','Grátis.',8,'t');
+r(10,'Cinta pós-parto','D','1','Apoio da barriga','Só com orientação do obstetra','Médio. Por quê: nem sempre é indicada.','E');
+
+/* ---------- Regras que ajustam a lista ao perfil ---------- */
+var SEG={'1.01':1,'1.02':1,'6.01':1};
+function ext(a,b){for(var k in b)a[k]=b[k];return a;}
+var ROUPA={
+ '2.01':{ameno:{n:'RN: body manga longa ou curta',o:'Barato. Misturar manga longa e curta conforme o dia. Se o bebê nascer grande, pode pular o RN.'},quente:{n:'RN: body manga curta ou regata'}},
+ '2.02':{ameno:{u:'Roupa principal do dia e da noite'},quente:{n:'RN: macacão curto ou leve',u:'Roupa principal do dia e da noite no calor'}},
+ '2.03':{ameno:{u:'Camada extra nas horas mais frescas'},quente:{l:'D',o:'Barato. Por quê: no calor quase não é usado. Dá para esperar e ver o tempo.'}},
+ '2.04':{ameno:{l:'U'},quente:{l:'D',o:'Barato. Por quê: no calor costuma ser dispensável.'}},
+ '2.05':{ameno:{l:'U',u:'Manter a cabeça protegida na saída'},quente:{l:'D',o:'Barato. Por quê: no calor costuma ser dispensável (confirmar com o pediatra).'}},
+ '2.06':{ameno:{l:'U',n:'RN: manta fina de colo e passeio',o:'Barato/médio. Só para colo e passeio, nunca solta no berço.'},quente:{l:'D',n:'RN: manta fina de colo e passeio',o:'Barato. Por quê: no calor costuma servir só para noites mais frescas ou ar-condicionado. Nunca solta no berço.'}},
+ '2.09':{ameno:{n:'P: body manga longa ou curta'},quente:{n:'P: body manga curta ou regata'}},
+ '2.10':{ameno:{u:'Roupa principal no dia a dia'},quente:{n:'P: macacão curto ou leve',u:'Roupa principal no calor'}},
+ '2.12':{ameno:{o:'Barato.'},quente:{l:'D',o:'Barato. Por quê: no calor quase não é usado.'}},
+ '2.13':{ameno:{l:'U'},quente:{l:'D',o:'Barato. Por quê: no calor costuma ser dispensável.'}},
+ '2.14':{ameno:{l:'E',u:'Para o dia a dia'},quente:{n:'P: body regata',l:'U',u:'Para os dias mais quentes',o:'Barato.'}},
+ '2.15':{frio:{n:'M: bodies de manga longa',u:'O M chega no frio'},ameno:{n:'M: bodies de manga curta ou longa',u:'O M pega tempo ameno'}},
+ '2.16':{frio:{n:'M: conjuntos quentes',u:'Roupa do dia a dia no frio'},ameno:{n:'M: conjuntos de meia-estação',u:'Roupa do dia a dia em tempo ameno'}}
+};
+function artigoLugar(P){return P.moradia==='apto'?'o apartamento':(P.moradia==='casa'?'a casa':'a moradia');}
+function rules(P,b){
+  var o={}, id=b.id, c1=P.clima1||'ameno', c2=P.clima2||'ameno', RV=ROUPA[id];
+  if(RV){var m2=(id==='2.15'||id==='2.16'), cls=m2?c2:c1, base=m2?'quente':'frio'; if(cls!==base&&RV[cls])ext(o,RV[cls]);}
+  var amam=P.amamentar, apoio=P.apoio;
+  switch(id){
+    case '1.01':
+      if(P.mudanca==='sim')o.w='Mês 7-8, entrega '+(P.moradia==='casa'?'na casa nova':(P.moradia==='apto'?'no apartamento novo':'no endereço novo'));
+      if(P.espaco==='pouco')o.o=b.o+' Pouco espaço: considerar mini-berço ou berço acoplado.';
+      break;
+    case '1.05':
+      if(c1==='ameno')ext(o,{u:'Esquenta nas noites mais frescas sem cobertas soltas',o:'Barato/médio. Escolher modelo adequado ao clima. Tamanho certo. Confirmar com o pediatra o modelo e a temperatura ideal do quarto.'});
+      if(c1==='quente')ext(o,{l:'D',o:'Barato/médio. Por quê: no calor, roupa leve costuma bastar. Confirmar com o pediatra.'});
+      break;
+    case '1.09':
+      o.o='Varia muito.'+(P.sexo==='sabem'?'':' Cores neutras até saberem o sexo.')+' Nada pendurado sobre o berço.';
+      if(P.quartoDecorado==='nao')ext(o,{l:'D',w:'Se quiserem, depois do nascimento',m:'P'});
+      break;
+    case '1.10':
+      if(P.quarto==='proprio')ext(o,{l:'U',w:'Mês 8',m:8,o:'Barato/médio. Para ouvir o bebê de outro cômodo.'});
+      break;
+    case '5.01': case '5.02': case '5.03': case '5.08': case '5.09': case '10.01': case '10.02': case '10.07':
+      if(amam==='nao')o.hide=true;
+      break;
+    case '5.04':
+      if(amam==='nao')ext(o,{l:'E',w:'Mês 9',m:9,o:'Barato/médio. Sem amamentação, é a alimentação principal: confirmar com o pediatra a quantidade e o bico.'});
+      else if(amam==='sim'&&apoio==='nao')ext(o,{l:'D',w:'Só se mudarem de ideia',m:'E',o:'Barato/médio. Por quê: não pretendem usar mamadeira de apoio.'});
+      break;
+    case '5.05': case '5.06':
+      if(amam==='nao')ext(o,{l:'E',w:'Mês 9',m:9});
+      else if(amam==='sim'&&apoio==='nao')ext(o,{l:'D',w:'Só se mudarem de ideia',m:'E',o:'Barato. Por quê: não pretendem usar mamadeira de apoio.'});
+      break;
+    case '5.11':
+      if(amam==='nao')ext(o,{l:'E',w:'Com indicação do pediatra',o:'Médio. Confirmar com o pediatra o tipo e a quantidade antes de comprar.'});
+      break;
+    case '6.01':
+      if(P.carro==='nao')o.o=b.o+' Sem carro: perguntar à maternidade e ao pediatra como levar o bebê com segurança na saída e nas consultas.';
+      break;
+    case '6.05':
+      if(P.carro==='nao')o.hide=true;
+      break;
+    case '6.06':
+      if(P.carro==='nao')o.hide=true;
+      else if(P.adultos==='1')ext(o,{l:'U',w:'Se quem dirige for sozinho com o bebê',m:8,o:'Barato. Quem dirige não consegue ver o bebê virado para trás.'});
+      else if(P.adultos==='2'||P.adultos==='3')ext(o,{w:'Só se o outro adulto for na frente',o:'Barato. Por quê: tem outro adulto no carro, que pode ir ao lado do bebê.'});
+      break;
+    case '7.07':
+      if(c1!=='frio')o.u='Ar seco';
+      break;
+    case '7.11':
+      o.w='Só se '+artigoLugar(P)+(P.mudanca==='sim'?' novo':'')+' tiver degrau ou escada';
+      if(P.mudanca==='sim'&&P.moradia==='casa')o.w='Só se a casa nova tiver degrau ou escada';
+      if(P.mudanca==='sim'&&P.moradia==='apto')o.w='Só se o apartamento novo tiver degrau ou escada';
+      if(P.mudanca==='sim'&&P.moradia!=='casa'&&P.moradia!=='apto')o.w='Só se a moradia nova tiver degrau ou escada';
+      break;
+    case '8.02':
+      if(c1==='ameno')ext(o,{n:'Bebê: roupa de saída (macacão e manta fina)',u:'Sair com conforto'});
+      if(c1==='quente')ext(o,{n:'Bebê: roupa de saída (macacão leve)',u:'Sair com conforto'});
+      break;
+    case '8.05':
+      if(amam==='nao')ext(o,{n:'Mãe: camisola ou pijama confortável',u:'Conforto'});
+      break;
+    case '9.02': case '9.04':
+      if(P.parto==='sus'||P.parto==='particular')o.hide=true;
+      break;
+    case '10.03':
+      o.o='Barato. Cozinhar e congelar nas últimas semanas.'+(P.ajuda==='avos'?' As avós podem ajudar.':(P.ajuda==='outros'?' Quem for ajudar pode cozinhar junto.':''));
+      break;
+    case '10.08':
+      if(P.ajuda==='ninguem')o.hide=true;
+      else if(P.ajuda==='outros')o.n='Combinar a escala de ajuda da família e dos amigos';
+      break;
+  }
+  return o;
+}
+function derive(P){
+  P=P||{};
+  return MASTER.map(function(b){
+    var i=ext({},b); ext(i,rules(P,b));
+    if(P.cha==='nao'){
+      i.w=i.w.replace(', depois do chá','').replace(', ou do chá','');
+      i.o=i.o.replace(' Pode esperar o chá.','').replace(' Costumam ser dados no chá.','');
+    }
+    i.seg=!!SEG[i.id];
+    return i;
+  });
+}
+
+var MALAQ={};
+MASTER.forEach(function(i){
+  if(i.n==='Sutiã de amamentação')MALAQ[i.id]='2 vão na mala';
+  if(i.n==='Absorventes de seio')MALAQ[i.id]='2 pares';
+});
+
+var GIFTS=[
+ {id:'g1',t:'Fraldas descartáveis P e M',d:'O RN sobra, e o gasto com fralda é contínuo.'},
+ {id:'g2',t:'Roupas a partir do P',d:'Peçam no convite roupa de tamanho P e M, porque o RN vai vir de qualquer jeito.'},
+ {id:'g3',t:'Toalha com capuz, paninhos e lençóis com elástico',d:'Baratos e fáceis de dar.'},
+ {id:'g4',t:'Kit de troca e higiene',d:'Pomada, lenços, cortador de unhas, termômetro de banho.'},
+ {id:'g5',t:'Vaquinha para o item caro',d:'Carrinho, ou cadeirinha, ou colchão novo, dividido entre vários convidados. Itens de segurança só novos ou de origem conhecida, nunca usados.'}
+];
+
+/* ---------- Utilitários ---------- */
+var KEY='enxoval-bebe-v1';
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+function brl(c){var neg=c<0;c=Math.abs(c);var i=Math.floor(c/100),f=c%100;
+  return (neg?'-':'')+'R$ '+String(i).replace(/\B(?=(\d{3})+(?!\d))/g,'.')+','+(f<10?'0':'')+f;}
+function parseBRL(s){
+  s=String(s||'').replace(/[^\d.,]/g,'');
+  if(!s)return null;
+  if(s.indexOf(',')>=0){s=s.replace(/\./g,'').replace(',','.');}
+  else if(s.indexOf('.')>=0){ if(/^\d+\.\d{1,2}$/.test(s)){} else s=s.replace(/\./g,''); }
+  var parts=s.split('.'); var ip=parts[0]||'0'; var fp=((parts[1]||'')+'00').slice(0,2);
+  var v=parseInt(ip,10)*100+parseInt(fp,10);
+  if(isNaN(v))return null; if(v>1e10)v=1e10; return v;
+}
+function plainBRL(c){var i=Math.floor(c/100),f=c%100;return i+','+(f<10?'0':'')+f;}
+function pad(n){return n<10?'0'+n:''+n;}
+function fmtDT(iso){var d=new Date(iso);return pad(d.getDate())+'/'+pad(d.getMonth()+1)+'/'+d.getFullYear()+' '+pad(d.getHours())+':'+pad(d.getMinutes());}
+function fmtD(s){var m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(s||'');return m?m[3]+'/'+m[2]+'/'+m[1]:'';}
+function validDate(s){return (typeof s==='string'&&!isNaN(Date.parse(s)))?s:null;}
+function $(s,r){return (r||document).querySelector(s);}
+function $$(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s));}
+
+/* ---------- Estado e armazenamento ---------- */
+var storageOK=true, S;
+var ENUM={sexo:['ainda','sabem','surpresa'],parto:['plano','particular','sus','nsei'],moradia:['casa','apto'],mudanca:['sim','nao'],quarto:['casal','proprio'],espaco:['sobra','pouco'],carro:['sim','nao'],adultos:['1','2','3'],maquina:['sim','nao'],ajuda:['avos','outros','ninguem'],amamentar:['sim','nao','nsei'],apoio:['sim','nao','nsei'],cha:['sim','nao'],saude:['nao','sim'],quartoDecorado:['sim','nao'],clima1:['frio','ameno','quente'],clima2:['frio','ameno','quente']};
+var Q=[
+ {b:'Bloco 1: o essencial',f:[
+  {k:'due',t:'date',l:'Data prevista do parto (ou aproximada)',s:'data do parto'},
+  {k:'sexo',t:'radio',l:'Já sabem o sexo do bebê?',s:'sexo do bebê',o:[['ainda','Ainda não sabemos'],['sabem','Já sabemos'],['surpresa','Queremos manter surpresa']]},
+  {k:'budget',t:'money',l:'Orçamento total do enxoval (R$)',s:'orçamento'},
+  {k:'reserva',t:'money',l:'Reserva para imprevistos, por mês (R$)',h:'Fica fora da conta do enxoval. Se ainda não definiram, deixe em branco.',s:'reserva',opt:1},
+  {k:'parto',t:'radio',l:'Como será o parto?',s:'tipo de parto',o:[['plano','Plano de saúde'],['particular','Hospital particular, sem plano'],['sus','SUS'],['nsei','Ainda não sei']]}
+ ]},
+ {b:'Bloco 2: a casa e a rotina',f:[
+  {k:'moradia',t:'radio',l:'Onde o bebê vai morar?',s:'moradia',o:[['casa','Casa'],['apto','Apartamento']]},
+  {k:'mudanca',t:'radio',l:'Vão se mudar antes de ele nascer?',s:'mudança',o:[['sim','Sim'],['nao','Não']]},
+  {k:'quarto',t:'radio',l:'Onde o bebê dorme no começo?',s:'onde dorme',o:[['casal','No quarto do casal'],['proprio','Em quarto próprio']]},
+  {k:'espaco',t:'radio',l:'Sobra espaço para berço, trocador e guarda-roupa?',s:'espaço',o:[['sobra','Sobra espaço'],['pouco','Pouco espaço']]},
+  {k:'carro',t:'radio',l:'Têm carro?',s:'carro',o:[['sim','Sim'],['nao','Não']]},
+  {k:'adultos',t:'radio',l:'Quantos adultos costumam andar no carro com o bebê?',s:'adultos no carro',o:[['1','Só quem dirige'],['2','2 adultos'],['3','3 ou mais']]},
+  {k:'maquina',t:'radio',l:'Têm máquina de lavar roupa em casa?',s:'máquina de lavar',o:[['sim','Sim'],['nao','Não (lavo à mão ou em lavanderia)']]},
+  {k:'ajuda',t:'radio',l:'Quem vai ajudar nos primeiros meses?',s:'quem ajuda',o:[['avos','Avós'],['outros','Outros familiares ou amigos'],['ninguem','Ninguém por perto']]}
+ ]},
+ {b:'Bloco 3: as escolhas e as pessoas',f:[
+  {k:'amamentar',t:'radio',l:'Pretendem amamentar?',s:'amamentação',o:[['sim','Sim'],['nao','Não'],['nsei','Ainda não sei']]},
+  {k:'apoio',t:'radio',l:'Pensaram em fórmula ou mamadeira como apoio?',s:'mamadeira de apoio',o:[['sim','Sim'],['nao','Não'],['nsei','Ainda não sei']]},
+  {k:'cha',t:'radio',l:'Vão fazer chá de bebê?',s:'chá de bebê',o:[['sim','Sim'],['nao','Não']]},
+  {k:'convidados',t:'num',l:'Quantos convidados, mais ou menos?',s:'convidados',opt:1},
+  {k:'saude',t:'radio',l:'Há alguma orientação médica que mude a lista (repouso, parto agendado, bebê previsto como prematuro)?',h:'Responda só se quiser. O app não muda a lista por causa disso: confirme a lista com o obstetra e o pediatra.',s:'orientação médica',opt:1,o:[['nao','Não'],['sim','Sim']]},
+  {k:'saudeTxt',t:'text',l:'Se quiser, anote aqui (só fica neste aparelho)',s:'anotação médica',opt:1},
+  {k:'quartoDecorado',t:'radio',l:'Querem montar um quarto decorado?',s:'quarto decorado',o:[['sim','Sim'],['nao','Não por enquanto']]},
+  {k:'quer',t:'text',l:'Algo que já querem muito ter',s:'o que querem',opt:1},
+  {k:'nao',t:'text',l:'Algo que não querem de jeito nenhum',s:'o que não querem',opt:1},
+  {k:'clima1',t:'radio',l:'Como costuma ser o clima nos 3 primeiros meses do bebê?',h:'No Brasil, o inverno costuma ser de junho a agosto e o verão de dezembro a fevereiro, mas depende da região.',s:'clima dos primeiros meses',o:[['frio','Frio'],['ameno','Ameno'],['quente','Quente']]},
+  {k:'clima2',t:'radio',l:'E do 3º ao 6º mês do bebê?',s:'clima do 3º ao 6º mês',o:[['frio','Frio'],['ameno','Ameno'],['quente','Quente']]}
+ ]}
+];
+function blank(){return {v:3,updatedAt:null,lastExport:null,budget:null,perfil:null,pt:0,gt:0,reset:0,del:{},it:{},custom:[],gifts:{},giftCustom:[]};}
+function defaults(){return blank();}
+function sanitizePerfil(p){
+  var o={}; if(!p||typeof p!=='object')return o;
+  Object.keys(ENUM).forEach(function(k){if(typeof p[k]==='string'&&ENUM[k].indexOf(p[k])>=0)o[k]=p[k];});
+  if(typeof p.due==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(p.due))o.due=p.due;
+  if(typeof p.reserva==='number'&&isFinite(p.reserva)&&p.reserva>=0&&p.reserva<=1e10)o.reserva=Math.round(p.reserva);
+  if(typeof p.convidados==='number'&&p.convidados>=0&&p.convidados<=999)o.convidados=Math.round(p.convidados);
+  ['saudeTxt','quer','nao'].forEach(function(k){if(typeof p[k]==='string'&&p[k].trim())o[k]=p[k].trim().slice(0,500);});
+  return o;
+}
+function sanitize(d){
+  var o=blank(); if(!d||typeof d!=='object')return null;
+  o.updatedAt=validDate(d.updatedAt); o.lastExport=validDate(d.lastExport);
+  ['pt','gt','reset'].forEach(function(k){if(typeof d[k]==='number'&&isFinite(d[k])&&d[k]>=0)o[k]=d[k];});
+  if(d.del&&typeof d.del==='object'){Object.keys(d.del).slice(0,500).forEach(function(k){if(/^u[a-z0-9]{3,24}$/.test(k)&&typeof d.del[k]==='number'&&isFinite(d.del[k]))o.del[k]=d.del[k];});}
+  if(typeof d.budget==='number'&&isFinite(d.budget)&&d.budget>=0&&d.budget<=1e10)o.budget=Math.round(d.budget);
+  if(d.perfil&&typeof d.perfil==='object')o.perfil=sanitizePerfil(d.perfil);
+  else if(d.v===1||(typeof d.due==='string'&&d.due)){o.perfil=sanitizePerfil({due:d.due});}
+  var ids={}; MASTER.forEach(function(i){ids[i.id]=1;});
+  if(Array.isArray(d.custom)){
+    d.custom.slice(0,300).forEach(function(c){
+      if(!c||typeof c.id!=='string'||!/^u[a-z0-9]{3,24}$/.test(c.id)||ids[c.id]||o.del[c.id])return;
+      var cat=parseInt(c.c,10); if(!(cat>=1&&cat<=10))return;
+      var n=String(c.n||'').trim().slice(0,120); if(!n)return;
+      var m=c.m; if(!((typeof m==='number'&&m>=3&&m<=9&&m%1===0)||m==='P'||m==='E'||m==='S'))m='S';
+      var g=(c.g==='mb'||c.g==='mm'||c.g==='ma')?c.g:null;
+      o.custom.push({id:c.id,c:cat,n:n,l:(c.l==='E'||c.l==='U'||c.l==='D')?c.l:'U',q:String(c.q||'').slice(0,40),m:m,t:!!c.t,g:g,ts:(typeof c.ts==='number'&&isFinite(c.ts)?c.ts:0)});
+      ids[c.id]=1;
+    });
+  }
+  if(d.it&&typeof d.it==='object'){
+    Object.keys(d.it).forEach(function(k){
+      if(!ids[k])return; var x=d.it[k]; if(!x||typeof x!=='object')return; var y={};
+      if(x.s==='c'||x.s==='g'||x.s==='x')y.s=x.s;
+      if(typeof x.t==='number'&&isFinite(x.t)&&x.t>=0)y.t=x.t;
+      if(typeof x.p==='number'&&isFinite(x.p)&&x.p>=0&&x.p<=1e10)y.p=Math.round(x.p);
+      if(typeof x.st==='string'&&x.st)y.st=x.st.slice(0,200);
+      if(typeof x.nt==='string'&&x.nt)y.nt=x.nt.slice(0,1000);
+      if(x.mb===true)y.mb=true;
+      o.it[k]=y;
+    });
+  }
+  if(Array.isArray(d.giftCustom)){
+    d.giftCustom.slice(0,50).forEach(function(g){
+      if(g&&typeof g.id==='string'&&/^gu[a-z0-9]{3,24}$/.test(g.id)&&typeof g.t==='string'&&g.t.trim())o.giftCustom.push({id:g.id,t:g.t.trim().slice(0,80)});
+    });
+  }
+  var gids={g1:1,g2:1,g3:1,g4:1,g5:1}; o.giftCustom.forEach(function(g){gids[g.id]=1;});
+  if(d.gifts&&typeof d.gifts==='object'){
+    Object.keys(d.gifts).forEach(function(k){
+      if(!gids[k]||!Array.isArray(d.gifts[k]))return;
+      o.gifts[k]=d.gifts[k].filter(function(s){return typeof s==='string'&&s.trim();}).slice(0,60).map(function(s){return s.trim().slice(0,60);});
+    });
+  }
+  return o;
+}
+function load(){
+  try{
+    var raw=localStorage.getItem(KEY);
+    if(raw){var s=sanitize(JSON.parse(raw)); if(s)return s;}
+  }catch(e){ }
+  return defaults();
+}
+function testStorage(){try{localStorage.setItem(KEY+'-t','1');localStorage.removeItem(KEY+'-t');return true;}catch(e){return false;}}
+function save(bump){
+  if(bump!==false)S.updatedAt=new Date().toISOString();
+  try{localStorage.setItem(KEY,JSON.stringify(S));storageOK=true;}catch(e){storageOK=false;}
+  if(bump!==false)markDirty();
+  refreshBinds();
+}
+S=load(); storageOK=testStorage();
+
+/* ---------- Itens e contas ---------- */
+function X(id){return S.it[id]||{};}
+function stat(id){return X(id).s||'f';}
+function items(){
+  var P=S.perfil||{};
+  var base=derive(P).filter(function(i){var s=stat(i.id);return !i.hide||(s!=='f'&&s!=='x');});
+  return base.concat(S.custom.map(function(c){return {id:c.id,c:c.c,n:c.n,l:c.l,q:c.q,u:'',w:mLabel(c.m),o:'',m:c.m,t:c.t,g:c.g,custom:true};}));
+}
+function setItem(id,patch){var x=S.it[id]||{};for(var k in patch){if(patch[k]===undefined||patch[k]===null||patch[k]===''||patch[k]===false)delete x[k];else x[k]=patch[k];}x.t=Date.now();S.it[id]=x;save();}
+function calc(list){var gasto=0,c=0,g=0,n=0;list.forEach(function(i){var x=X(i.id);if(x.s==='x')return;n++;if(x.s==='c'){c++;if(typeof x.p==='number')gasto+=x.p;}else if(x.s==='g')g++;});return {gasto:gasto,c:c,g:g,n:n};}
+function gestMonth(){
+  var due=S.perfil&&S.perfil.due; if(!due)return null;
+  var p=due.split('-'); var d=new Date(+p[0],+p[1]-1,+p[2]); var t=new Date(); t=new Date(t.getFullYear(),t.getMonth(),t.getDate());
+  var days=Math.round((d-t)/86400000); var weeks=(280-days)/7;
+  if(weeks<0)return 1; if(weeks>=40)return 10; return Math.min(9,Math.floor(weeks/4.345)+1);
+}
+function catName(id){for(var i=0;i<CATS.length;i++)if(CATS[i].id===id)return CATS[i].nome;return '';}
+
+/* ---------- Estado da interface ---------- */
+var ui={tab:(S.perfil===null?'perfil':'resumo'),open:{},cats:{},filtersOpen:false,editBudget:false,fl:{cat:{},lvl:{},sit:{}}};
+var TABS=[
+ {id:'resumo',label:'Resumo',title:'Resumo',ic:'<path d="M4 11l8-7 8 7v9a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1z"/>'},
+ {id:'lista',label:'Lista',title:'Lista',ic:'<path d="M9 6h11M9 12h11M9 18h11"/><path d="M4 6l1 1 2-2M4 12l1 1 2-2M4 18l1 1 2-2"/>'},
+ {id:'mes',label:'Por mês',title:'Por mês',ic:'<rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/>'},
+ {id:'mala',label:'Mala',title:'Mala da maternidade',ic:'<rect x="3" y="7" width="18" height="13" rx="3"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18"/>'},
+ {id:'cha',label:'Chá',title:'Chá de bebê',ic:'<rect x="3" y="9" width="18" height="12" rx="2"/><path d="M12 9v12M3 13h18M12 9c-2-4-6-3-5 0 .5 1.5 3 1 5 0zM12 9c2-4 6-3 5 0-.5 1.5-3 1-5 0z"/>'}
+];
+var CHECK='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+var CHEV='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>';
+
+function filtersActive(){return Object.keys(ui.fl.cat).length+Object.keys(ui.fl.lvl).length+Object.keys(ui.fl.sit).length;}
+function passFilters(i){
+  var f=ui.fl;
+  if(Object.keys(f.cat).length&&!f.cat[i.c])return false;
+  if(Object.keys(f.lvl).length&&!f.lvl[i.l])return false;
+  if(Object.keys(f.sit).length&&!f.sit[stat(i.id)])return false;
+  return true;
+}
+
+/* ---------- Peças de tela ---------- */
+function pill(l){return '<span class="pill lv-'+l+'">'+LV[l]+'</span>';}
+function rowHTML(i){
+  var x=X(i.id), s=x.s||'f', open=!!ui.open[i.id], verb=i.t?'Feito':'Comprado';
+  var tags='';
+  if(s==='c')tags+='<span class="tag ok">'+verb+'</span>';
+  if(s==='g')tags+='<span class="tag ok">Ganhou ou herdou</span>';
+  if(s==='x')tags+='<span class="tag">Não vamos comprar</span>';
+  tags+='<span class="tag" data-pid="'+i.id+'" hidden></span>';
+  var det='';
+  if(open){
+    det='<div class="det" id="det-'+i.id+'">'+
+      (i.u?'<p><b>Para que serve:</b> '+esc(i.u)+'</p>':'')+
+      (i.w?'<p><b>Quando comprar:</b> '+esc(i.w)+'</p>':'')+
+      (i.o?'<p><b>Da lista:</b> '+esc(i.o)+'</p>':'')+
+      '<label class="cb"><input type="checkbox" data-act="cbC" data-id="'+i.id+'" data-fk="cbC:'+i.id+'"'+(s==='c'?' checked':'')+'><span>'+verb+'</span></label>'+
+      (i.t?'':'<label class="cb"><input type="checkbox" data-act="cbG" data-id="'+i.id+'" data-fk="cbG:'+i.id+'"'+(s==='g'?' checked':'')+'><span>Ganhou ou herdou (não conta no gasto)</span></label>')+
+      (i.seg?'<p class="hint">Item de segurança: não corte para economizar.</p>':'<label class="cb"><input type="checkbox" data-act="cbX" data-id="'+i.id+'" data-fk="cbX:'+i.id+'"'+(s==='x'?' checked':'')+'><span>Não vamos comprar (sai da conta)</span></label>')+
+      '<label class="field" for="p-'+i.id+'"><span>Preço real (R$)</span></label>'+
+      '<input type="text" inputmode="decimal" autocomplete="off" id="p-'+i.id+'" data-f="p" data-id="'+i.id+'" placeholder="0,00" value="'+(typeof x.p==='number'?esc(brl(x.p)):'')+'">'+
+      '<p class="hint">'+(s==='g'?'Como ganhou ou herdou, este preço não conta no gasto.':(s==='x'?'Fora da conta: este preço não conta no gasto.':(s==='c'?'Conta no gasto.':'Só conta no gasto depois de marcar '+verb.toLowerCase()+'.')))+'</p>'+
+      '<label class="field" for="st-'+i.id+'"><span>Marca ou loja</span></label>'+
+      '<input type="text" autocomplete="off" id="st-'+i.id+'" data-f="st" data-id="'+i.id+'" maxlength="200" value="'+esc(x.st||'')+'">'+
+      '<label class="field" for="nt-'+i.id+'"><span>Observação</span></label>'+
+      '<textarea id="nt-'+i.id+'" data-f="nt" data-id="'+i.id+'" maxlength="1000">'+esc(x.nt||'')+'</textarea>'+
+      (i.custom?'<div class="btn-row"><button class="btn danger" data-act="delItem" data-id="'+i.id+'" data-fk="delItem:'+i.id+'">Apagar este item</button></div>':'')+
+      '</div>';
+  }
+  return '<li class="item'+(s!=='f'?' done':'')+'" data-row="'+i.id+'"><div class="item-head">'+
+    '<button type="button" class="check" data-act="quick" data-id="'+i.id+'" data-fk="quick:'+i.id+'" aria-pressed="'+(s==='c')+'" aria-label="'+esc((i.t?'Marcar como feito: ':'Marcar como comprado: ')+i.n)+'">'+CHECK+'</button>'+
+    '<button type="button" class="item-main" data-act="open" data-id="'+i.id+'" data-fk="open:'+i.id+'" aria-expanded="'+open+'"'+(open?' aria-controls="det-'+i.id+'"':'')+'>'+
+      '<span class="item-name user">'+esc(i.n)+'</span>'+
+      '<span class="item-meta">'+pill(i.l)+(i.q?'<span>Qtd: '+esc(i.q)+'</span>':'')+(i.custom?'<span class="custom-tag">Seu item</span>':'')+tags+'</span>'+
+    '</button></div>'+det+'</li>';
+}
+function crowHTML(i){
+  var s=stat(i.id);
+  return '<li class="crow"><button type="button" class="check" data-act="quick" data-id="'+i.id+'" data-fk="quick:'+i.id+'" aria-pressed="'+(s==='c')+'" aria-label="'+esc((i.t?'Marcar como feito: ':'Marcar como comprado: ')+i.n)+'">'+CHECK+'</button>'+
+   '<div class="crow-main"><span class="item-name user">'+esc(i.n)+'</span><span class="item-meta">'+pill(i.l)+'<span>'+esc(catName(i.c))+'</span></span></div></li>';
+}
+function filtersHTML(total,shown){
+  var n=filtersActive(), h='';
+  h+='<div class="tools"><button type="button" class="btn" data-act="fpanel" data-fk="fpanel" aria-expanded="'+ui.filtersOpen+'">Filtros'+(n?' ('+n+')':'')+'</button>';
+  if(n)h+='<button type="button" class="btn" data-act="fclear" data-fk="fclear">Limpar filtros</button>';
+  h+='</div>';
+  if(ui.filtersOpen){
+    h+='<div class="card">';
+    h+='<fieldset><legend>Categoria</legend><div class="chips">'+CATS.map(function(c){return '<button type="button" class="chip" data-act="fl" data-g="cat" data-v="'+c.id+'" data-fk="fl:cat:'+c.id+'" aria-pressed="'+!!ui.fl.cat[c.id]+'">'+esc(c.nome)+'</button>';}).join('')+'</div></fieldset>';
+    h+='<fieldset><legend>Nível</legend><div class="chips">'+['E','U','D'].map(function(l){return '<button type="button" class="chip" data-act="fl" data-g="lvl" data-v="'+l+'" data-fk="fl:lvl:'+l+'" aria-pressed="'+!!ui.fl.lvl[l]+'">'+LV[l]+'</button>';}).join('')+'</div></fieldset>';
+    h+='<fieldset><legend>Situação</legend><div class="chips">'+[['f','Falta comprar'],['c','Comprado ou feito'],['g','Ganhou ou herdou'],['x','Não vamos comprar']].map(function(a){return '<button type="button" class="chip" data-act="fl" data-g="sit" data-v="'+a[0]+'" data-fk="fl:sit:'+a[0]+'" aria-pressed="'+!!ui.fl.sit[a[0]]+'">'+a[1]+'</button>';}).join('')+'</div></fieldset>';
+    h+='</div>';
+  }
+  if(n){
+    h+='<p class="small" style="margin-bottom:6px">Filtros ativos:</p><div class="chips" style="margin:0 0 10px">';
+    ['cat','lvl','sit'].forEach(function(g){Object.keys(ui.fl[g]).forEach(function(v){
+      var lab=g==='cat'?catName(+v):(g==='lvl'?LV[v]:({f:'Falta comprar',c:'Comprado ou feito',g:'Ganhou ou herdou',x:'Não vamos comprar'})[v]);
+      h+='<button type="button" class="chip on" data-act="flx" data-g="'+g+'" data-v="'+v+'" data-fk="flx:'+g+':'+v+'" aria-label="Tirar filtro: '+esc(lab)+'">'+esc(lab)+' ×</button>';
+    });});
+    h+='</div>';
+  }
+  h+='<p class="small" style="margin-bottom:12px">Mostrando '+shown+' de '+total+' itens.</p>';
+  return h;
+}
+
+/* ---------- Perfil, avisos e legenda ---------- */
+var NOMES=['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
+function mesCaption(){
+  var due=S.perfil&&S.perfil.due;
+  if(!due)return 'Meses da gestação, aproximados. Informe a data prevista do parto no perfil para ver os meses do calendário.';
+  var p=due.split('-'), d=new Date(+p[0],+p[1]-1,+p[2]);
+  function mon(w){return NOMES[new Date(d.getTime()-(40-w)*7*86400000).getMonth()];}
+  return 'Meses da gestação, aproximados. Para o parto em '+fmtD(due)+': mês 7 ≈ '+mon(28)+', mês 8 ≈ '+mon(32)+', mês 9 ≈ '+mon(36)+'.';
+}
+function catAviso(c){
+  var P=S.perfil||{};
+  if(c.id===2){
+    var t='Pegar leve no RN: ele usa por poucas semanas e muita gente dá roupa nessa idade. Lavar tudo antes do primeiro uso.';
+    if(P.maquina==='nao')t+=' Sem máquina de lavar em casa, vale ter algumas peças a mais, porque a roupa demora mais para ficar pronta.';
+    return t;
+  }
+  if(c.id===5){
+    if(P.amamentar==='sim'&&P.apoio==='sim')return 'Como pretendem amamentar, com fórmula e mamadeira de apoio, nada aqui é essencial antes do nascimento.';
+    if(P.amamentar==='sim'&&P.apoio==='nao')return 'Como pretendem amamentar sem mamadeira de apoio, nada aqui é essencial antes do nascimento.';
+    if(P.amamentar==='nao')return 'Sem amamentação, mamadeira, esterilização e fórmula passam a ser essenciais. Confirme com o pediatra o que comprar e quanto.';
+    return 'Os itens desta categoria dependem do que vocês decidirem sobre amamentação e mamadeira. Confirmem com o pediatra.';
+  }
+  return c.aviso||'';
+}
+function chaOff(){return !!(S.perfil&&S.perfil.cha==='nao');}
+function optLabel(f,v){for(var i=0;i<(f.o||[]).length;i++)if(f.o[i][0]===v)return f.o[i][1];return '';}
+function relevant(q,P){
+  if(q.opt)return false;
+  if(q.k==='adultos'&&P.carro==='nao')return false;
+  if(q.k==='apoio'&&P.amamentar==='nao')return false;
+  return true;
+}
+function openFields(){
+  var P=S.perfil||{}, r=[];
+  Q.forEach(function(b){b.f.forEach(function(q){
+    if(!relevant(q,P))return;
+    if(q.k==='budget'){if(S.budget===null)r.push(q.s);}
+    else if(P[q.k]===undefined||P[q.k]==='')r.push(q.s);
+  });});
+  return r;
+}
+function fieldHTML(q,P){
+  var id='q-'+q.k, h='';
+  if(q.t==='radio'){
+    h+='<fieldset class="q"><legend>'+esc(q.l)+'</legend>'+(q.h?'<p class="hint">'+esc(q.h)+'</p>':'')+'<div class="opts">'+
+      q.o.map(function(o){return '<label class="opt"><input type="radio" name="'+q.k+'" value="'+o[0]+'"'+(P[q.k]===o[0]?' checked':'')+'><span>'+esc(o[1])+'</span></label>';}).join('')+'</div></fieldset>';
+  } else {
+    var v='';
+    if(q.k==='budget')v=S.budget===null?'':plainBRL(S.budget);
+    else if(q.t==='money')v=P[q.k]==null?'':plainBRL(P[q.k]);
+    else v=P[q.k]==null?'':String(P[q.k]);
+    h+='<label class="field" for="'+id+'"><span>'+esc(q.l)+'</span></label>'+(q.h?'<p class="hint">'+esc(q.h)+'</p>':'')+
+      '<input type="'+(q.t==='date'?'date':'text')+'"'+(q.t==='money'?' inputmode="decimal"':(q.t==='num'?' inputmode="numeric"':''))+' id="'+id+'" name="'+q.k+'" autocomplete="off" maxlength="'+(q.t==='text'?200:40)+'" value="'+esc(v)+'">';
+  }
+  return h;
+}
+function viewPerfil(){
+  var P=S.perfil||{}, first=S.perfil===null, h='<h2 class="page-title">Perfil do casal</h2>';
+  h+='<p class="small" style="margin-bottom:12px">'+(first?'Para começar, conte um pouco da situação de vocês. ':'')+'O app usa estas respostas para ajustar a lista: níveis, quantidades e itens. O que ficar em branco fica "em aberto", e a lista segue o padrão. '+((SYNC_ON&&SY)?'Estas respostas também são sincronizadas com o espaço do casal.':'Nada sai do aparelho.')+'</p>';
+  h+='<form data-act="saveProfile" novalidate>';
+  Q.forEach(function(b){h+='<section class="card"><h3>'+esc(b.b)+'</h3>'+b.f.map(function(q){return fieldHTML(q,P);}).join('')+'</section>';});
+  var all=items().filter(function(i){return !i.t;}), cs=CATS.filter(function(c){return all.some(function(i){return i.c===c.id;});});
+  h+='<section class="card"><h3>O que já têm ou vão herdar</h3><p class="small">Opcional. Marque o que já têm: esses itens ficam como "Ganhou ou herdou" e não entram no gasto.</p>';
+  cs.forEach(function(c){
+    h+='<details class="jt"><summary>'+esc(c.nome)+'</summary>'+all.filter(function(i){return i.c===c.id;}).map(function(i){
+      return '<input type="hidden" name="jall" value="'+i.id+'"><label class="cb"><input type="checkbox" name="jatem" value="'+i.id+'"'+(stat(i.id)==='g'?' checked':'')+'><span class="user">'+esc(i.n)+'</span></label>';}).join('')+'</details>';
+  });
+  h+='</section>';
+  h+='<div class="btn-row"><button class="btn primary" type="submit">Salvar perfil</button>'+(first?'<button type="button" class="btn" data-act="skipPerfil">Pular por enquanto</button>':'<button type="button" class="btn" data-act="goto" data-v="resumo">Cancelar</button>')+'</div></form>';
+  return h;
+}
+function saveProfile(f){
+  var fd=new FormData(f), P={};
+  Q.forEach(function(b){b.f.forEach(function(q){
+    var v=fd.get(q.k); v=v==null?'':String(v).trim();
+    if(q.k==='budget'){S.budget=v===''?null:parseBRL(v);return;}
+    if(!v)return;
+    if(q.t==='money'){var c=parseBRL(v);if(c!==null)P[q.k]=c;}
+    else if(q.t==='num'){var n=parseInt(v,10);if(!isNaN(n)&&n>=0&&n<=999)P[q.k]=n;}
+    else if(q.t==='date'){if(/^\d{4}-\d{2}-\d{2}$/.test(v))P[q.k]=v;}
+    else if(q.t==='radio'){if(ENUM[q.k]&&ENUM[q.k].indexOf(v)>=0)P[q.k]=v;}
+    else P[q.k]=v.slice(0,500);
+  });});
+  var sel={}; fd.getAll('jatem').forEach(function(id){sel[id]=1;});
+  var seen={}; fd.getAll('jall').forEach(function(id){seen[id]=1;});
+  S.perfil=P; S.pt=Date.now();
+  Object.keys(seen).forEach(function(id){
+    var s=stat(id);
+    if(sel[id]&&s==='f'){var x=S.it[id]||{};x.s='g';x.t=Date.now();S.it[id]=x;}
+    else if(!sel[id]&&s==='g'){var y=S.it[id]||{};delete y.s;y.t=Date.now();S.it[id]=y;}
+  });
+  save(); ui.tab='resumo'; render(); window.scrollTo(0,0); toast('Perfil salvo. A lista foi ajustada.');
+}
+function perfilCard(){
+  var P=S.perfil, h='<section class="card"><h3>Perfil do casal</h3>';
+  if(P===null){return h+'<p class="small">Ainda não respondido. Responda para ajustar a lista à situação de vocês.</p><div class="btn-row"><button type="button" class="btn primary" data-act="editPerfil" data-fk="editPerfil">Responder o perfil</button></div></section>';}
+  var op=openFields(), tot=0; Q.forEach(function(b){b.f.forEach(function(q){if(relevant(q,P))tot++;});});
+  h+='<p class="small">'+(tot-op.length)+' de '+tot+' respostas principais.</p>';
+  if(op.length)h+='<p><b>Em aberto:</b> '+esc(op.join(', '))+'.</p>';
+  else h+='<p>Tudo respondido.</p>';
+  if(P.saude==='sim')h+='<p class="aviso">Há orientação médica que pode mudar a lista. O app não muda a lista por isso: confirme com o obstetra e o pediatra.'+(P.saudeTxt?' Anotação: <span class="user">'+esc(P.saudeTxt)+'</span>':'')+'</p>';
+  if(P.quer)h+='<p class="small" style="margin-top:6px">Querem muito ter: <span class="user">'+esc(P.quer)+'</span></p>';
+  if(P.nao)h+='<p class="small">Não querem de jeito nenhum: <span class="user">'+esc(P.nao)+'</span></p>';
+  return h+'<div class="btn-row"><button type="button" class="btn" data-act="editPerfil" data-fk="editPerfil">Editar perfil</button></div></section>';
+}
+
+/* ---------- Telas ---------- */
+function viewResumo(){
+  var L=items(), T=calc(L), ess=L.filter(function(i){return i.l==='E'&&stat(i.id)!=='x';}), essDone=ess.filter(function(i){return stat(i.id)!=='f';}).length;
+  var gm=gestMonth(), P=S.perfil||{}, h='';
+  h+='<h2 class="page-title">Resumo</h2>';
+  h+='<section class="card big" id="bigcard" aria-labelledby="bigl"><p class="big-label" id="bigl" data-b="restLabel"></p><p class="big-num" data-b="rest"></p>'+
+     '<p class="big-sub">Orçamento <b data-b="budget"></b> · Gasto <b data-b="gasto"></b></p>';
+  if(ui.editBudget){
+    h+='<form data-act="saveBudget" novalidate><label class="field" for="bud"><span>Novo orçamento do enxoval (R$)</span></label><input type="text" inputmode="decimal" id="bud" autocomplete="off" value="'+esc(S.budget===null?'':plainBRL(S.budget))+'" data-fk="bud"><div class="btn-row"><button class="btn primary" type="submit">Salvar</button><button class="btn" type="button" data-act="cancelBudget">Cancelar</button></div></form>';
+  } else {
+    h+='<button type="button" class="link" data-act="editBudget" data-fk="editBudget">'+(S.budget===null?'Definir orçamento':'Alterar orçamento')+'</button>';
+  }
+  if(P.reserva>0)h+='<p class="small">A reserva para imprevistos fica fora desta conta.</p>';
+  h+='</section>';
+  h+='<div class="stats"><div class="stat"><b data-b="comprados"></b><span>comprados ou feitos</span></div><div class="stat"><b data-b="ganhos"></b><span>ganhos ou herdados</span></div></div>';
+  h+='<section class="card"><h3>Andamento</h3><div class="bar" role="img" aria-label="Itens resolvidos"><i data-b="bar"></i></div><p class="small" data-b="resolvidos"></p><p class="small">Essenciais resolvidos: <b>'+essDone+' de '+ess.length+'</b></p></section>';
+  h+=perfilCard();
+  h+='<section class="card"><h3>O que fazer agora</h3>';
+  var pend=L.filter(function(i){return stat(i.id)==='f';});
+  function sorted(a){return a.slice().sort(function(x,y){var mx=typeof x.m==='number'?x.m:99,my=typeof y.m==='number'?y.m:99;return mx-my||x.c-y.c||(x.id<y.id?-1:1);});}
+  function list(a,max){var s=sorted(a).slice(0,max);return '<ul class="crows">'+s.map(crowHTML).join('')+'</ul>'+(a.length>max?'<p class="small">e mais '+(a.length-max)+' em Por mês.</p>':'');}
+  if(gm===null){
+    h+='<p class="small">Informe a data prevista do parto no perfil para saber o mês da gestação. Enquanto isso, estes são os próximos itens:</p>';
+    var nx=pend.filter(function(i){return typeof i.m==='number';});
+    h+=nx.length?list(nx,6):'<p>Nada pendente com mês definido.</p>';
+  } else if(gm>=10){
+    h+='<p class="small">A data prevista já chegou. Itens para depois do nascimento:</p>';
+    var af=pend.filter(function(i){return i.m==='P';});
+    h+=af.length?list(af,6):'<p>Nada pendente.</p>';
+  } else {
+    h+='<p class="small">Você está no mês '+gm+' da gestação (aproximado).</p>';
+    var late=pend.filter(function(i){return typeof i.m==='number'&&i.m<gm;});
+    var now=pend.filter(function(i){return i.m===gm;});
+    if(late.length)h+='<p style="margin-top:8px"><b>Atrasados</b></p>'+list(late,6);
+    if(now.length)h+='<p style="margin-top:8px"><b>Neste mês</b></p>'+list(now,6);
+    if(!late.length&&!now.length){
+      var up=pend.filter(function(i){return typeof i.m==='number'&&i.m>gm;});
+      if(up.length){var mm=Math.min.apply(null,up.map(function(i){return i.m;}));
+        h+='<p>Nada pendente para este mês. Próximo mês com itens: <b>mês '+mm+'</b>.</p>'+list(up.filter(function(i){return i.m===mm;}),4);}
+      else h+='<p>Nada pendente por mês.</p>';
+    }
+  }
+  h+='<div class="btn-row"><button type="button" class="btn" data-act="goto" data-v="mes" data-fk="goto:mes">Ver tudo em Por mês</button></div></section>';
+  h+='<section class="card"><h3>Segurança primeiro</h3><div class="aviso" style="margin-top:0"><b>Sono seguro:</b> bebê de barriga para cima, em superfície firme, no berço e no mesmo quarto dos pais. Não usar no berço: protetor de grade, almofadas, travesseiros, ninho ou redutor, cobertas soltas, pelúcias, cunhas e posicionadores. Confirme com o pediatra.</div>'+
+     '<div class="aviso" style="margin-bottom:0"><b>Carro:</b> bebê conforto ou cadeirinha adequada ao peso e com selo do Inmetro, desde a saída da maternidade.</div></section>';
+  h+=syncCard();
+  h+='<section class="card" id="backup"><h3>Backup e dois aparelhos</h3>'+((SYNC_ON&&SY)?'<p class="small">Cópia de segurança em arquivo. Importar um backup também troca os dados do casal no servidor. Passo a passo:</p>':'<p class="small">Os dados ficam só neste aparelho. Para os dois celulares ficarem iguais:</p>')+
+     '<ol class="steps small"><li>No aparelho com as mudanças mais novas, toque em <b>Exportar backup</b>. Um arquivo é baixado.</li><li>Mande o arquivo pelo WhatsApp para o outro celular.</li><li>No outro celular, baixe o arquivo, abra este app e toque em <b>Importar backup</b>. Os dados daquele aparelho são trocados pelos do arquivo.</li></ol>'+
+     '<p class="small">Confira a "Última alteração" no topo antes de importar. Se os dois mudarem antes de sincronizar, vale o que for importado por último.</p>'+
+     '<div class="btn-row"><button type="button" class="btn primary" data-act="export" data-fk="export">Exportar backup</button><button type="button" class="btn" data-act="import" data-fk="import">Importar backup</button></div>'+
+     '<p class="small" style="margin-top:10px">Último backup exportado: '+(S.lastExport?fmtDT(S.lastExport):'nenhum ainda')+'.</p></section>';
+  return h;
+}
+
+function viewLista(){
+  var L=items(), F=L.filter(passFilters), act=filtersActive(), h='';
+  h+='<h2 class="page-title">Lista</h2>';
+  h+='<div class="card" style="padding:12px 16px"><p>Gasto <b data-b="gasto"></b> · Sobra do orçamento <b data-b="restSigned"></b></p></div>';
+  h+=filtersHTML(L.length,F.length);
+  h+='<div class="tools"><button type="button" class="btn primary" data-act="addItem" data-fk="addItem">Adicionar item</button>'+
+     (act?'':'<button type="button" class="btn" data-act="catsAll" data-fk="catsAll">'+(Object.keys(ui.cats).length>=CATS.length?'Recolher tudo':'Abrir tudo')+'</button>')+'</div>';
+  CATS.forEach(function(c){
+    var all=L.filter(function(i){return i.c===c.id;}), sh=all.filter(passFilters);
+    if(act&&!sh.length)return;
+    var open=act||!!ui.cats[c.id], T=calc(all), done=T.c+T.g;
+    h+='<section class="card"><h3><button type="button" class="cat-head" data-act="cat" data-v="'+c.id+'" data-fk="cat:'+c.id+'" aria-expanded="'+open+'"><span class="t"><b>'+esc(c.nome)+'</b><span>'+done+' de '+T.n+' resolvidos<span data-b="cg-'+c.id+'"></span></span></span>'+CHEV+'</button></h3>';
+    if(open){
+      var av=catAviso(c); if(av)h+='<p class="aviso">'+esc(av)+'</p>';
+      h+='<ul class="items">'+sh.map(rowHTML).join('')+'</ul>';
+    }
+    h+='</section>';
+  });
+  if(act&&!F.length)h+='<p class="card">Nenhum item com esses filtros.</p>';
+  return h;
+}
+
+function viewMes(){
+  var L=items(), F=L.filter(passFilters), act=filtersActive(), gm=gestMonth(), h='';
+  h+='<h2 class="page-title">Por mês</h2>';
+  h+='<p class="small" style="margin-bottom:12px">'+esc(mesCaption())+'</p>';
+  h+=filtersHTML(L.length,F.length);
+  var shown=0;
+  MORDER.forEach(function(m){
+    var all=L.filter(function(i){return i.m===m;}), sh=all.filter(passFilters);
+    if(!sh.length)return; shown++;
+    sh.sort(function(a,b){return a.c-b.c||(a.id<b.id?-1:1);});
+    var T=calc(all);
+    h+='<section class="card"><div class="month-h"><h3 style="margin:0">'+esc(mLabel(m))+'</h3>'+(gm===m?'<span class="here">Você está aqui</span>':'')+'<span class="small">'+(T.c+T.g)+' de '+T.n+' resolvidos</span></div><ul class="items">'+sh.map(rowHTML).join('')+'</ul></section>';
+  });
+  if(!shown)h+='<p class="card">Nenhum item com esses filtros.</p>';
+  return h;
+}
+
+function malaGroupHTML(key,title){
+  var L=items().filter(function(i){return i.g===key&&stat(i.id)!=='x';}), done=L.filter(function(i){return X(i.id).mb;}).length;
+  var h='<section class="card"><h3>'+title+'</h3><p class="small">'+done+' de '+L.length+' já estão na mala</p><ul class="items">';
+  L.forEach(function(i){
+    var nm=i.n.replace(/^(Bebê|Mãe|Acompanhante):\s*/,''); nm=nm.charAt(0).toUpperCase()+nm.slice(1); var q=MALAQ[i.id]||i.q;
+    h+='<li class="item"><div class="item-head"><label class="cb" style="flex:1 1 0;min-width:0;padding:4px 0"><input type="checkbox" data-act="mala" data-id="'+i.id+'" data-fk="mala:'+i.id+'"'+(X(i.id).mb?' checked':'')+'><span><span class="item-name user">'+esc(nm)+'</span><span class="item-meta">'+(q?'<span>Qtd: '+esc(q)+'</span>':'')+(i.c!==8?'<span>categoria '+i.c+': '+esc(catName(i.c))+'</span>':'')+(i.custom?'<span class="custom-tag">Seu item</span>':'')+'</span></span></label>'+
+       (i.custom?'<button type="button" class="btn danger" style="min-height:44px;padding:6px 12px;margin-top:2px" data-act="delItem" data-id="'+i.id+'" data-fk="delItem:'+i.id+'" aria-label="Apagar '+esc(nm)+'">Apagar</button>':'')+'</div></li>';
+  });
+  h+='</ul><form class="row-form" data-act="malaAdd" data-g="'+key+'" novalidate><label class="sr" for="ma-'+key+'">Novo item em '+title+'</label><input type="text" id="ma-'+key+'" name="n" maxlength="120" placeholder="Adicionar item" autocomplete="off" data-fk="ma-'+key+'"><button class="btn" type="submit">Adicionar</button></form></section>';
+  return h;
+}
+function viewMala(){
+  var h='<h2 class="page-title">Mala da maternidade</h2>';
+  var all=items().filter(function(i){return i.g&&stat(i.id)!=='x';}), done=all.filter(function(i){return X(i.id).mb;}).length;
+  var tk=items().filter(function(i){return i.c===8&&i.t;})[0];
+  h+='<section class="card"><h3>Mala pronta?</h3><div class="bar" role="img" aria-label="Itens já na mala"><i style="width:'+(all.length?Math.round(done/all.length*100):0)+'%"></i></div><p class="small">'+done+' de '+all.length+' itens já estão na mala. Mala pronta no início do mês 8.</p>'+
+     '<label class="cb"><input type="checkbox" data-act="cbC" data-id="'+tk.id+'" data-fk="cbC:'+tk.id+'"'+(stat(tk.id)==='c'?' checked':'')+'><span>Feito: '+esc(tk.n)+'</span></label>'+
+     '<p class="small">A cadeirinha instalada no carro está na categoria 6; os documentos, na categoria 9.</p></section>';
+  h+=malaGroupHTML('mb','Bebê')+malaGroupHTML('mm','Mãe')+malaGroupHTML('ma','Acompanhante');
+  return h;
+}
+
+function viewCha(){
+  var h='<h2 class="page-title">Chá de bebê</h2><p class="small" style="margin-bottom:12px">Escreva quem vai dar cada presente, para não repetir. Peçam no convite roupa de tamanho P e M. Faça o chá antes de comprar roupas e itens de banho. Quando o presente chegar, marque "Ganhou ou herdou" na Lista.</p>'+((S.perfil&&S.perfil.convidados)?'<p class="small" style="margin-bottom:12px">Convidados: cerca de '+S.perfil.convidados+'.</p>':'');
+  var all=GIFTS.map(function(g){return {id:g.id,t:g.t,d:g.d};}).concat(S.giftCustom.map(function(g){return {id:g.id,t:g.t,d:'',custom:true};}));
+  all.forEach(function(g){
+    var names=S.gifts[g.id]||[];
+    h+='<section class="card"><h3 class="user">'+esc(g.t)+'</h3>'+(g.d?'<p class="small">'+esc(g.d)+'</p>':'')+
+       '<p style="margin-top:6px"><b>'+(names.length?names.length+(names.length===1?' pessoa vai dar':' pessoas vão dar'):'Ninguém ainda')+'</b></p>';
+    if(names.length)h+='<ul class="chiplist">'+names.map(function(n,ix){return '<li><span class="user">'+esc(n)+'</span><button type="button" data-act="giftDel" data-g="'+g.id+'" data-i="'+ix+'" data-fk="giftDel:'+g.id+':'+ix+'" aria-label="Tirar '+esc(n)+' de '+esc(g.t)+'">×</button></li>';}).join('')+'</ul>';
+    h+='<form class="row-form" data-act="giftAdd" data-g="'+g.id+'" novalidate><label class="sr" for="gi-'+g.id+'">Quem vai dar: '+esc(g.t)+'</label><input type="text" id="gi-'+g.id+'" name="who" maxlength="60" autocomplete="off" placeholder="Nome de quem vai dar" data-fk="gi-'+g.id+'"><button class="btn" type="submit">Adicionar</button></form>';
+    if(g.custom)h+='<div class="btn-row"><button type="button" class="btn danger" data-act="giftCDel" data-g="'+g.id+'" data-fk="giftCDel:'+g.id+'">Apagar esta sugestão</button></div>';
+    h+='</section>';
+  });
+  h+='<section class="card"><h3>Sugestão própria</h3><form class="row-form" data-act="giftCAdd" novalidate><label class="sr" for="gcn">Nome da sugestão</label><input type="text" id="gcn" name="t" maxlength="80" autocomplete="off" placeholder="Ex.: outro presente" data-fk="gcn"><button class="btn" type="submit">Adicionar</button></form></section>';
+  return h;
+}
+
+/* ---------- Renderização ---------- */
+var main=$('#main');
+function renderNav(){
+  $('#tabs').innerHTML=TABS.filter(function(t){return !(t.id==='cha'&&chaOff());}).map(function(t){return '<button type="button" class="tab" data-act="tab" data-v="'+t.id+'"'+(ui.tab===t.id?' aria-current="page"':'')+' aria-label="'+t.title+'"><svg viewBox="0 0 24 24" aria-hidden="true">'+t.ic+'</svg><span>'+t.label+'</span></button>';}).join('');
+}
+function render(){
+  var a=document.activeElement, fk=a&&a.dataset?a.dataset.fk:null, y=window.scrollY;
+  if(ui.tab==='cha'&&chaOff())ui.tab='resumo'; var v={resumo:viewResumo,lista:viewLista,mes:viewMes,mala:viewMala,cha:viewCha,perfil:viewPerfil}[ui.tab];
+  main.innerHTML=v();
+  renderNav(); refreshBinds();
+  window.scrollTo(0,y);
+  if(fk){var el=main.querySelector('[data-fk="'+fk+'"]')||$('#tabs [data-fk="'+fk+'"]');if(el)el.focus({preventScroll:true});}
+}
+function refreshBinds(){
+  var L=items(), T=calc(L), hasB=S.budget!==null, rest=hasB?S.budget-T.gasto:0;
+  var map={
+    upd:'Última alteração '+(S.updatedAt?'em '+fmtDT(S.updatedAt):'ainda nenhuma'),
+    rest:hasB?brl(Math.abs(rest)):brl(T.gasto), restSigned:hasB?brl(rest):'não definido', budget:hasB?brl(S.budget):'não definido', gasto:brl(T.gasto),
+    restLabel:hasB?(rest<0?'Passou do orçamento em':'Ainda dá para gastar'):'Gasto até agora',
+    comprados:T.c+' de '+T.n, ganhos:String(T.g),
+    resolvidos:(T.c+T.g)+' de '+T.n+' itens resolvidos (comprados, feitos ou ganhos)'
+  };
+  $$('[data-b]').forEach(function(el){
+    var k=el.dataset.b;
+    if(k==='storewarn'){el.hidden=storageOK;return;}
+    if(k==='syncs'){el.hidden=!(SYNC_ON&&SY&&sy.msg);el.textContent=sy.msg;return;}
+    if(k==='syncmsg'){el.textContent=sy.msg;return;}
+    if(k==='bar'){el.style.width=(T.n?Math.round((T.c+T.g)/T.n*100):0)+'%';return;}
+    if(k.indexOf('cg-')===0){var c=+k.slice(3);var cc=calc(L.filter(function(i){return i.c===c;}));el.textContent=cc.gasto>0?' · gasto '+brl(cc.gasto):'';return;}
+    if(map[k]!==undefined)el.textContent=map[k];
+  });
+  var big=$('#bigcard'); if(big)big.classList.toggle('over',hasB&&rest<0);
+  $$('[data-pid]').forEach(function(el){
+    var x=X(el.dataset.pid), show=typeof x.p==='number';
+    el.hidden=!show; if(show)el.textContent=brl(x.p)+(x.s==='c'?'':' (não conta)');
+  });
+}
+
+/* ---------- Mensagens e janelas ---------- */
+var toastT;
+function toast(msg){var t=$('#toast');t.textContent=msg;t.hidden=false;clearTimeout(toastT);toastT=setTimeout(function(){t.hidden=true;},3800);}
+function openModal(title,body,buttons,validate){
+  return new Promise(function(res){
+    var root=$('#modal-root'), prev=document.activeElement;
+    root.innerHTML='<div class="scrim"><div class="sheet" role="dialog" aria-modal="true" aria-labelledby="mtitle"><h2 id="mtitle">'+esc(title)+'</h2><form id="mform" novalidate>'+body+'<p class="err" id="merr" hidden></p><div class="sheet-actions">'+
+      buttons.map(function(b){return '<button type="'+(b.submit?'submit':'button')+'" class="btn '+(b.cls||'')+'" data-v="'+b.v+'">'+esc(b.label)+'</button>';}).join('')+'</div></form></div></div>';
+    var form=$('#mform',root);
+    function close(v,d){root.innerHTML='';document.removeEventListener('keydown',key,true);if(prev&&prev.focus&&document.contains(prev))prev.focus();res({v:v,data:d});}
+    function key(e){
+      if(e.key==='Escape'){e.preventDefault();close('cancel');}
+      else if(e.key==='Tab'){var f=$$('input,select,textarea,button',form).filter(function(x){return !x.disabled&&x.offsetParent!==null;});if(!f.length)return;var first=f[0],last=f[f.length-1];
+        if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}}
+    }
+    document.addEventListener('keydown',key,true);
+    form.addEventListener('submit',function(e){e.preventDefault();var d={};new FormData(form).forEach(function(v,k){d[k]=v;});
+      if(validate){var er=validate(d);if(er){var m=$('#merr',root);m.textContent=er;m.hidden=false;return;}}
+      close('ok',d);});
+    $$('button[type=button]',form).forEach(function(b){b.addEventListener('click',function(){close(b.dataset.v);});});
+    var f1=$('input,select,textarea',form)||$('button[data-v="ok"]',form)||$('button',form); if(f1)f1.focus();
+  });
+}
+function confirmBox(title,text,okLabel,danger){
+  return openModal(title,'<p>'+esc(text)+'</p>',[{label:'Cancelar',v:'cancel'},{label:okLabel,v:'ok',submit:true,cls:danger?'danger':'primary'}]).then(function(r){return r.v==='ok';});
+}
+
+/* ---------- Ações ---------- */
+function uid(p){return p+Date.now().toString(36)+Math.random().toString(36).slice(2,6);}
+function addItemDialog(preCat,preG){
+  var catOpts=CATS.map(function(c){return '<option value="'+c.id+'"'+(c.id===preCat?' selected':'')+'>'+esc(c.nome)+'</option>';}).join('');
+  var mOpts=MORDER.map(function(m){return '<option value="'+m+'"'+(m==='S'?' selected':'')+'>'+esc(mLabel(m))+'</option>';}).join('');
+  var body='<label class="field" for="ni-n"><span>Nome do item</span></label><input type="text" id="ni-n" name="n" maxlength="120" autocomplete="off">'+
+    '<label class="field" for="ni-c"><span>Categoria</span></label><select id="ni-c" name="c">'+catOpts+'</select>'+
+    '<label class="field" for="ni-l"><span>Nível</span></label><select id="ni-l" name="l"><option value="E">Essencial</option><option value="U" selected>Útil</option><option value="D">Dispensável/esperar</option></select>'+
+    '<label class="field" for="ni-m"><span>Mês ideal</span></label><select id="ni-m" name="m">'+mOpts+'</select>'+
+    '<label class="field" for="ni-q"><span>Quantidade (opcional)</span></label><input type="text" id="ni-q" name="q" maxlength="40" autocomplete="off">'+
+    '<label class="field" for="ni-t"><span>Tipo</span></label><select id="ni-t" name="t"><option value="0">Compra</option><option value="1">Tarefa (marca como feito)</option></select>';
+  return openModal('Adicionar item',body,[{label:'Cancelar',v:'cancel'},{label:'Adicionar',v:'ok',submit:true,cls:'primary'}],function(d){return d.n.trim()?'':'Escreva o nome do item.';}).then(function(r){
+    if(r.v!=='ok')return;
+    var d=r.data, m=d.m; if(/^\d+$/.test(m))m=+m;
+    S.custom.push({id:uid('u'),c:+d.c,n:d.n.trim().slice(0,120),l:d.l,q:String(d.q||'').trim().slice(0,40),m:m,t:d.t==='1',g:preG||null,ts:Date.now()});
+    save(); render(); toast('Item adicionado.');
+  });
+}
+function doExport(){
+  S.lastExport=new Date().toISOString(); save(false);
+  var payload={app:'enxoval-bebe',versao:2,exportadoEm:S.lastExport,dados:S};
+  var blob=new Blob([JSON.stringify(payload)],{type:'application/json'});
+  var d=new Date(), stamp=d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())+'-'+pad(d.getHours())+pad(d.getMinutes());
+  var a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='enxoval-backup-'+stamp+'.json';
+  document.body.appendChild(a); a.click(); a.remove(); setTimeout(function(){URL.revokeObjectURL(a.href);},5000);
+  toast('Backup baixado. Mande o arquivo pelo WhatsApp.'); render();
+}
+function onImport(file){
+  if(!file)return;
+  var fr=new FileReader();
+  fr.onerror=function(){toast('Não consegui ler esse arquivo.');};
+  fr.onload=function(){
+    var p; try{p=JSON.parse(String(fr.result));}catch(e){p=null;}
+    var n=(p&&p.app==='enxoval-bebe'&&p.dados)?sanitize(p.dados):null;
+    if(!n){toast('Esse arquivo não parece ser um backup do Enxoval.');return;}
+    var msg='Os dados deste aparelho serão trocados pelos do arquivo. Backup com última alteração em '+(n.updatedAt?fmtDT(n.updatedAt):'(sem alterações)')+'. Neste aparelho a última alteração é '+(S.updatedAt?fmtDT(S.updatedAt):'(sem alterações)')+'. '+((SYNC_ON&&SY)?'Como este aparelho está sincronizado, os dados do casal no servidor também serão trocados. ':'')+'Isso não pode ser desfeito.';
+    confirmBox('Importar este backup?',msg,'Importar e substituir',true).then(function(ok){
+      if(!ok)return; var le=S.lastExport; S=n; S.lastExport=le; ui.open={}; touchAll(S); save(false); if(SYNC_ON&&SY){SY.force=true;saveSync();} markDirty(); render(); toast('Backup importado.');
+    });
+  };
+  fr.readAsText(file);
+}
+
+/* ---------- Sincronização entre aparelhos (opcional) ---------- */
+var SK='enxoval-sync-v1', SY=null, rev=0;
+function loadSync(){try{var o=JSON.parse(localStorage.getItem(SK)||'null');if(o&&typeof o.code==='string'&&/^[A-Z0-9]{25}$/.test(o.code))return {code:o.code,dirty:!!o.dirty,force:!!o.force,last:(typeof o.last==='number'?o.last:null)};}catch(e){}return null;}
+function saveSync(){try{if(SY)localStorage.setItem(SK,JSON.stringify(SY));else localStorage.removeItem(SK);}catch(e){}}
+if(SYNC_ON)SY=loadSync();
+var sy={busy:false,again:false,msg:'',err:false,timer:null,show:false,pr:null};
+function normCode(c){return String(c||'').toUpperCase().replace(/[^A-Z0-9]/g,'');}
+function fmtCode(c){return c.replace(/(.{5})(?=.)/g,'$1-');}
+function hhmm(t){var d=new Date(t);return pad(d.getHours())+':'+pad(d.getMinutes());}
+function setMsg(m,err){sy.msg=m;sy.err=!!err;refreshBinds();}
+function rpc(name,args){
+  var ctrl=(typeof AbortController!=='undefined')?new AbortController():null, to=setTimeout(function(){if(ctrl)ctrl.abort();},15000);
+  var h={'Content-Type':'application/json',apikey:CONFIG.key}; if(/^eyJ/.test(CONFIG.key))h.Authorization='Bearer '+CONFIG.key;
+  return fetch(CONFIG.url.replace(/\/+$/,'')+'/rest/v1/rpc/'+name,{method:'POST',headers:h,body:JSON.stringify(args),signal:ctrl?ctrl.signal:undefined}).then(function(r){
+    clearTimeout(to);
+    return r.text().then(function(t){var j=null;try{j=JSON.parse(t);}catch(e){} if(!r.ok){var er=new Error('http '+r.status);er.status=r.status;throw er;} return j;});
+  },function(e){clearTimeout(to);throw e;});
+}
+function stable(o){
+  if(Array.isArray(o))return '['+o.map(stable).join(',')+']';
+  if(o&&typeof o==='object')return '{'+Object.keys(o).sort().map(function(k){return JSON.stringify(k)+':'+stable(o[k]);}).join(',')+'}';
+  return JSON.stringify(o===undefined?null:o);
+}
+function cmp(o){var c=ext({},o);c.lastExport=null;return stable(c);}
+function mergeStates(a,b){
+  var R=Math.max(a.reset||0,b.reset||0), o=blank(); o.reset=R;
+  var pa=a.pt||0, pb=b.pt||0, pw=(pb>pa||(pb===pa&&a.perfil===null&&b.perfil!==null))?b:a;
+  o.pt=Math.max(pa,pb); o.budget=pw.budget; o.perfil=pw.perfil;
+  var gw=((b.gt||0)>(a.gt||0))?b:a; o.gt=Math.max(a.gt||0,b.gt||0); o.gifts=gw.gifts; o.giftCustom=gw.giftCustom;
+  var del=ext({},a.del||{}); Object.keys(b.del||{}).forEach(function(k){del[k]=Math.max(del[k]||0,b.del[k]);}); o.del=del;
+  var cm={}; [a.custom,b.custom].forEach(function(arr){(arr||[]).forEach(function(c){if(del[c.id]||(c.ts||0)<R)return;var p=cm[c.id];if(!p||(c.ts||0)>(p.ts||0))cm[c.id]=c;});});
+  o.custom=Object.keys(cm).map(function(k){return cm[k];}).sort(function(x,y){return ((x.ts||0)-(y.ts||0))||(x.id<y.id?-1:1);});
+  var it={}; [a.it,b.it].forEach(function(m){Object.keys(m||{}).forEach(function(k){var e=m[k];if((e.t||0)<R||del[k])return;var p=it[k];if(!p||(e.t||0)>(p.t||0))it[k]=e;});});
+  o.it=it;
+  var ua=Date.parse(a.updatedAt||'')||0, ub=Date.parse(b.updatedAt||'')||0; o.updatedAt=(ua||ub)?new Date(Math.max(ua,ub)).toISOString():null;
+  o.lastExport=a.lastExport;
+  return o;
+}
+function touchAll(st){var n=Date.now();st.pt=n;st.gt=n;st.reset=n;Object.keys(st.it).forEach(function(k){st.it[k].t=n;});st.custom.forEach(function(c){c.ts=n;});}
+function markDirty(){rev++;if(SYNC_ON&&SY){SY.dirty=true;saveSync();scheduleSync(2500);}}
+function scheduleSync(ms){if(!(SYNC_ON&&SY))return;clearTimeout(sy.timer);sy.timer=setTimeout(syncNow,ms);}
+function safeRender(){
+  var a=document.activeElement, busy=(a&&/^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName)&&main.contains(a))||$('#modal-root .sheet');
+  clearTimeout(sy.pr);
+  if(busy){sy.pr=setTimeout(safeRender,2500);return;}
+  render();
+}
+function syncNow(){
+  if(!SYNC_ON||!SY)return Promise.resolve();
+  if(sy.busy){sy.again=true;return Promise.resolve();}
+  sy.busy=true; var rev0=rev; setMsg('Sincronizando…',false);
+  return (async function(){
+    var changed=false, done=false;
+    try{
+      for(var tries=0;tries<4&&!done;tries++){
+        var r=await rpc('enx_ler',{p_codigo:SY.code});
+        if(r&&r.erro){setMsg('Esse código não foi encontrado no servidor. Confira o código.',true);return;}
+        var remote=sanitize(r.dados)||blank();
+        var merged=SY.force?S:mergeStates(S,remote);
+        if(cmp(merged)!==cmp(S)){S=merged;changed=true;try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+        if(!(SY.dirty||SY.force||cmp(S)!==cmp(remote))){done=true;break;}
+        var out=ext({},S); out.lastExport=null;
+        var w=await rpc('enx_gravar',{p_codigo:SY.code,p_dados:out,p_base:r.versao});
+        if(w&&w.conflito)continue;
+        if(!w||w.erro){setMsg('O servidor recusou os dados'+(w&&w.erro?' ('+w.erro+')':'')+'.',true);return;}
+        SY.force=false; done=true;
+      }
+      if(!done){setMsg('Muitas mudanças ao mesmo tempo. Vou tentar de novo.',true);scheduleSync(4000);return;}
+      SY.dirty=(rev!==rev0); SY.last=Date.now(); saveSync();
+      setMsg('Sincronizado às '+hhmm(SY.last),false);
+      if(changed)safeRender();
+    }catch(e){
+      setMsg(e&&e.status?('Erro do servidor ('+e.status+'). Tente de novo mais tarde.'):'Sem conexão. As mudanças ficam neste aparelho e são enviadas quando a internet voltar.',true);
+    }finally{
+      sy.busy=false; if(sy.again||rev!==rev0){sy.again=false;scheduleSync(1500);}
+    }
+  })();
+}
+function codeHTML(code){return '<p class="codebig user">'+fmtCode(code).split('-').map(function(g){return '<span>'+esc(g)+'</span>';}).join(' ')+'</p>';}
+function syncCard(){
+  if(!SYNC_ON)return '';
+  var h='<section class="card" id="sync"><h3>Sincronizar os dois celulares</h3>';
+  if(!SY){
+    h+='<p class="small">Com o espaço do casal, o que um preencher aparece no outro celular, pela internet. Os dados ficam guardados no Supabase e só abrem com o código do casal.</p>'+
+       '<div class="btn-row"><button type="button" class="btn primary" data-act="syncCreate" data-fk="syncCreate">Criar espaço do casal</button><button type="button" class="btn" data-act="syncJoin" data-fk="syncJoin">Entrar com código</button></div>';
+  } else {
+    h+='<p data-b="syncmsg" class="small"></p>'+(SY.last?'<p class="small">Última sincronização: '+fmtDT(new Date(SY.last).toISOString())+'.</p>':'')+
+       '<div class="btn-row"><button type="button" class="btn primary" data-act="syncNow" data-fk="syncNow">Sincronizar agora</button><button type="button" class="btn" data-act="syncShow" data-fk="syncShow" aria-expanded="'+sy.show+'">'+(sy.show?'Esconder código':'Mostrar código')+'</button></div>';
+    if(sy.show)h+=codeHTML(SY.code)+'<div class="btn-row"><button type="button" class="btn" data-act="codeCopy" data-fk="codeCopy">Copiar código</button></div>';
+    h+='<p class="small" style="margin-top:10px">Quem tiver o código vê e altera tudo do casal. Guarde como uma senha. O backup por arquivo continua funcionando.</p>'+
+       '<div class="btn-row"><button type="button" class="btn" data-act="syncOff" data-fk="syncOff">Desconectar este aparelho</button><button type="button" class="btn danger" data-act="syncWipe" data-fk="syncWipe">Apagar dados do servidor</button></div>';
+  }
+  return h+'</section>';
+}
+function codeBox(code){
+  return openModal('Código do casal','<p>Anote este código e guarde como uma senha. Quem tiver o código vê e altera os dados do casal. No outro celular, use "Entrar com código".</p>'+codeHTML(code),[{label:'Já anotei',v:'ok',submit:true,cls:'primary'}]);
+}
+async function syncCreate(){
+  var r=await openModal('Criar espaço do casal','<p>Digite o convite que você gerou no Supabase. Cada convite vale para um casal.</p><label class="field" for="cv"><span>Convite</span></label><input type="text" id="cv" name="cv" autocomplete="off" autocapitalize="characters" maxlength="30">',[{label:'Cancelar',v:'cancel'},{label:'Criar',v:'ok',submit:true,cls:'primary'}],function(d){return normCode(d.cv)?'':'Digite o convite.';});
+  if(r.v!=='ok')return;
+  try{
+    var j=await rpc('enx_criar',{p_convite:r.data.cv});
+    if(j&&j.erro){toast('Convite inválido ou já usado.');return;}
+    if(!j||!j.codigo){toast('Resposta inesperada do servidor.');return;}
+    SY={code:normCode(j.codigo),dirty:true,force:false,last:null}; saveSync(); render();
+    await codeBox(SY.code); syncNow();
+  }catch(e){toast('Não consegui falar com o servidor. Confira a internet.');}
+}
+async function syncJoin(){
+  var r=await openModal('Entrar com o código do casal','<p>Digite o código do casal. Os dados deste aparelho e os do casal serão combinados, e o mais recente de cada item vale.</p><label class="field" for="cc"><span>Código</span></label><input type="text" id="cc" name="cc" autocomplete="off" autocapitalize="characters" maxlength="40">',[{label:'Cancelar',v:'cancel'},{label:'Entrar',v:'ok',submit:true,cls:'primary'}],function(d){return normCode(d.cc).length===25?'':'O código tem 25 letras e números.';});
+  if(r.v!=='ok')return;
+  var code=normCode(r.data.cc);
+  try{
+    var j=await rpc('enx_ler',{p_codigo:code});
+    if(j&&j.erro){toast('Código não encontrado. Confira e tente de novo.');return;}
+    SY={code:code,dirty:true,force:false,last:null}; saveSync(); render(); syncNow();
+  }catch(e){toast('Não consegui falar com o servidor. Confira a internet.');}
+}
+function copyCode(){
+  var t=fmtCode(SY.code);
+  try{navigator.clipboard.writeText(t).then(function(){toast('Código copiado.');},function(){toast('Não consegui copiar. Anote o código na tela.');});}catch(e){toast('Não consegui copiar. Anote o código na tela.');}
+}
+
+/* ---------- Eventos ---------- */
+document.addEventListener('click',function(e){
+  var el=e.target.closest('[data-act]'); if(!el)return;
+  var a=el.dataset.act, id=el.dataset.id, v=el.dataset.v;
+  if(el.tagName==='INPUT'||el.tagName==='FORM')return;
+  switch(a){
+    case 'tab': ui.tab=v; render(); window.scrollTo(0,0); main.focus({preventScroll:true}); break;
+    case 'goto': ui.tab=v; render(); window.scrollTo(0,0); break;
+    case 'editPerfil': ui.tab='perfil'; render(); window.scrollTo(0,0); break;
+    case 'skipPerfil': S.perfil={}; S.pt=Date.now(); save(); ui.tab='resumo'; render(); window.scrollTo(0,0); break;
+    case 'quick': setItem(id,{s:stat(id)==='c'?undefined:'c'}); render(); break;
+    case 'open': if(ui.open[id])delete ui.open[id]; else ui.open[id]=1; render(); break;
+    case 'cat': if(ui.cats[v])delete ui.cats[v]; else ui.cats[v]=1; render(); break;
+    case 'catsAll': if(Object.keys(ui.cats).length>=CATS.length)ui.cats={}; else CATS.forEach(function(c){ui.cats[c.id]=1;}); render(); break;
+    case 'fpanel': ui.filtersOpen=!ui.filtersOpen; render(); break;
+    case 'fl': var g=el.dataset.g; if(ui.fl[g][v])delete ui.fl[g][v]; else ui.fl[g][v]=1; render(); break;
+    case 'flx': delete ui.fl[el.dataset.g][v]; render(); break;
+    case 'fclear': ui.fl={cat:{},lvl:{},sit:{}}; render(); break;
+    case 'addItem': addItemDialog(); break;
+    case 'delItem':
+      var it=items().filter(function(i){return i.id===id;})[0];
+      confirmBox('Apagar este item?','"'+(it?it.n:'')+'" será apagado só deste aparelho.','Apagar',true).then(function(ok){
+        if(!ok)return; S.custom=S.custom.filter(function(c){return c.id!==id;}); delete S.it[id]; S.del[id]=Date.now(); delete ui.open[id]; save(); render(); toast('Item apagado.');});
+      break;
+    case 'editBudget': ui.editBudget=true; render(); break;
+    case 'cancelBudget': ui.editBudget=false; render(); break;
+    case 'export': doExport(); break;
+    case 'import': $('#imp').click(); break;
+    case 'syncCreate': syncCreate(); break;
+    case 'syncJoin': syncJoin(); break;
+    case 'syncNow': syncNow(); break;
+    case 'syncShow': sy.show=!sy.show; render(); break;
+    case 'codeCopy': copyCode(); break;
+    case 'syncOff':
+      confirmBox('Desconectar este aparelho?','Os dados continuam neste aparelho, mas deixam de sincronizar. Para voltar, entre de novo com o código.','Desconectar',true).then(function(ok){if(!ok)return;SY=null;saveSync();sy.msg='';sy.show=false;render();toast('Aparelho desconectado.');});
+      break;
+    case 'syncWipe':
+      confirmBox('Apagar os dados do servidor?','Os dados do casal serão apagados do servidor e o código deixa de funcionar. Os dados continuam neste aparelho. Isso não pode ser desfeito.','Apagar no servidor',true).then(function(ok){
+        if(!ok)return;
+        rpc('enx_apagar',{p_codigo:SY.code}).then(function(){SY=null;saveSync();sy.msg='';sy.show=false;render();toast('Dados do servidor apagados.');},function(){toast('Não consegui apagar agora. Confira a internet.');});
+      });
+      break;
+    case 'giftDel': var arr=S.gifts[el.dataset.g]||[]; arr.splice(+el.dataset.i,1); S.gifts[el.dataset.g]=arr; S.gt=Date.now(); save(); render(); break;
+    case 'giftCDel':
+      confirmBox('Apagar esta sugestão?','Os nomes dela também serão apagados.','Apagar',true).then(function(ok){
+        if(!ok)return; S.giftCustom=S.giftCustom.filter(function(g){return g.id!==el.dataset.g;}); delete S.gifts[el.dataset.g]; S.gt=Date.now(); save(); render();});
+      break;
+  }
+});
+document.addEventListener('change',function(e){
+  var el=e.target; var a=el.dataset&&el.dataset.act, id=el.dataset&&el.dataset.id;
+  if(a==='cbC'){setItem(id,{s:el.checked?'c':undefined});render();}
+  else if(a==='cbG'){setItem(id,{s:el.checked?'g':undefined});render();}
+  else if(a==='mala'){setItem(id,{mb:el.checked});render();}
+  else if(a==='cbX'){setItem(id,{s:el.checked?'x':undefined});render();}
+});
+document.addEventListener('input',function(e){
+  var el=e.target, f=el.dataset&&el.dataset.f; if(!f||f==='due')return;
+  if(f==='p'){var c=parseBRL(el.value);setItem(el.dataset.id,{p:c===null?undefined:c});}
+  else if(f==='st'){setItem(el.dataset.id,{st:el.value});}
+  else if(f==='nt'){setItem(el.dataset.id,{nt:el.value});}
+});
+document.addEventListener('focusin',function(e){
+  var el=e.target; if(el.dataset&&el.dataset.f==='p'){var c=parseBRL(el.value);el.value=c===null?'':plainBRL(c);}
+});
+document.addEventListener('focusout',function(e){
+  var el=e.target; if(el.dataset&&el.dataset.f==='p'){var c=parseBRL(el.value);el.value=c===null?'':brl(c);}
+});
+document.addEventListener('submit',function(e){
+  var f=e.target, a=f.dataset&&f.dataset.act; if(!a)return; e.preventDefault();
+  var fd=new FormData(f);
+  if(a==='saveBudget'){var c=parseBRL($('#bud').value); if(c===null){toast('Escreva um valor, como 5.000,00.');return;} S.budget=c; S.pt=Date.now(); ui.editBudget=false; save(); render(); toast('Orçamento atualizado.');}
+  else if(a==='saveProfile'){saveProfile(f);}
+  else if(a==='giftAdd'){
+    var g=f.dataset.g, who=String(fd.get('who')||'').trim().slice(0,60); if(!who){toast('Escreva o nome de quem vai dar.');return;}
+    var arr=S.gifts[g]||[], low=who.toLowerCase();
+    if(arr.some(function(x){return x.toLowerCase()===low;})){toast('Esse nome já está neste presente.');return;}
+    var other=Object.keys(S.gifts).some(function(k){return k!==g&&(S.gifts[k]||[]).some(function(x){return x.toLowerCase()===low;});});
+    arr.push(who); S.gifts[g]=arr; S.gt=Date.now(); save(); render(); if(other)toast(who+' também vai dar outro presente.');
+    var inp=$('#gi-'+g); if(inp)inp.focus();
+  }
+  else if(a==='giftCAdd'){var t=String(fd.get('t')||'').trim().slice(0,80); if(!t){toast('Escreva o nome da sugestão.');return;} S.giftCustom.push({id:uid('gu'),t:t}); S.gt=Date.now(); save(); render();}
+  else if(a==='malaAdd'){var n=String(fd.get('n')||'').trim().slice(0,120); if(!n){toast('Escreva o nome do item.');return;}
+    S.custom.push({id:uid('u'),c:8,n:n,l:'U',q:'',m:'S',t:false,g:f.dataset.g,ts:Date.now()}); save(); render(); var i2=$('#ma-'+f.dataset.g); if(i2)i2.focus();}
+});
+$('#imp').addEventListener('change',function(e){var f=e.target.files&&e.target.files[0]; e.target.value=''; onImport(f);});
+
+window.__enx={derive:derive,MASTER:MASTER,state:function(){return S;}};
+render();
+document.addEventListener('visibilitychange',function(){if(!document.hidden)syncNow();});
+window.addEventListener('online',function(){syncNow();});
+setInterval(function(){if(!document.hidden)syncNow();},45000);
+if(SYNC_ON&&SY)syncNow();
+})();
+</script>
+</body>
+</html>
