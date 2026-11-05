@@ -208,7 +208,7 @@ ol.steps li{margin:var(--s2) 0}
   <p class="upd" data-b="upd"></p>
   <p class="upd" data-b="syncs" hidden></p>
 </header>
-<p class="warn" data-b="storewarn" role="alert" hidden>Este navegador não está guardando os dados. O que for preenchido pode se perder ao fechar a página. Use "Exportar lista em PDF" no Resumo para guardar uma cópia.</p>
+<p class="warn" data-b="storewarn" role="alert" hidden>Este navegador não está guardando os dados. O que for preenchido pode se perder ao fechar a página. Ligue a sincronização do casal no Resumo para não perder nada.</p>
 <main id="main" tabindex="-1"></main>
 <div class="dock">
   <p class="note">Este material não substitui o obstetra e o pediatra.</p>
@@ -947,7 +947,7 @@ function viewResumo(){
   h+='<section class="card"><h3>Segurança primeiro</h3><div class="aviso" style="margin-top:0"><b>Sono seguro:</b> bebê de barriga para cima, em superfície firme, no berço e no mesmo quarto dos pais. Não usar no berço: protetor de grade, almofadas, travesseiros, ninho ou redutor, cobertas soltas, pelúcias, cunhas e posicionadores. Confirme com o pediatra.</div>'+
      '<div class="aviso" style="margin-bottom:0"><b>Carro:</b> bebê conforto ou cadeirinha adequada ao peso e com selo do Inmetro, desde a saída da maternidade.</div></section>';
   h+=syncCard();
-  h+='<section class="card" id="pdf"><h3>Lista em PDF</h3><p class="small">Para imprimir, decidir com calma no papel ou mandar para alguém. Traz todos os itens, o que já foi comprado e linhas em branco para anotar o preço e a loja ou marca. A cor segue o perfil: amarelo se ainda não sabem o sexo ou querem manter surpresa, azul para menino e rosa para menina.</p>'+
+  h+='<section class="card" id="pdf"><h3>Lista em PDF</h3><p class="small">Uma lista rápida para imprimir ou mandar para alguém conferir o que falta. Traz só o nome do item, a quantidade, uma caixa marcada nos itens já resolvidos e a necessidade (essencial, útil ou dispensável). Não leva orçamento, valores, loja, marca, observações nem dados do perfil. A cor segue o perfil: amarelo se ainda não sabem o sexo ou querem manter surpresa, azul para menino e rosa para menina.</p>'+
      '<div class="btn-row"><button type="button" class="btn primary" data-act="pdf" data-fk="pdf">Exportar lista em PDF</button></div></section>';
   return h;
 }
@@ -1186,85 +1186,47 @@ function buildPDF(){
   }
   function ensure(h){if(cur+h>LIM)newPage();}
 
-  var L=items(), Tt=calc(L), P=S.perfil||{}, due=dueD(), hasB=S.budget!==null, rest=hasB?S.budget-Tt.gasto:0, now=new Date();
-
-  /* ----- capa e resumo ----- */
-  ops=[]; rect(0,0,PW,PH,T.paper); rect(0,0,PW,118,T.pastel); rect(0,118,PW,4,T.accent);
-  txt(M,64,'Enxoval do bebê','F3',30,T.ink);
-  txt(M,87,'Lista de compras e tarefas','F1',11.5,T.ink);
+  /* Lista para compartilhar: só item, quantidade, caixa de marcar e necessidade.
+     Sem orçamento, valores, loja ou marca, observações, perfil ou data do parto. */
+  var L=items().filter(function(i){return stat(i.id)!=='x';}), now=new Date();
+  var nDone=L.filter(function(i){var s=stat(i.id);return s==='c'||s==='g';}).length;
+  ops=[]; rect(0,0,PW,PH,T.paper); rect(0,0,PW,106,T.pastel); rect(0,106,PW,4,T.accent);
+  txt(M,60,'Enxoval do bebê','F3',30,T.ink);
+  txt(M,83,'Lista de conferência','F1',11.5,T.ink);
   var g1='Gerada em '+pad(now.getDate())+'/'+pad(now.getMonth()+1)+'/'+now.getFullYear();
   txt(PW-M-tw(g1,false,9.5),60,g1,'F1',9.5,T.ink);
-  if(due){var g2='Parto previsto: '+fmtD(P.due);txt(PW-M-tw(g2,false,9.5),74,g2,'F1',9.5,T.ink);}
-  cur=148;
-  var bw=(CW-20)/3, cards=[['Orçamento',hasB?brl(S.budget):'não definido'],['Gasto até agora',brl(Tt.gasto)],[hasB?(rest<0?'Passou do orçamento em':'Ainda dá para gastar'):'Saldo',hasB?brl(Math.abs(rest)):'-']];
-  cards.forEach(function(c,k){
-    var x=M+k*(bw+10); rect(x,cur,bw,52,T.soft);
-    txt(x+9,cur+17,c[0],'F1',8.5,MUTED);
-    var sz=15; while(sz>10&&tw(c[1],true,sz)>bw-18)sz-=1;
-    txt(x+9,cur+39,c[1],'F2',sz,T.ink);
-  });
-  cur+=52+16;
-  var ess=L.filter(function(i){return i.l==='E'&&stat(i.id)!=='x';}), essDone=ess.filter(function(i){return stat(i.id)!=='f';}).length;
-  txt(M,cur+8,(Tt.c+Tt.g)+' de '+Tt.n+' itens resolvidos (comprados, feitos ou ganhos). Essenciais: '+essDone+' de '+ess.length+'.','F2',9.5,T.ink);
-  cur+=20;
-  var leg='Como ler: quadrado vazio = falta comprar ou fazer; quadrado marcado = já resolvido. As linhas em branco são para anotar à mão o preço e a loja ou a marca.'+(due?' Os prazos são sugestões, calculadas com a data prevista do parto.':'')+' Este material não substitui o obstetra e o pediatra.';
+  cur=134;
+  txt(M,cur+8,nDone+' de '+L.length+' itens já resolvidos.','F2',9.5,T.ink); cur+=20;
+  var leg='Como ler: quadrado vazio = ainda falta; quadrado marcado = já resolvido. À direita de cada item fica a necessidade: Essencial, Útil ou Dispensável/esperar. Este material não substitui o obstetra e o pediatra.';
   wrapTxt(leg,false,8.5,CW).forEach(function(l){txt(M,cur+8,l,'F1',8.5,MUTED);cur+=11;});
   cur+=12;
 
-  /* ----- um item ----- */
+  /* ----- um item: uma linha enxuta ----- */
   function prepare(i){
-    var x=X(i.id), s=x.s||'f', done=(s==='c'||s==='g'), tk=!!i.t, TX=M+20, TW=CW-20;
-    var nl=wrapTxt(i.n,true,10,TW-82), mp=[], tm=(s==='f')?timing(i):null;
-    if(i.q&&!tk)mp.push('Qtd: '+i.q);
-    if(tk)mp.push(i.pg?'Tarefa, pode ter custo':'Tarefa');
-    if(s==='c')mp.push(tk?'Feito':'Comprado'); else if(s==='g')mp.push('Ganhou ou herdou'); else if(s==='x')mp.push(tk?'Não vamos fazer':'Não vamos comprar');
-    if(s==='f'){
-      if(i.w)mp.push((tk?'Quando fazer: ':'Quando comprar: ')+i.w);
-      if(due&&typeof i.m==='number'&&typeof i.z==='number'&&(gestMonth()||0)<10)mp.push('Prazo sugerido: '+spanTxt(mStart(i.m),mEnd(i.z)));
-      if(tm&&tm.tag&&tm.k!=='now')mp.push(tm.tag);
-    }
-    var ml=mp.length?wrapTxt(mp.join(' · '),false,8.5,TW):[];
-    var ol=i.o?wrapTxt('Da lista: '+i.o,false,8.5,TW):[];
-    var dp=[]; if(typeof x.p==='number'&&(!tk||i.pg))dp.push((tk?'Custo: ':'Valor: ')+brl(x.p)); if(x.st&&!tk)dp.push('Loja ou marca: '+x.st);
-    var dl=dp.length?wrapTxt(dp.join(' · '),true,8.5,TW):[], nt=x.nt?wrapTxt('Observação: '+x.nt,false,8.5,TW):[];
-    var fill=(s==='f')?(tk?(i.pg?[['Custo, se houver: R$',70],['Anotações:',-1]]:[['Anotações:',-1]]):[['Preço: R$',80],['Loja ou marca:',-1]]):null;
-    var h=8+nl.length*12+ml.length*10.5+ol.length*10.5+dl.length*10.5+nt.length*10.5+(fill?19:0)+6;
+    var s=stat(i.id), done=(s==='c'||s==='g'), TX=M+20, QX=PW-M-170, QW=96, lbl=LV[i.l];
+    var nl=wrapTxt(i.n,true,10,QX-TX-8), ql=(i.q&&!i.t)?wrapTxt(i.q,false,9,QW):[];
+    var rows=Math.max(nl.length,ql.length,1), h=8+rows*12+4;
     return {h:h,draw:function(top){
-      box(M,top+8,11,T.accent,done);
-      var t=top+7;
-      nl.forEach(function(l){txt(TX,t+9,l,'F2',10,s==='x'?FAINT:T.ink); if(s==='x')line(TX,t+6,TX+tw(l,true,10),t+6,FAINT,0.7); t+=12;});
-      var lbl=LV[i.l], lc=i.l==='E'?T.accent:(i.l==='U'?MUTED:FAINT);
-      txt(PW-M-tw(lbl,true,8),top+16,lbl,'F2',8,lc);
-      ml.forEach(function(l){txt(TX,t+8,l,'F1',8.5,MUTED);t+=10.5;});
-      ol.forEach(function(l){txt(TX,t+8,l,'F1',8.5,MUTED);t+=10.5;});
-      dl.forEach(function(l){txt(TX,t+8,l,'F2',8.5,T.ink);t+=10.5;});
-      nt.forEach(function(l){txt(TX,t+8,l,'F1',8.5,T.ink);t+=10.5;});
-      if(fill){
-        var fx=TX, fy=t+14;
-        fill.forEach(function(p){
-          txt(fx,fy,p[0],'F1',8.5,MUTED); fx+=tw(p[0],false,8.5)+4;
-          var w=p[1]<0?(PW-M-fx):p[1]; line(fx,fy+1.6,fx+w,fy+1.6,FAINT,0.6); fx+=w+12;
-        });
-      }
-      line(M,top+h-0.5,PW-M,top+h-0.5,'#DADADA',0.5);
+      box(M,top+7,11,T.accent,done);
+      nl.forEach(function(l,k){txt(TX,top+8+9+k*12,l,'F2',10,T.ink);});
+      ql.forEach(function(l,k){txt(QX,top+8+9+k*12,l,'F1',9,MUTED);});
+      var lc=i.l==='E'?T.accent:(i.l==='U'?MUTED:FAINT);
+      txt(PW-M-tw(lbl,true,8),top+17,lbl,'F2',8,lc);
+      line(M,top+h-0.5,PW-M,top+h-0.5,'#E2E2E2',0.5);
     }};
   }
 
   /* ----- categorias ----- */
   CATS.forEach(function(c){
     var all=L.filter(function(i){return i.c===c.id;}); if(!all.length)return;
-    var CT=calc(all), av=catAviso(c), avl=av?wrapTxt(av,false,8.5,CW-16):[], avh=avl.length?avl.length*10.5+12+8:0;
+    var CT=all.filter(function(i){var s=stat(i.id);return s==='c'||s==='g';}).length;
     var preps=all.map(prepare);
-    ensure(24+8+avh+preps[0].h);
+    ensure(24+6+preps[0].h);
     rect(M,cur,CW,24,T.pastel); rect(M,cur,4,24,T.accent);
     txt(M+12,cur+17,c.nome,'F3',13.5,T.ink);
-    var rs=(CT.c+CT.g)+' de '+CT.n+' resolvidos'; txt(PW-M-8-tw(rs,false,8.5),cur+16,rs,'F1',8.5,T.ink);
-    cur+=24+6;
-    if(avl.length){
-      rect(M,cur,CW,avl.length*10.5+12,T.soft);
-      avl.forEach(function(l,k){txt(M+8,cur+14+k*10.5,l,'F1',8.5,T.ink);});
-      cur+=avl.length*10.5+12+8;
-    }
+    var rs=CT+' de '+all.length+' resolvidos'; txt(PW-M-8-tw(rs,false,8.5),cur+16,rs,'F1',8.5,T.ink);
+    var hq=24; cur+=24+2;
+    txt(PW-M-170,cur+9,'Quantidade','F1',7.5,FAINT); cur+=12;
     preps.forEach(function(p){ensure(p.h);p.draw(cur);cur+=p.h;});
     cur+=12;
   });
