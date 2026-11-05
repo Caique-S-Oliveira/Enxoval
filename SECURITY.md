@@ -3,7 +3,7 @@
 ## O que já está protegido (no código)
 
 **Dados no Supabase**
-- As tabelas ficam fechadas. A chave pública só consegue chamar 4 funções: criar, ler, gravar e apagar.
+- As tabelas ficam fechadas. A chave pública só consegue chamar 5 funções: criar, ler, gravar, apagar e consultar a versão (um número, sem dados).
 - Cada casal é identificado por um código de 25 caracteres (cerca de 125 bits de aleatoriedade), impossível de adivinhar por tentativa. O banco guarda só o resumo (hash SHA-256) do código, nunca o código em si.
 - Criar um espaço novo exige um convite de 12 caracteres, de uso único, que só o dono gera no painel do Supabase.
 - As funções usam `search_path` vazio (protege contra desvio de nomes) e só mexem nas tabelas do `enxoval`. Tamanho máximo por casal: cerca de 400 KB.

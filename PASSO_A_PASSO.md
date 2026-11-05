@@ -49,7 +49,20 @@ select nota, criado, usado from enxoval.convites order by criado;
 select nota, criado, atualizado, versao from enxoval.casais order by criado;
 ```
 
-## 5. Atualizar o app depois
+## 5. Atualização automática entre os celulares
+
+O app consulta o servidor a cada 4 segundos, enquanto está aberto na tela, só para saber se algo mudou. Se mudou, baixa e junta sozinho. Com isso, o que um celular altera aparece no outro em poucos segundos, sem apertar "Sincronizar agora".
+
+Para isso funcionar, o Supabase precisa de uma função pequena a mais:
+1. Abra **SQL Editor → New query** no Supabase.
+2. Cole o conteúdo de `supabase/supabase_atualizacao_automatica.sql` e clique em **Run**. Rodar de novo não dá problema.
+3. Pronto. Não precisa mexer no site de novo além de publicar o `index.html` novo.
+
+Sem essa função o app continua funcionando, mas a mudança do outro celular só aparece a cada 45 segundos.
+
+Observações: o app só consulta com a tela ligada e aberta (celular bloqueado ou app em segundo plano não consulta, e ao voltar ele atualiza na hora). Cada consulta é minúscula e não conta como baixar os dados.
+
+## 6. Atualizar o app depois
 
 No GitHub, abra `site/index.html`, clique no lápis (editar) ou em **Add file → Upload files**, substitua e dê **Commit changes**. O Render publica de novo sozinho.
 

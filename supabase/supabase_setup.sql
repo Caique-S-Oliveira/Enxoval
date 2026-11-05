@@ -6,7 +6,7 @@
 --  * um espaço isolado chamado "enxoval" (não mexe em nada que já existe);
 --  * uma tabela de casais (guarda só o resumo do código, nunca o código);
 --  * uma tabela de convites (um convite por casal);
---  * 4 funções que o app usa: criar espaço, ler, gravar e apagar.
+--  * 5 funções que o app usa: criar espaço, ler, gravar, apagar e consultar a versão.
 --
 -- Segurança:
 --  * as tabelas ficam fechadas: o app só entra pelas funções;
@@ -191,12 +191,33 @@ begin
 end
 $$;
 
--- o app (chave pública) só pode chamar estas 4 funções
+-- consulta leve: só a versão atual (o app usa para atualizar sozinho)
+create or replace function public.enx_versao(p_codigo text)
+returns jsonb
+language plpgsql
+security definer
+set search_path = ''
+as $$
+declare
+  v integer;
+begin
+  select versao into v from enxoval.casais where codigo_hash = enxoval.h(p_codigo);
+  if not found then
+    return pg_catalog.jsonb_build_object('erro', 'codigo');
+  end if;
+  return pg_catalog.jsonb_build_object('versao', v);
+end
+$$;
+
+
+-- o app (chave pública) só pode chamar estas 5 funções
 revoke all on function public.enx_criar(text)                  from public, anon, authenticated;
 revoke all on function public.enx_ler(text)                    from public, anon, authenticated;
 revoke all on function public.enx_gravar(text, jsonb, integer) from public, anon, authenticated;
 revoke all on function public.enx_apagar(text)                 from public, anon, authenticated;
+revoke all on function public.enx_versao(text)                 from public, anon, authenticated;
 grant execute on function public.enx_criar(text)                  to anon, authenticated;
 grant execute on function public.enx_ler(text)                    to anon, authenticated;
 grant execute on function public.enx_gravar(text, jsonb, integer) to anon, authenticated;
 grant execute on function public.enx_apagar(text)                 to anon, authenticated;
+grant execute on function public.enx_versao(text)                 to anon, authenticated;

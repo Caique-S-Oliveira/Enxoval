@@ -9,161 +9,197 @@
 <meta name="color-scheme" content="light dark">
 <title>Enxoval do bebê</title>
 <style>
+/* Enxoval do bebê — folha de estilos
+   Ideia: caderno de família, costurado. Papel levemente esverdeado, tinta verde-escura,
+   verde-sálvia como cor de ação e rosa-antigo (ameixa) só para o que precisa de atenção.
+   Um único gesto de identidade: o pespontado (linha de costura) no topo, na barra de andamento e no cartão-resumo. */
 :root{
-  --bg:#FAF6EE; --card:#FFFFFF; --ink:#2B2A26; --muted:#645E52; --line:#E6DDCB;
-  --btn:#4A6B50; --on-btn:#FFFFFF; --sage-t:#E4ECDD; --sage-d:#2F4A35;
-  --sand:#F1E9D7; --sand-ink:#5A4A28;
-  --terra:#9C4A2E; --terra-t:#F7E4DB;
-  --focus:#1F4E79; --shadow:0 1px 2px rgba(60,50,30,.06),0 6px 18px rgba(60,50,30,.06);
+  /* cor */
+  --bg:#F3F5EF; --card:#FBFCF9; --ink:#1F2A24; --muted:#56615A; --line:#D3DAD0; --edge:#7F8D82;
+  --btn:#2F5D46; --on-btn:#FFFFFF; --sage-t:#DDE8DC; --sage-d:#1F4332;
+  --sand:#F0E6BD; --sand-ink:#574712;
+  --terra:#8A2F4E; --terra-t:#F6E1E7;
+  --focus:#1F4E79;
+  /* escala de espaço (4 · 8 · 12 · 16 · 24 · 32 · 48) */
+  --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:32px; --s7:48px;
+  /* raios: pequeno para etiquetas, médio para controles, grande para a janela */
+  --r1:4px; --r2:8px; --r3:16px;
+  /* escala de texto (razão ~1,2) */
+  --t0:.8125rem; --t1:.9375rem; --t2:1.0625rem; --t3:1.25rem; --t4:1.75rem; --t5:clamp(2.5rem,13vw,3.75rem);
   --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,"Times New Roman",serif;
   --sans:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --stitch:repeating-linear-gradient(90deg,var(--btn) 0 8px,transparent 8px 14px);
 }
 @media (prefers-color-scheme:dark){
   :root{
-    --bg:#1C1A16; --card:#27241F; --ink:#F1ECE1; --muted:#B9B1A1; --line:#3C382F;
-    --btn:#8DB594; --on-btn:#12200F; --sage-t:#2B3A2E; --sage-d:#C6E2CA;
-    --sand:#3A3426; --sand-ink:#E6D8B4;
-    --terra:#F0A98C; --terra-t:#43281E;
-    --focus:#9CC4F0; --shadow:0 1px 2px rgba(0,0,0,.3);
+    --bg:#141916; --card:#1B221E; --ink:#E8EEE6; --muted:#A9B4AC; --line:#2C3731; --edge:#76857B;
+    --btn:#86BE9A; --on-btn:#0E1A13; --sage-t:#22332A; --sage-d:#BFE3CB;
+    --sand:#3A3418; --sand-ink:#EADFA8;
+    --terra:#F2A6BC; --terra-t:#40222C;
+    --focus:#9CC4F0;
   }
 }
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:1.0625rem;line-height:1.45;
-  overflow-wrap:normal;word-break:normal;hyphens:manual}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:var(--t2);line-height:1.5;
+  font-variant-numeric:lining-nums tabular-nums;overflow-wrap:normal;word-break:normal;hyphens:manual}
 [hidden]{display:none!important}
-h1,h2,h3{font-family:var(--serif);font-weight:600;line-height:1.2;margin:0}
+h1,h2,h3{font-family:var(--serif);font-weight:600;line-height:1.2;letter-spacing:-.01em;margin:0}
 p{margin:0}
 button{font:inherit;color:inherit}
-:focus-visible{outline:3px solid var(--focus);outline-offset:2px;border-radius:8px}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px;border-radius:var(--r1)}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .user{overflow-wrap:break-word}
 
-.top{padding:calc(14px + env(safe-area-inset-top)) 16px 4px;max-width:760px;margin:0 auto}
-.top h1{font-size:1.5rem}
-.top .upd{color:var(--muted);font-size:.9375rem;margin-top:2px}
-.warn{margin:10px 16px 0;padding:12px 14px;border-radius:14px;background:var(--terra-t);color:var(--terra);font-size:.9375rem;max-width:728px}
-main{max-width:760px;margin:0 auto;padding:12px 16px calc(150px + env(safe-area-inset-bottom))}
+/* topo: título e a linha de costura */
+.top{padding:calc(var(--s4) + env(safe-area-inset-top)) var(--s4) 0;max-width:760px;margin:0 auto}
+.top h1{font-size:1.625rem;letter-spacing:-.015em}
+.top .upd{color:var(--muted);font-size:var(--t1);margin-top:var(--s1)}
+.top::after{content:"";display:block;height:2px;margin-top:var(--s3);background:var(--stitch)}
+.warn{margin:var(--s3) auto 0;width:calc(100% - 2*var(--s4));max-width:728px;padding:var(--s3) var(--s4);border-left:3px solid var(--terra);border-radius:0 var(--r2) var(--r2) 0;background:var(--terra-t);color:var(--terra);font-size:var(--t1)}
+main{max-width:760px;margin:0 auto;padding:var(--s5) var(--s4) calc(150px + env(safe-area-inset-bottom))}
 main:focus{outline:none}
-.page-title{font-size:1.75rem;margin:8px 0 14px}
+.page-title{font-size:var(--t4);letter-spacing:-.02em;margin:0 0 var(--s4)}
 
-.dock{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--line);z-index:20;padding-bottom:env(safe-area-inset-bottom)}
-.dock .note{margin:0;padding:6px 12px 0;text-align:center;font-size:.8125rem;color:var(--muted)}
-.tabs{display:flex;max-width:760px;margin:0 auto;padding:2px 4px 4px}
-.tab{flex:1 1 0;min-width:0;min-height:56px;border:0;background:none;border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
-  font-size:.8125rem;color:var(--muted);cursor:pointer;white-space:nowrap}
+/* barra de baixo */
+.dock{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--edge);z-index:20;padding-bottom:env(safe-area-inset-bottom)}
+.dock .note{margin:0;padding:var(--s2) var(--s3) 0;text-align:center;font-size:var(--t0);color:var(--muted)}
+.tabs{display:flex;max-width:760px;margin:0 auto;padding:0 var(--s1) var(--s1)}
+.tab{position:relative;flex:1 1 0;min-width:0;min-height:56px;border:0;background:none;border-radius:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:var(--s1);
+  font-size:var(--t0);color:var(--muted);cursor:pointer;white-space:nowrap}
 .tab svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.tab[aria-current="page"]{color:var(--sage-d);background:var(--sage-t);font-weight:600}
+.tab[aria-current="page"]{color:var(--sage-d);font-weight:600}
+.tab[aria-current="page"]::before{content:"";position:absolute;top:0;left:var(--s4);right:var(--s4);height:3px;background:var(--btn);border-radius:0 0 3px 3px}
 
-.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px;margin:0 0 14px;box-shadow:var(--shadow)}
-.card h3{font-size:1.2rem;margin-bottom:6px}
-.small{font-size:.9375rem;color:var(--muted)}
-.btn{min-height:48px;padding:10px 18px;border-radius:14px;border:1.5px solid var(--btn);background:transparent;color:var(--btn);font-weight:600;cursor:pointer;white-space:nowrap}
+/* seções: separadas por fio e por espaço, não por caixas */
+.card{background:transparent;border:0;border-top:1px solid var(--line);border-radius:0;padding:var(--s4) 0 0;margin:0 0 var(--s5);box-shadow:none}
+.card h3{font-size:var(--t3);margin-bottom:var(--s2)}
+.small{font-size:var(--t1);color:var(--muted)}
+.btn{min-height:48px;padding:var(--s3) var(--s4);border-radius:var(--r2);border:1.5px solid var(--btn);background:transparent;color:var(--btn);font-weight:600;cursor:pointer;white-space:normal;text-align:center;line-height:1.25}
+.btn:active{background:var(--sage-t)}
 .btn.primary{background:var(--btn);color:var(--on-btn)}
+.btn.primary:active{filter:brightness(.92)}
 .btn.danger{border-color:var(--terra);color:var(--terra)}
 .btn.block{width:100%}
-.btn-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
+.btn-row{display:flex;flex-wrap:wrap;gap:var(--s3);margin-top:var(--s4)}
 .btn-row .btn{flex:1 1 150px}
-.link{background:none;border:0;padding:10px 0;min-height:44px;color:var(--btn);font-weight:600;text-decoration:underline;cursor:pointer}
+.link{background:none;border:0;padding:var(--s3) 0;min-height:44px;color:var(--btn);font-weight:600;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
 
-.big{background:var(--sage-t);border-color:transparent}
-.big.over{background:var(--terra-t)}
-.big-label{font-size:1rem;color:var(--sage-d);font-weight:600}
+/* o resumo: o número maior da tela, com a régua grossa no topo */
+.card.big{background:var(--sage-t);border:0;border-top:3px solid var(--btn);border-radius:0 0 var(--r2) var(--r2);padding:var(--s4)}
+.big.over{background:var(--terra-t);border-top-color:var(--terra)}
+.big-label{font-size:var(--t1);color:var(--sage-d);font-weight:600}
 .big.over .big-label,.big.over .big-num{color:var(--terra)}
-.big-num{font-family:var(--serif);font-weight:600;font-size:clamp(2.2rem,11.5vw,3.8rem);line-height:1.1;color:var(--sage-d);white-space:nowrap;margin:2px 0 6px}
-.big-sub{font-size:.9375rem}
-.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 14px}
-.stat{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px}
-.stat b{display:block;font-family:var(--serif);font-size:1.4rem;line-height:1.2}
-.stat span{font-size:.875rem;color:var(--muted)}
-.bar{height:12px;border-radius:99px;background:var(--line);overflow:hidden;margin:8px 0 4px}
-.bar>i{display:block;height:100%;background:var(--btn);border-radius:99px;width:0}
+.big-num{font-family:var(--serif);font-weight:600;font-size:var(--t5);line-height:1.1;letter-spacing:-.02em;color:var(--sage-d);white-space:nowrap;margin:var(--s1) 0 var(--s2)}
+.big-sub{font-size:var(--t1)}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:var(--s4);margin:0 0 var(--s5)}
+.stat{background:none;border:0;border-top:1px solid var(--line);border-radius:0;padding:var(--s3) 0 0}
+.stat b{display:block;font-family:var(--serif);font-size:var(--t4);line-height:1.1;letter-spacing:-.01em}
+.stat span{font-size:var(--t1);color:var(--muted)}
+.bar{height:6px;background:repeating-linear-gradient(90deg,var(--line) 0 8px,transparent 8px 14px);margin:var(--s3) 0 var(--s2)}
+.bar>i{display:block;height:100%;background:var(--btn);border-radius:3px;width:0}
 
-.field{display:block;margin:10px 0 0}
-.field>span{display:block;font-size:.9375rem;font-weight:600;margin-bottom:4px}
-input[type=text],input[type=date],input[type=search],select,textarea{width:100%;min-height:48px;padding:10px 12px;font:inherit;font-size:1rem;color:var(--ink);background:var(--bg);border:1.5px solid var(--line);border-radius:12px}
-textarea{min-height:84px;resize:vertical}
+/* campos */
+.field{display:block;margin:var(--s3) 0 0}
+.field>span{display:block;font-size:var(--t1);font-weight:600;margin-bottom:var(--s1)}
+input[type=text],input[type=date],input[type=search],select,textarea{width:100%;min-height:48px;padding:var(--s3);font:inherit;font-size:1rem;color:var(--ink);background:var(--card);border:1.5px solid var(--edge);border-radius:var(--r2)}
+textarea{min-height:88px;resize:vertical}
 input[type=checkbox]{width:26px;height:26px;margin:0;accent-color:var(--btn);flex:none}
-.cb{display:flex;align-items:center;gap:12px;min-height:48px;cursor:pointer}
+.cb{display:flex;align-items:center;gap:var(--s3);min-height:48px;cursor:pointer}
 
-.pill{display:inline-block;padding:2px 10px;border-radius:99px;font-size:.8125rem;white-space:nowrap;font-weight:600}
-.lv-E{background:var(--sage-t);color:var(--sage-d)}
+/* nível e situação: o peso do preenchimento mostra a importância */
+.pill{display:inline-block;padding:2px var(--s2);border-radius:var(--r1);font-size:var(--t0);white-space:nowrap;font-weight:600}
+.lv-E{background:var(--btn);color:var(--on-btn)}
 .lv-U{background:var(--sand);color:var(--sand-ink)}
 .lv-D{border:1.5px dashed var(--muted);color:var(--muted)}
-.tag{display:inline-block;padding:2px 8px;border-radius:8px;font-size:.8125rem;background:var(--bg);border:1px solid var(--line);white-space:nowrap}
+.tag{display:inline-block;padding:2px var(--s2);border-radius:var(--r1);font-size:var(--t0);background:var(--card);border:1px solid var(--line);white-space:nowrap}
 .tag.ok{background:var(--sage-t);color:var(--sage-d);border-color:transparent}
+.tag.late{background:var(--terra-t);color:var(--terra);border-color:transparent;font-weight:600;white-space:normal}
+.tag.now{background:var(--sage-t);color:var(--sage-d);border-color:transparent;font-weight:600}
+.tag.wait{white-space:normal}
 
+/* lista */
 .items,.crows{list-style:none;margin:0;padding:0}
 .item{border-top:1px solid var(--line)}
 .item:first-child{border-top:0}
-.item-head{display:flex;align-items:flex-start;gap:8px;padding:6px 0}
+.item-head{display:flex;align-items:flex-start;gap:var(--s2);padding:var(--s2) 0}
 .check{flex:none;width:48px;height:48px;border-radius:50%;border:2px solid var(--btn);background:transparent;color:var(--on-btn);display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0}
 .check svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;opacity:0}
 .check[aria-pressed="true"]{background:var(--btn)}
 .check[aria-pressed="true"] svg{opacity:1}
-.item-main{flex:1 1 0;min-width:0;display:block;text-align:left;background:none;border:0;padding:8px 4px;min-height:48px;cursor:pointer}
+.item-main{flex:1 1 0;min-width:0;display:block;text-align:left;background:none;border:0;padding:var(--s2) var(--s1);min-height:48px;cursor:pointer}
 .item-name{display:block;font-weight:600}
 .item.done .item-name{color:var(--muted);text-decoration:line-through;text-decoration-thickness:1px}
-.item-meta{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:4px;font-size:.875rem;color:var(--muted)}
-.det{padding:4px 0 14px 56px}
-.det p{margin:0 0 8px;font-size:.9375rem}
+.item-meta{display:flex;flex-wrap:wrap;gap:var(--s2);align-items:center;margin-top:var(--s1);font-size:var(--t1);color:var(--muted)}
+.det{padding:var(--s1) 0 var(--s4) calc(48px + var(--s2))}
+.det p{margin:0 0 var(--s2);font-size:var(--t1)}
 .det b{font-weight:600}
-.hint{font-size:.875rem;color:var(--muted);margin-top:4px}
-.custom-tag{font-size:.8125rem;color:var(--btn);font-weight:600}
+.hint{font-size:var(--t1);color:var(--muted);margin-top:var(--s1)}
+.custom-tag{font-size:var(--t0);color:var(--btn);font-weight:600}
 
-.cat-head{width:100%;display:flex;align-items:center;gap:10px;background:none;border:0;padding:6px 0;min-height:56px;text-align:left;cursor:pointer}
+.cat-head{width:100%;display:flex;align-items:center;gap:var(--s3);background:none;border:0;padding:var(--s2) 0;min-height:56px;text-align:left;cursor:pointer}
 .cat-head .t{flex:1 1 0;min-width:0}
-.cat-head .t b{display:block;font-family:var(--serif);font-size:1.15rem;font-weight:600}
-.cat-head .t span{font-family:var(--sans);font-weight:400;font-size:.875rem;color:var(--muted)}
+.cat-head .t b{display:block;font-family:var(--serif);font-size:var(--t3);font-weight:600;letter-spacing:-.01em}
+.cat-head .t span{font-family:var(--sans);font-weight:400;font-size:var(--t1);color:var(--muted)}
 .cat-head svg{width:22px;height:22px;flex:none;fill:none;stroke:currentColor;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;transition:transform .15s}
 .cat-head[aria-expanded="true"] svg{transform:rotate(180deg)}
-.aviso{background:var(--terra-t);color:var(--terra);border-radius:12px;padding:10px 12px;font-size:.9375rem;margin:6px 0 8px}
+.aviso{background:var(--terra-t);color:var(--terra);border-left:3px solid var(--terra);border-radius:0 var(--r2) var(--r2) 0;padding:var(--s3) var(--s4);font-size:var(--t1);margin:var(--s2) 0}
 
-.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
-.chip{min-height:44px;padding:6px 14px;border-radius:99px;border:1.5px solid var(--line);background:var(--card);cursor:pointer;white-space:nowrap}
+/* filtros e escolhas */
+.chips{display:flex;flex-wrap:wrap;gap:var(--s2);margin-top:var(--s2)}
+.chip{min-height:44px;padding:var(--s2) var(--s4);border-radius:var(--r2);border:1.5px solid var(--edge);background:var(--card);cursor:pointer;white-space:nowrap}
 .chip[aria-pressed="true"],.chip.on{background:var(--sage-t);border-color:var(--btn);color:var(--sage-d);font-weight:600}
-fieldset{border:0;margin:12px 0 0;padding:0;min-width:0}
-legend{font-weight:600;font-size:.9375rem;padding:0}
-.tools{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 12px}
+fieldset{border:0;margin:var(--s4) 0 0;padding:0;min-width:0}
+legend{font-weight:600;font-size:var(--t1);padding:0}
+.tools{display:flex;flex-wrap:wrap;gap:var(--s2);align-items:center;margin:0 0 var(--s4)}
 .tools .btn{flex:1 1 140px;min-height:48px}
 
-.month-h{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px;margin-bottom:4px}
-.here{background:var(--btn);color:var(--on-btn);padding:2px 10px;border-radius:99px;font-size:.8125rem;font-weight:600;white-space:nowrap}
-.crow{display:flex;align-items:flex-start;gap:8px;padding:6px 0;border-top:1px solid var(--line)}
+.month-h{display:flex;flex-wrap:wrap;align-items:baseline;gap:var(--s1) var(--s3);margin-bottom:var(--s2)}
+.here{background:var(--btn);color:var(--on-btn);padding:2px var(--s2);border-radius:var(--r1);font-size:var(--t0);font-weight:600;white-space:nowrap}
+.crow{display:flex;align-items:flex-start;gap:var(--s2);padding:var(--s2) 0;border-top:1px solid var(--line)}
 .crow:first-child{border-top:0}
-.crow-main{flex:1 1 0;min-width:0;padding:6px 0}
+.crow-main{flex:1 1 0;min-width:0;padding:var(--s2) 0}
 
-.chiplist{list-style:none;margin:8px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
-.chiplist li{display:flex;align-items:center;gap:2px;background:var(--sage-t);color:var(--sage-d);border-radius:99px;padding:0 4px 0 14px;min-height:44px}
+.chiplist{list-style:none;margin:var(--s2) 0 0;padding:0;display:flex;flex-wrap:wrap;gap:var(--s2)}
+.chiplist li{display:flex;align-items:center;gap:2px;background:var(--sage-t);color:var(--sage-d);border-radius:var(--r2);padding:0 var(--s1) 0 var(--s3);min-height:44px}
 .chiplist button{width:44px;height:44px;border:0;background:none;color:inherit;font-size:1.25rem;cursor:pointer;border-radius:50%}
-.row-form{display:flex;gap:8px;margin-top:10px}
+.row-form{display:flex;gap:var(--s2);margin-top:var(--s3)}
 .row-form input{flex:1 1 0;min-width:0}
 .row-form .btn{flex:none}
-ol.steps{margin:6px 0;padding-left:22px}
-ol.steps li{margin:6px 0}
+ol.steps{margin:var(--s2) 0;padding-left:var(--s5)}
+ol.steps li{margin:var(--s2) 0}
 
-.scrim{position:fixed;inset:0;background:rgba(20,16,10,.5);display:flex;align-items:flex-end;justify-content:center;z-index:50;padding:0}
-.sheet{background:var(--card);width:100%;max-width:560px;max-height:92vh;overflow:auto;border-radius:24px 24px 0 0;padding:20px 16px calc(20px + env(safe-area-inset-bottom))}
-@media (min-width:600px){.scrim{align-items:center;padding:16px}.sheet{border-radius:24px}}
-.sheet h2{font-size:1.4rem;margin-bottom:8px}
-.sheet-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+/* janela */
+.scrim{position:fixed;inset:0;background:rgba(14,22,17,.55);display:flex;align-items:flex-end;justify-content:center;z-index:50;padding:0}
+.sheet{background:var(--card);width:100%;max-width:560px;max-height:92vh;overflow:auto;border-radius:var(--r3) var(--r3) 0 0;padding:var(--s5) var(--s4) calc(var(--s5) + env(safe-area-inset-bottom))}
+@media (min-width:600px){.scrim{align-items:center;padding:var(--s4)}.sheet{border-radius:var(--r3)}}
+.sheet h2{font-size:var(--t3);margin-bottom:var(--s2)}
+.sheet-actions{display:flex;flex-wrap:wrap;gap:var(--s3);margin-top:var(--s4)}
 .sheet-actions .btn{flex:1 1 130px}
-.err{color:var(--terra);font-size:.9375rem;margin-top:8px;font-weight:600}
-.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(112px + env(safe-area-inset-bottom));max-width:calc(100% - 32px);background:var(--ink);color:var(--bg);padding:12px 18px;border-radius:14px;z-index:40;font-size:.9375rem;text-align:center}
+.err{color:var(--terra);font-size:var(--t1);margin-top:var(--s2);font-weight:600}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(112px + env(safe-area-inset-bottom));max-width:calc(100% - 2*var(--s4));background:var(--ink);color:var(--bg);padding:var(--s3) var(--s4);border-radius:var(--r2);z-index:40;font-size:var(--t1);text-align:center}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 
-.q{margin:14px 0 0}
-.q legend{font-weight:600;font-size:1rem;padding:0;margin-bottom:2px}
-.opts{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
-.opt{display:flex;align-items:center;gap:10px;min-height:48px;padding:6px 14px;border:1.5px solid var(--line);border-radius:14px;background:var(--card);cursor:pointer}
+/* perfil */
+.q{margin:var(--s4) 0 0}
+.q legend{font-weight:600;font-size:var(--t2);padding:0;margin-bottom:var(--s1)}
+.opts{display:flex;flex-wrap:wrap;gap:var(--s2);margin-top:var(--s2)}
+.opt{display:flex;align-items:center;gap:var(--s3);min-height:48px;padding:var(--s2) var(--s4);border:1.5px solid var(--edge);border-radius:var(--r2);background:var(--card);cursor:pointer}
 .opt input{width:22px;height:22px;accent-color:var(--btn);margin:0;flex:none}
 .opt:has(input:checked){border-color:var(--btn);background:var(--sage-t)}
-.jt{border-top:1px solid var(--line);padding:4px 0}
+.jt{border-top:1px solid var(--line);padding:var(--s1) 0}
 .jt summary{min-height:48px;display:flex;align-items:center;font-weight:600;cursor:pointer}
 
-.codebig{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:1.2rem;font-weight:600;letter-spacing:.03em;margin:10px 0;line-height:1.7}
+.codebig{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:1.2rem;font-weight:600;letter-spacing:.03em;margin:var(--s3) 0;line-height:1.7}
 .codebig span{white-space:nowrap;margin-right:.35em}
-.btn{white-space:normal;text-align:center;line-height:1.25}
+
+/* o HTML traz alguns espaçamentos soltos (12, 10, 6 px); aqui eles entram na escala */
+.card[style*="padding"]{padding:var(--s4) 0 0!important}
+[style*="margin-bottom:12px"]{margin-bottom:var(--s4)!important}
+[style*="margin-bottom:6px"]{margin-bottom:var(--s2)!important}
+[style*="margin-top:10px"]{margin-top:var(--s3)!important}
+[style*="margin:0 0 10px"]{margin:0 0 var(--s3)!important}
+[style*="margin-top:6px"]{margin-top:var(--s2)!important}
 </style>
 </head>
 <body>
@@ -213,7 +249,7 @@ function r(c,n,l,q,u,w,o,m,x){
   cnt[c]=(cnt[c]||0)+1;
   var f=(x||'').split(' ');
   var g=null; if(f.indexOf('mb')>=0)g='mb'; else if(f.indexOf('mm')>=0)g='mm'; else if(f.indexOf('ma')>=0)g='ma';
-  MASTER.push({id:c+'.'+(cnt[c]<10?'0':'')+cnt[c],c:c,n:n,l:l,q:q,u:u,w:w,o:o,m:m,t:f.indexOf('t')>=0,g:g});
+  MASTER.push({id:c+'.'+(cnt[c]<10?'0':'')+cnt[c],c:c,n:n,l:l,q:q,u:u,w:w,o:o,m:m,t:f.indexOf('t')>=0,pg:f.indexOf('pg')>=0,g:g});
 }
 /* 1 Quarto e sono */
 r(1,'Berço (ou mini-berço/berço acoplado: decisão de vocês)','E','1','Lugar próprio e seguro para dormir','Mês 7-8','Caro. Procurar o selo do Inmetro (certificação de segurança) e montar como manda o manual. Não usar berço usado sem saber o histórico. Mini-berço serve por menos tempo: ver o limite de peso no manual.',7);
@@ -296,7 +332,7 @@ r(7,'Termômetro digital','E','1','Medir febre','Mês 9','Barato. Febre em bebê
 r(7,'Escolher o pediatra e salvar o telefone','E','1','Ter quem chamar desde o primeiro dia','Mês 7-8','Grátis. Perguntar se atende pelo plano e faz consulta antes do parto.',7,'t');
 r(7,'Lista de contatos de emergência (pediatra, maternidade, plano, SAMU 192)','E','1','Achar rápido em uma urgência','Mês 8','Grátis. Deixar na geladeira e no celular.',8,'t');
 r(7,'Kit de primeiros cuidados: soro fisiológico e gaze','U','1 kit','Limpar o nariz e pequenos cuidados','Mês 9','Barato. Não dar remédio, chá nem xarope sem o pediatra.',9);
-r(7,'Curso de primeiros socorros para bebês','U','1 vez','Saber o que fazer em engasgo, para os pais e as avós','Mês 8','Grátis a médio. Perguntar à maternidade ou ao plano.',8,'t');
+r(7,'Curso de primeiros socorros para bebês','U','1 vez','Saber o que fazer em engasgo, para os pais e as avós','Mês 8','Grátis a médio. Perguntar à maternidade ou ao plano.',8,'t pg');
 r(7,'Aspirador de nariz','D','1','Limpar o nariz','Só se o pediatra indicar','Barato. Por quê: nem todo bebê precisa.','E');
 r(7,'Umidificador de ar','D','1','Ar seco do inverno','Só se o pediatra indicar','Médio. Por quê: dá trabalho de limpeza.','E');
 r(7,'Protetor solar','D','1','Sol','Só com o pediatra','Barato. Por quê: em bebê pequeno costuma-se evitar sol direto. Confirmar.','E');
@@ -327,7 +363,7 @@ r(9,'Incluir o bebê no plano de saúde','E','','Bebê ter cobertura','Logo apó
 r(9,'Declaração de Nascido Vivo','E','1','Documento que a maternidade entrega para o registro','No dia da alta','Grátis. Conferir nomes e dados antes de sair.','P','t');
 r(9,'Certidão de nascimento','E','1','Registrar o bebê no cartório','Depois da alta','Grátis. Confirmar prazo e CPF no cartório. Decidam o nome antes.','P','t');
 r(9,'Caderneta de vacinação','E','1','Registrar vacinas','No dia da alta','Grátis. Confirmar com a maternidade quais vacinas já foram dadas.','P','t');
-r(9,'Testes do recém-nascido (pezinho, orelhinha, olhinho, coraçãozinho)','E','','Descobrir problemas cedo','Perguntar no mês 8','Grátis a médio. Confirmar quais a maternidade faz e quais precisam agendar.',8,'t');
+r(9,'Testes do recém-nascido (pezinho, orelhinha, olhinho, coraçãozinho)','E','','Descobrir problemas cedo','Perguntar no mês 8','Grátis a médio. Confirmar quais a maternidade faz e quais precisam agendar.',8,'t pg');
 r(9,'Primeira consulta com o pediatra','E','1','Acompanhar o bebê nos primeiros dias','Combinar no mês 8-9','Grátis. Confirmar com o pediatra o prazo.',8,'t');
 r(9,'Licença-maternidade e licença-paternidade','E','','Direito de afastamento','Mês 7','Grátis. Se trabalham com carteira assinada, confirmar com o RH de cada um.',7,'t');
 /* 10 Casa e rotina dos pais */
@@ -337,10 +373,28 @@ r(10,'Refeições congeladas e potes de freezer','U','10 a 15 porções','Ter co
 r(10,'Estoque de despensa e de limpeza','U','1 compra grande','Não sair para mercado nos primeiros dias','Mês 9','Médio.',9);
 r(10,'Garrafa de água e lanches perto de onde amamenta','U','1','Comer e beber sem levantar','Mês 9','Barato.',9);
 r(10,'Caderno ou app para registrar mamadas e fraldas','U','1','Muitos pediatras pedem esse registro','Mês 9','Grátis.',9,'t');
-r(10,'Contato de apoio para amamentação (enfermeira ou consultora)','U','1','Ter alguém para dúvidas logo no começo','Mês 8','Grátis a caro. Perguntar à maternidade ou ao plano.',8,'t');
+r(10,'Contato de apoio para amamentação (enfermeira ou consultora)','U','1','Ter alguém para dúvidas logo no começo','Mês 8','Grátis a caro. Perguntar à maternidade ou ao plano.',8,'t pg');
 r(10,'Combinar a escala de ajuda das avós','U','','Saber quem vem quando e faz o quê','Mês 8','Grátis.',8,'t');
 r(10,'Combinar as regras de visita','U','','Proteger o descanso e a saúde do bebê','Mês 8','Grátis.',8,'t');
 r(10,'Cinta pós-parto','D','1','Apoio da barriga','Só com orientação do obstetra','Médio. Por quê: nem sempre é indicada.','E');
+
+/* ---------- Prazos de compra ---------- */
+/* a = primeiro mês em que dá para comprar antes do ideal; z = último mês do prazo (fim do mês) */
+var ZFIX={'6.01':7,'9.01':9};
+var EARLY={
+ '1.01':[5,'A entrega e a montagem podem demorar, e o berço dura. Só compre antes se tiverem onde guardar ou montar.'],
+ '1.02':[5,'Dura bastante. Compre junto com o berço, para o mesmo modelo.'],
+ '1.06':[5,'Dura bastante e não depende do tamanho do bebê.'],
+ '1.08':[5,'Dura bastante e não depende do tamanho do bebê.'],
+ '1.09':[4,'Dá para ir comprando aos poucos, depois de definir o berço e os itens de segurança.'],
+ '3.01':[6,'Dura bastante e não depende do tamanho do bebê. Veja antes se alguém vai dar.'],
+ '4.01':[6,'Dura bastante e não depende do tamanho do bebê.'],
+ '6.01':[6,'Dá tempo de escolher com calma, conferir no manual a instalação no carro e treinar antes do parto.'],
+ '6.02':[6,'Dura bastante. Veja antes se alguém vai dar.'],
+ '6.03':[6,'Dura bastante. Dá para testar com calma.']
+};
+var BULKY={'1.01':1,'1.02':1,'1.06':1,'1.08':1,'1.09':1,'4.01':1};
+var CHA={}; MASTER.forEach(function(b){if(/chá/i.test(b.w+' '+b.o))CHA[b.id]=1;});
 
 /* ---------- Regras que ajustam a lista ao perfil ---------- */
 var SEG={'1.01':1,'1.02':1,'6.01':1};
@@ -444,6 +498,15 @@ function derive(P){
       i.o=i.o.replace(' Pode esperar o chá.','').replace(' Costumam ser dados no chá.','');
     }
     i.seg=!!SEG[i.id];
+    if(typeof i.m==='number'){
+      var mm=/m[eê]s\s*(\d)(?:\s*-\s*(\d))?/i.exec(i.w||''), z=i.m;
+      if(mm)z=Math.max(z,+(mm[2]||mm[1]));
+      if(ZFIX[i.id])z=ZFIX[i.id];
+      i.z=Math.min(9,Math.max(i.m,z));
+      var e=EARLY[i.id];
+      i.a=(e&&e[0]<i.m)?e[0]:i.m; i.ae=(e&&e[0]<i.m)?e[1]:'';
+      i.big=!!BULKY[i.id]; i.cha=!!CHA[i.id];
+    }
     return i;
   });
 }
@@ -498,6 +561,7 @@ var Q=[
  {b:'Bloco 2: a casa e a rotina',f:[
   {k:'moradia',t:'radio',l:'Onde o bebê vai morar?',s:'moradia',o:[['casa','Casa'],['apto','Apartamento']]},
   {k:'mudanca',t:'radio',l:'Vão se mudar antes de ele nascer?',s:'mudança',o:[['sim','Sim'],['nao','Não']]},
+  {k:'mudData',t:'date',l:'Data da mudança (se já souberem)',h:'Opcional. O app usa para não sugerir móvel e item grande antes de vocês terem para onde levar.',s:'data da mudança',opt:1},
   {k:'quarto',t:'radio',l:'Onde o bebê dorme no começo?',s:'onde dorme',o:[['casal','No quarto do casal'],['proprio','Em quarto próprio']]},
   {k:'espaco',t:'radio',l:'Sobra espaço para berço, trocador e guarda-roupa?',s:'espaço',o:[['sobra','Sobra espaço'],['pouco','Pouco espaço']]},
   {k:'carro',t:'radio',l:'Têm carro?',s:'carro',o:[['sim','Sim'],['nao','Não']]},
@@ -509,6 +573,7 @@ var Q=[
   {k:'amamentar',t:'radio',l:'Pretendem amamentar?',s:'amamentação',o:[['sim','Sim'],['nao','Não'],['nsei','Ainda não sei']]},
   {k:'apoio',t:'radio',l:'Pensaram em fórmula ou mamadeira como apoio?',s:'mamadeira de apoio',o:[['sim','Sim'],['nao','Não'],['nsei','Ainda não sei']]},
   {k:'cha',t:'radio',l:'Vão fazer chá de bebê?',s:'chá de bebê',o:[['sim','Sim'],['nao','Não']]},
+  {k:'chaData',t:'date',l:'Data do chá de bebê (se já tiverem)',h:'Opcional. O app sugere esperar o chá antes de comprar o que pode ser ganho.',s:'data do chá',opt:1},
   {k:'convidados',t:'num',l:'Quantos convidados, mais ou menos?',s:'convidados',opt:1},
   {k:'saude',t:'radio',l:'Há alguma orientação médica que mude a lista (repouso, parto agendado, bebê previsto como prematuro)?',h:'Responda só se quiser. O app não muda a lista por causa disso: confirme a lista com o obstetra e o pediatra.',s:'orientação médica',opt:1,o:[['nao','Não'],['sim','Sim']]},
   {k:'saudeTxt',t:'text',l:'Se quiser, anote aqui (só fica neste aparelho)',s:'anotação médica',opt:1},
@@ -524,7 +589,7 @@ function defaults(){return blank();}
 function sanitizePerfil(p){
   var o={}; if(!p||typeof p!=='object')return o;
   Object.keys(ENUM).forEach(function(k){if(typeof p[k]==='string'&&ENUM[k].indexOf(p[k])>=0)o[k]=p[k];});
-  if(typeof p.due==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(p.due))o.due=p.due;
+  ['due','mudData','chaData'].forEach(function(k){if(typeof p[k]==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(p[k])&&!isNaN(Date.parse(p[k])))o[k]=p[k];});
   if(typeof p.reserva==='number'&&isFinite(p.reserva)&&p.reserva>=0&&p.reserva<=1e10)o.reserva=Math.round(p.reserva);
   if(typeof p.convidados==='number'&&p.convidados>=0&&p.convidados<=999)o.convidados=Math.round(p.convidados);
   ['saudeTxt','quer','nao'].forEach(function(k){if(typeof p[k]==='string'&&p[k].trim())o[k]=p[k].trim().slice(0,500);});
@@ -598,15 +663,47 @@ function stat(id){return X(id).s||'f';}
 function items(){
   var P=S.perfil||{};
   var base=derive(P).filter(function(i){var s=stat(i.id);return !i.hide||(s!=='f'&&s!=='x');});
-  return base.concat(S.custom.map(function(c){return {id:c.id,c:c.c,n:c.n,l:c.l,q:c.q,u:'',w:mLabel(c.m),o:'',m:c.m,t:c.t,g:c.g,custom:true};}));
+  return base.concat(S.custom.map(function(c){return {id:c.id,c:c.c,n:c.n,l:c.l,q:c.q,u:'',w:mLabel(c.m),o:'',m:c.m,z:(typeof c.m==='number'?c.m:undefined),a:(typeof c.m==='number'?c.m:undefined),t:c.t,g:c.g,custom:true};}));
 }
 function setItem(id,patch){var x=S.it[id]||{};for(var k in patch){if(patch[k]===undefined||patch[k]===null||patch[k]===''||patch[k]===false)delete x[k];else x[k]=patch[k];}x.t=Date.now();S.it[id]=x;save();}
-function calc(list){var gasto=0,c=0,g=0,n=0;list.forEach(function(i){var x=X(i.id);if(x.s==='x')return;n++;if(x.s==='c'){c++;if(typeof x.p==='number')gasto+=x.p;}else if(x.s==='g')g++;});return {gasto:gasto,c:c,g:g,n:n};}
-function gestMonth(){
-  var due=S.perfil&&S.perfil.due; if(!due)return null;
-  var p=due.split('-'); var d=new Date(+p[0],+p[1]-1,+p[2]); var t=new Date(); t=new Date(t.getFullYear(),t.getMonth(),t.getDate());
-  var days=Math.round((d-t)/86400000); var weeks=(280-days)/7;
+function calc(list){var gasto=0,c=0,g=0,n=0;list.forEach(function(i){var x=X(i.id);if(x.s==='x')return;n++;if(x.s==='c'){c++;if(typeof x.p==='number'&&(!i.t||i.pg))gasto+=x.p;}else if(x.s==='g')g++;});return {gasto:gasto,c:c,g:g,n:n};}
+var ABR=['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+function parseD(v){var q=/^(\d{4})-(\d{2})-(\d{2})$/.exec(v||'');return q?new Date(+q[1],+q[2]-1,+q[3]):null;}
+function dueD(){return parseD(S.perfil&&S.perfil.due);}
+function today0(){var t=new Date();return new Date(t.getFullYear(),t.getMonth(),t.getDate());}
+function gmAt(dt){
+  var due=dueD(); if(!due)return null;
+  var days=Math.round((due-new Date(dt.getFullYear(),dt.getMonth(),dt.getDate()))/86400000), weeks=(280-days)/7;
   if(weeks<0)return 1; if(weeks>=40)return 10; return Math.min(9,Math.floor(weeks/4.345)+1);
+}
+function gestMonth(){return gmAt(new Date());}
+function mStart(n){var due=dueD(); if(!due)return null; return new Date(due.getFullYear(),due.getMonth(),due.getDate()-280+Math.round((n-1)*4.345*7));}
+function mEnd(n){var due=dueD(); if(!due)return null; if(n>=9)return due; var d=mStart(n+1); return new Date(d.getFullYear(),d.getMonth(),d.getDate()-1);}
+function monY(d){return ABR[d.getMonth()]+'/'+d.getFullYear();}
+function spanTxt(d1,d2){return monY(d1)===monY(d2)?'em '+monY(d1):'de '+monY(d1)+' a '+monY(d2);}
+/* Situação de um item que ainda falta: atrasado, hora de comprar, esperar (chá ou mudança), dá para antes, cedo */
+function timing(i){
+  if(stat(i.id)!=='f'||typeof i.m!=='number'||typeof i.z!=='number')return null;
+  var gm=gestMonth(); if(gm===null||gm>=10)return null;
+  var P=S.perfil||{}, ae=i.a, w=null, wt='', verb=i.t?'Fazer':'Comprar', end=mEnd(i.z);
+  if(P.cha==='sim'&&i.cha){var cd=parseD(P.chaData); if(cd){var gc=gmAt(cd); if(gc)ae=Math.max(ae,gc); if(cd>today0()){w=cd;wt='Esperar o chá ('+fmtD(P.chaData)+')';}}}
+  if(P.mudanca==='sim'&&i.big){var md=parseD(P.mudData); if(md){var gd=gmAt(md); if(gd)ae=Math.max(ae,gd); if(md>today0()&&(!w||md>w)){w=md;wt='Só depois da mudança ('+fmtD(P.mudData)+')';}}}
+  ae=Math.min(ae,i.z);
+  if(gm>i.z)return {k:'late',tag:'Atrasado: era até '+monY(end)};
+  if(w&&w<=end)return {k:'wait',tag:wt};
+  if(gm>=i.m)return {k:'now',tag:verb+' até '+monY(end)};
+  if(gm>=ae)return {k:'early'};
+  return {k:'future'};
+}
+function sugText(i){
+  if(typeof i.m!=='number'||typeof i.z!=='number'||!dueD())return '';
+  var gm=gestMonth(); if(gm===null||gm>=10)return '';
+  var P=S.perfil||{}, verb=i.t?'fazer':'comprar';
+  var t='Ideal para '+verb+': '+spanTxt(mStart(i.m),mEnd(i.z))+'.';
+  if(i.a<i.m)t+=' Dá para '+verb+' antes, a partir de '+monY(mStart(i.a))+'. '+i.ae;
+  if(P.cha==='sim'&&i.cha)t+=P.chaData?' Como vão fazer chá ('+fmtD(P.chaData)+'), espere antes de comprar: podem ganhar.':' Como vão fazer chá, espere antes de comprar: podem ganhar. Informe a data do chá no perfil para o app ajustar o prazo.';
+  if(P.mudanca==='sim'&&i.big)t+=P.mudData?' Como vão se mudar ('+fmtD(P.mudData)+'), só compre ou receba depois da mudança.':' Como vão se mudar, confirme se dá para receber no endereço novo. Informe a data da mudança no perfil para o app ajustar o prazo.';
+  return t;
 }
 function catName(id){for(var i=0;i<CATS.length;i++)if(CATS[i].id===id)return CATS[i].nome;return '';}
 
@@ -635,26 +732,29 @@ function passFilters(i){
 function pill(l){return '<span class="pill lv-'+l+'">'+LV[l]+'</span>';}
 function rowHTML(i){
   var x=X(i.id), s=x.s||'f', open=!!ui.open[i.id], verb=i.t?'Feito':'Comprado';
-  var tags='';
+  var tags='', tm=(s==='f')?timing(i):null, cost=(!i.t||i.pg);
   if(s==='c')tags+='<span class="tag ok">'+verb+'</span>';
   if(s==='g')tags+='<span class="tag ok">Ganhou ou herdou</span>';
-  if(s==='x')tags+='<span class="tag">Não vamos comprar</span>';
-  tags+='<span class="tag" data-pid="'+i.id+'" hidden></span>';
+  if(s==='x')tags+='<span class="tag">'+(i.t?'Não vamos fazer':'Não vamos comprar')+'</span>';
+  if(tm&&tm.tag)tags+='<span class="tag '+tm.k+'">'+esc(tm.tag)+'</span>';
+  if(i.t)tags+='<span class="tag">'+(i.pg?'Tarefa, pode ter custo':'Tarefa, sem compra')+'</span>';
+  if(cost)tags+='<span class="tag" data-pid="'+i.id+'" hidden></span>';
   var det='';
   if(open){
     det='<div class="det" id="det-'+i.id+'">'+
       (i.u?'<p><b>Para que serve:</b> '+esc(i.u)+'</p>':'')+
-      (i.w?'<p><b>Quando comprar:</b> '+esc(i.w)+'</p>':'')+
+      (i.w?'<p><b>'+(i.t?'Quando fazer':'Quando comprar')+':</b> '+esc(i.w)+'</p>':'')+
+      (sugText(i)&&s==='f'?'<p><b>Sugestão para vocês:</b> '+esc(sugText(i))+'</p>':'')+
       (i.o?'<p><b>Da lista:</b> '+esc(i.o)+'</p>':'')+
       '<label class="cb"><input type="checkbox" data-act="cbC" data-id="'+i.id+'" data-fk="cbC:'+i.id+'"'+(s==='c'?' checked':'')+'><span>'+verb+'</span></label>'+
       (i.t?'':'<label class="cb"><input type="checkbox" data-act="cbG" data-id="'+i.id+'" data-fk="cbG:'+i.id+'"'+(s==='g'?' checked':'')+'><span>Ganhou ou herdou (não conta no gasto)</span></label>')+
-      (i.seg?'<p class="hint">Item de segurança: não corte para economizar.</p>':'<label class="cb"><input type="checkbox" data-act="cbX" data-id="'+i.id+'" data-fk="cbX:'+i.id+'"'+(s==='x'?' checked':'')+'><span>Não vamos comprar (sai da conta)</span></label>')+
-      '<label class="field" for="p-'+i.id+'"><span>Preço real (R$)</span></label>'+
+      (i.seg?'<p class="hint">Item de segurança: não corte para economizar.</p>':'<label class="cb"><input type="checkbox" data-act="cbX" data-id="'+i.id+'" data-fk="cbX:'+i.id+'"'+(s==='x'?' checked':'')+'><span>'+(i.t?'Não vamos fazer (sai da conta)':'Não vamos comprar (sai da conta)')+'</span></label>')+
+      (cost?'<label class="field" for="p-'+i.id+'"><span>'+(i.t?'Custo, se houver (R$)':'Preço real (R$)')+'</span></label>'+
       '<input type="text" inputmode="decimal" autocomplete="off" id="p-'+i.id+'" data-f="p" data-id="'+i.id+'" placeholder="0,00" value="'+(typeof x.p==='number'?esc(brl(x.p)):'')+'">'+
-      '<p class="hint">'+(s==='g'?'Como ganhou ou herdou, este preço não conta no gasto.':(s==='x'?'Fora da conta: este preço não conta no gasto.':(s==='c'?'Conta no gasto.':'Só conta no gasto depois de marcar '+verb.toLowerCase()+'.')))+'</p>'+
-      '<label class="field" for="st-'+i.id+'"><span>Marca ou loja</span></label>'+
-      '<input type="text" autocomplete="off" id="st-'+i.id+'" data-f="st" data-id="'+i.id+'" maxlength="200" value="'+esc(x.st||'')+'">'+
-      '<label class="field" for="nt-'+i.id+'"><span>Observação</span></label>'+
+      '<p class="hint">'+(s==='g'?'Como ganhou ou herdou, este preço não conta no gasto.':(s==='x'?'Fora da conta: este preço não conta no gasto.':(s==='c'?'Conta no gasto.':'Só conta no gasto depois de marcar '+verb.toLowerCase()+'.')))+'</p>':'')+
+      (i.t?'':'<label class="field" for="st-'+i.id+'"><span>Marca ou loja</span></label>'+
+      '<input type="text" autocomplete="off" id="st-'+i.id+'" data-f="st" data-id="'+i.id+'" maxlength="200" value="'+esc(x.st||'')+'">')+
+      '<label class="field" for="nt-'+i.id+'"><span>'+(i.t?'Observação (telefone, data, anotações)':'Observação')+'</span></label>'+
       '<textarea id="nt-'+i.id+'" data-f="nt" data-id="'+i.id+'" maxlength="1000">'+esc(x.nt||'')+'</textarea>'+
       (i.custom?'<div class="btn-row"><button class="btn danger" data-act="delItem" data-id="'+i.id+'" data-fk="delItem:'+i.id+'">Apagar este item</button></div>':'')+
       '</div>';
@@ -663,13 +763,13 @@ function rowHTML(i){
     '<button type="button" class="check" data-act="quick" data-id="'+i.id+'" data-fk="quick:'+i.id+'" aria-pressed="'+(s==='c')+'" aria-label="'+esc((i.t?'Marcar como feito: ':'Marcar como comprado: ')+i.n)+'">'+CHECK+'</button>'+
     '<button type="button" class="item-main" data-act="open" data-id="'+i.id+'" data-fk="open:'+i.id+'" aria-expanded="'+open+'"'+(open?' aria-controls="det-'+i.id+'"':'')+'>'+
       '<span class="item-name user">'+esc(i.n)+'</span>'+
-      '<span class="item-meta">'+pill(i.l)+(i.q?'<span>Qtd: '+esc(i.q)+'</span>':'')+(i.custom?'<span class="custom-tag">Seu item</span>':'')+tags+'</span>'+
+      '<span class="item-meta">'+pill(i.l)+(i.q&&!i.t?'<span>Qtd: '+esc(i.q)+'</span>':'')+(i.custom?'<span class="custom-tag">Seu item</span>':'')+tags+'</span>'+
     '</button></div>'+det+'</li>';
 }
 function crowHTML(i){
-  var s=stat(i.id);
+  var s=stat(i.id), tm=timing(i);
   return '<li class="crow"><button type="button" class="check" data-act="quick" data-id="'+i.id+'" data-fk="quick:'+i.id+'" aria-pressed="'+(s==='c')+'" aria-label="'+esc((i.t?'Marcar como feito: ':'Marcar como comprado: ')+i.n)+'">'+CHECK+'</button>'+
-   '<div class="crow-main"><span class="item-name user">'+esc(i.n)+'</span><span class="item-meta">'+pill(i.l)+'<span>'+esc(catName(i.c))+'</span></span></div></li>';
+   '<div class="crow-main"><span class="item-name user">'+esc(i.n)+'</span><span class="item-meta">'+pill(i.l)+'<span>'+esc(catName(i.c))+'</span>'+(tm&&tm.tag?'<span class="tag '+tm.k+'">'+esc(tm.tag)+'</span>':'')+'</span></div></li>';
 }
 function filtersHTML(total,shown){
   var n=filtersActive(), h='';
@@ -680,13 +780,13 @@ function filtersHTML(total,shown){
     h+='<div class="card">';
     h+='<fieldset><legend>Categoria</legend><div class="chips">'+CATS.map(function(c){return '<button type="button" class="chip" data-act="fl" data-g="cat" data-v="'+c.id+'" data-fk="fl:cat:'+c.id+'" aria-pressed="'+!!ui.fl.cat[c.id]+'">'+esc(c.nome)+'</button>';}).join('')+'</div></fieldset>';
     h+='<fieldset><legend>Nível</legend><div class="chips">'+['E','U','D'].map(function(l){return '<button type="button" class="chip" data-act="fl" data-g="lvl" data-v="'+l+'" data-fk="fl:lvl:'+l+'" aria-pressed="'+!!ui.fl.lvl[l]+'">'+LV[l]+'</button>';}).join('')+'</div></fieldset>';
-    h+='<fieldset><legend>Situação</legend><div class="chips">'+[['f','Falta comprar'],['c','Comprado ou feito'],['g','Ganhou ou herdou'],['x','Não vamos comprar']].map(function(a){return '<button type="button" class="chip" data-act="fl" data-g="sit" data-v="'+a[0]+'" data-fk="fl:sit:'+a[0]+'" aria-pressed="'+!!ui.fl.sit[a[0]]+'">'+a[1]+'</button>';}).join('')+'</div></fieldset>';
+    h+='<fieldset><legend>Situação</legend><div class="chips">'+[['f','Falta comprar ou fazer'],['c','Comprado ou feito'],['g','Ganhou ou herdou'],['x','Não vamos comprar ou fazer']].map(function(a){return '<button type="button" class="chip" data-act="fl" data-g="sit" data-v="'+a[0]+'" data-fk="fl:sit:'+a[0]+'" aria-pressed="'+!!ui.fl.sit[a[0]]+'">'+a[1]+'</button>';}).join('')+'</div></fieldset>';
     h+='</div>';
   }
   if(n){
     h+='<p class="small" style="margin-bottom:6px">Filtros ativos:</p><div class="chips" style="margin:0 0 10px">';
     ['cat','lvl','sit'].forEach(function(g){Object.keys(ui.fl[g]).forEach(function(v){
-      var lab=g==='cat'?catName(+v):(g==='lvl'?LV[v]:({f:'Falta comprar',c:'Comprado ou feito',g:'Ganhou ou herdou',x:'Não vamos comprar'})[v]);
+      var lab=g==='cat'?catName(+v):(g==='lvl'?LV[v]:({f:'Falta comprar ou fazer',c:'Comprado ou feito',g:'Ganhou ou herdou',x:'Não vamos comprar ou fazer'})[v]);
       h+='<button type="button" class="chip on" data-act="flx" data-g="'+g+'" data-v="'+v+'" data-fk="flx:'+g+':'+v+'" aria-label="Tirar filtro: '+esc(lab)+'">'+esc(lab)+' ×</button>';
     });});
     h+='</div>';
@@ -698,11 +798,8 @@ function filtersHTML(total,shown){
 /* ---------- Perfil, avisos e legenda ---------- */
 var NOMES=['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
 function mesCaption(){
-  var due=S.perfil&&S.perfil.due;
-  if(!due)return 'Meses da gestação, aproximados. Informe a data prevista do parto no perfil para ver os meses do calendário.';
-  var p=due.split('-'), d=new Date(+p[0],+p[1]-1,+p[2]);
-  function mon(w){return NOMES[new Date(d.getTime()-(40-w)*7*86400000).getMonth()];}
-  return 'Meses da gestação, aproximados. Para o parto em '+fmtD(due)+': mês 7 ≈ '+mon(28)+', mês 8 ≈ '+mon(32)+', mês 9 ≈ '+mon(36)+'.';
+  if(!dueD())return 'Meses da gestação, aproximados. Informe a data prevista do parto no perfil para ver os meses do calendário e os prazos de compra.';
+  return 'Meses da gestação, aproximados. Para o parto em '+fmtD(S.perfil.due)+': mês 7 ≈ '+NOMES[mStart(7).getMonth()]+', mês 8 ≈ '+NOMES[mStart(8).getMonth()]+', mês 9 ≈ '+NOMES[mStart(9).getMonth()]+'.'+(gestMonth()!==null&&gestMonth()<10?' Hoje vocês estão no mês '+gestMonth()+'.':'')+' Cada item mostra até quando comprar.';
 }
 function catAviso(c){
   var P=S.perfil||{};
@@ -832,10 +929,13 @@ function viewResumo(){
     h+=af.length?list(af,6):'<p>Nada pendente.</p>';
   } else {
     h+='<p class="small">Você está no mês '+gm+' da gestação (aproximado).</p>';
-    var late=pend.filter(function(i){return typeof i.m==='number'&&i.m<gm;});
-    var now=pend.filter(function(i){return i.m===gm;});
+    var tmo={}; pend.forEach(function(i){tmo[i.id]=timing(i);});
+    function kind(k){return pend.filter(function(i){return tmo[i.id]&&tmo[i.id].k===k;});}
+    var late=kind('late'), now=kind('now'), early=kind('early'), wait=kind('wait');
     if(late.length)h+='<p style="margin-top:8px"><b>Atrasados</b></p>'+list(late,6);
-    if(now.length)h+='<p style="margin-top:8px"><b>Neste mês</b></p>'+list(now,6);
+    if(now.length)h+='<p style="margin-top:8px"><b>Hora de comprar ou fazer</b></p>'+list(now,6);
+    if(wait.length)h+='<p style="margin-top:8px"><b>Esperando o chá ou a mudança</b></p>'+list(wait,4);
+    if(early.length)h+='<p style="margin-top:8px"><b>Dá para comprar antes</b></p>'+list(early,4);
     if(!late.length&&!now.length){
       var up=pend.filter(function(i){return typeof i.m==='number'&&i.m>gm;});
       if(up.length){var mm=Math.min.apply(null,up.map(function(i){return i.m;}));
@@ -881,6 +981,8 @@ function viewMes(){
   var L=items(), F=L.filter(passFilters), act=filtersActive(), gm=gestMonth(), h='';
   h+='<h2 class="page-title">Por mês</h2>';
   h+='<p class="small" style="margin-bottom:12px">'+esc(mesCaption())+'</p>';
+  var nl=L.filter(function(i){var t=timing(i);return t&&t.k==='late';}).length;
+  if(nl)h+='<p class="aviso"><b>'+nl+(nl===1?' item atrasado':' itens atrasados')+'</b>: passaram do prazo sugerido e ainda faltam. Eles aparecem com a marca "Atrasado".</p>';
   h+=filtersHTML(L.length,F.length);
   var shown=0;
   MORDER.forEach(function(m){
@@ -888,7 +990,7 @@ function viewMes(){
     if(!sh.length)return; shown++;
     sh.sort(function(a,b){return a.c-b.c||(a.id<b.id?-1:1);});
     var T=calc(all);
-    h+='<section class="card"><div class="month-h"><h3 style="margin:0">'+esc(mLabel(m))+'</h3>'+(gm===m?'<span class="here">Você está aqui</span>':'')+'<span class="small">'+(T.c+T.g)+' de '+T.n+' resolvidos</span></div><ul class="items">'+sh.map(rowHTML).join('')+'</ul></section>';
+    h+='<section class="card"><div class="month-h"><h3 style="margin:0">'+esc(mLabel(m))+'</h3>'+(typeof m==='number'&&dueD()?'<span class="small">'+esc(spanTxt(mStart(m),mEnd(m)))+'</span>':'')+(gm===m?'<span class="here">Você está aqui</span>':'')+'<span class="small">'+(T.c+T.g)+' de '+T.n+' resolvidos</span></div><ul class="items">'+sh.map(rowHTML).join('')+'</ul></section>';
   });
   if(!shown)h+='<p class="card">Nenhum item com esses filtros.</p>';
   return h;
@@ -1045,7 +1147,7 @@ var SK='enxoval-sync-v1', SY=null, rev=0;
 function loadSync(){try{var o=JSON.parse(localStorage.getItem(SK)||'null');if(o&&typeof o.code==='string'&&/^[A-Z0-9]{25}$/.test(o.code))return {code:o.code,dirty:!!o.dirty,force:!!o.force,last:(typeof o.last==='number'?o.last:null)};}catch(e){}return null;}
 function saveSync(){try{if(SY)localStorage.setItem(SK,JSON.stringify(SY));else localStorage.removeItem(SK);}catch(e){}}
 if(SYNC_ON)SY=loadSync();
-var sy={busy:false,again:false,msg:'',err:false,timer:null,show:false,pr:null};
+var sy={busy:false,again:false,msg:'',err:false,timer:null,show:false,pr:null,ver:null,noVer:false,polling:false};
 function normCode(c){return String(c||'').toUpperCase().replace(/[^A-Z0-9]/g,'');}
 function fmtCode(c){return c.replace(/(.{5})(?=.)/g,'$1-');}
 function hhmm(t){var d=new Date(t);return pad(d.getHours())+':'+pad(d.getMinutes());}
@@ -1079,7 +1181,7 @@ function mergeStates(a,b){
   return o;
 }
 function touchAll(st){var n=Date.now();st.pt=n;st.gt=n;st.reset=n;Object.keys(st.it).forEach(function(k){st.it[k].t=n;});st.custom.forEach(function(c){c.ts=n;});}
-function markDirty(){rev++;if(SYNC_ON&&SY){SY.dirty=true;saveSync();scheduleSync(2500);}}
+function markDirty(){rev++;if(SYNC_ON&&SY){SY.dirty=true;saveSync();scheduleSync(1200);}}
 function scheduleSync(ms){if(!(SYNC_ON&&SY))return;clearTimeout(sy.timer);sy.timer=setTimeout(syncNow,ms);}
 function safeRender(){
   var a=document.activeElement, busy=(a&&/^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName)&&main.contains(a))||$('#modal-root .sheet');
@@ -1097,6 +1199,7 @@ function syncNow(){
       for(var tries=0;tries<4&&!done;tries++){
         var r=await rpc('enx_ler',{p_codigo:SY.code});
         if(r&&r.erro){setMsg('Esse código não foi encontrado no servidor. Confira o código.',true);return;}
+        if(typeof r.versao==='number')sy.ver=r.versao;
         var remote=sanitize(r.dados)||blank();
         var merged=SY.force?S:mergeStates(S,remote);
         if(cmp(merged)!==cmp(S)){S=merged;changed=true;try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
@@ -1105,7 +1208,7 @@ function syncNow(){
         var w=await rpc('enx_gravar',{p_codigo:SY.code,p_dados:out,p_base:r.versao});
         if(w&&w.conflito)continue;
         if(!w||w.erro){setMsg('O servidor recusou os dados'+(w&&w.erro?' ('+w.erro+')':'')+'.',true);return;}
-        SY.force=false; done=true;
+        SY.force=false; if(typeof w.versao==='number')sy.ver=w.versao; done=true;
       }
       if(!done){setMsg('Muitas mudanças ao mesmo tempo. Vou tentar de novo.',true);scheduleSync(4000);return;}
       SY.dirty=(rev!==rev0); SY.last=Date.now(); saveSync();
@@ -1117,6 +1220,20 @@ function syncNow(){
       sy.busy=false; if(sy.again||rev!==rev0){sy.again=false;scheduleSync(1500);}
     }
   })();
+}
+/* Atualização automática: a cada poucos segundos, com o app aberto, pergunta só a versão do espaço
+   (resposta minúscula). Se mudou, baixa e junta. Sem a função no servidor, cai nos 45 s de antes. */
+function poll(){
+  if(!(SYNC_ON&&SY)||sy.noVer||sy.polling||sy.busy||SY.dirty||document.hidden)return;
+  sy.polling=true;
+  rpc('enx_versao',{p_codigo:SY.code}).then(function(v){
+    sy.polling=false;
+    if(!v)return;
+    if(v.erro||typeof v.versao!=='number'||v.versao!==sy.ver)syncNow();
+  },function(e){
+    sy.polling=false;
+    if(e&&(e.status===404||e.status===400))sy.noVer=true;
+  });
 }
 function codeHTML(code){return '<p class="codebig user">'+fmtCode(code).split('-').map(function(g){return '<span>'+esc(g)+'</span>';}).join(' ')+'</p>';}
 function syncCard(){
@@ -1252,9 +1369,10 @@ $('#imp').addEventListener('change',function(e){var f=e.target.files&&e.target.f
 
 window.__enx={derive:derive,MASTER:MASTER,state:function(){return S;}};
 render();
-document.addEventListener('visibilitychange',function(){if(!document.hidden)syncNow();});
+document.addEventListener('visibilitychange',function(){if(!document.hidden)syncNow();else if(SYNC_ON&&SY&&SY.dirty)syncNow();});
 window.addEventListener('online',function(){syncNow();});
 setInterval(function(){if(!document.hidden)syncNow();},45000);
+setInterval(poll,4000);
 if(SYNC_ON&&SY)syncNow();
 })();
 </script>
