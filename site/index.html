@@ -144,6 +144,14 @@ input[type=checkbox]{width:26px;height:26px;margin:0;accent-color:var(--btn);fle
 .tag.late{background:var(--terra-t);color:var(--terra);border-color:transparent;font-weight:700;white-space:normal}
 .tag.now{background:var(--sage-t);color:var(--sage-d);border-color:transparent;font-weight:700}
 .tag.wait{white-space:normal}
+.tag.part{background:var(--sand);color:var(--sand-ink);border-color:transparent;font-weight:700}
+.qty{display:flex;align-items:center;gap:var(--s3);margin:0 0 var(--s2) calc(48px + var(--s2));flex-wrap:nowrap}
+.qv{white-space:nowrap}
+.qb{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--btn);background:var(--card);color:var(--btn);font-size:1.5rem;line-height:1;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;transition:background-color .2s,color .2s}
+.qb:hover:not(:disabled){background:var(--sage-t)}
+.qb:disabled{border-color:var(--line);color:var(--muted);opacity:.5;cursor:not-allowed}
+.qv{font-size:var(--t1);color:var(--muted);min-width:0}
+.qv b{color:var(--ink);font-size:var(--t2)}
 
 /* lista */
 .items,.crows{list-style:none;margin:0;padding:0}
@@ -667,6 +675,7 @@ function sanitize(d){
       if(typeof x.st==='string'&&x.st)y.st=x.st.slice(0,200);
       if(typeof x.nt==='string'&&x.nt)y.nt=x.nt.slice(0,1000);
       if(x.mb===true)y.mb=true;
+      if(typeof x.n==='number'&&isFinite(x.n)&&x.n>=1&&x.n<=99&&x.n%1===0&&y.s!=='c'&&y.s!=='g'&&y.s!=='x')y.n=x.n;
       o.it[k]=y;
     });
   }
@@ -709,7 +718,20 @@ function items(){
   return base.concat(S.custom.map(function(c){return {id:c.id,c:c.c,n:c.n,l:c.l,q:c.q,u:'',w:mLabel(c.m),o:'',m:c.m,z:(typeof c.m==='number'?c.m:undefined),a:(typeof c.m==='number'?c.m:undefined),t:c.t,g:c.g,custom:true};}));
 }
 function setItem(id,patch){var x=S.it[id]||{};for(var k in patch){if(patch[k]===undefined||patch[k]===null||patch[k]===''||patch[k]===false)delete x[k];else x[k]=patch[k];}x.t=Date.now();S.it[id]=x;save();}
-function calc(list){var gasto=0,c=0,g=0,n=0;list.forEach(function(i){var x=X(i.id);if(x.s==='x')return;n++;if(x.s==='c'){c++;if(typeof x.p==='number'&&(!i.t||i.pg))gasto+=x.p;}else if(x.s==='g')g++;});return {gasto:gasto,c:c,g:g,n:n};}
+function calc(list){var gasto=0,c=0,g=0,n=0;list.forEach(function(i){var x=X(i.id);if(x.s==='x')return;n++;if(x.s==='c'){c++;if(typeof x.p==='number'&&(!i.t||i.pg))gasto+=x.p;}else if(x.s==='g')g++;else if(x.n>0&&typeof x.p==='number'&&(!i.t||i.pg))gasto+=x.p;});return {gasto:gasto,c:c,g:g,n:n};}
+/* Quantidade: só itens com quantidade sugerida maior que 1 (ex.: "4", "4 pares", "4 a 6") têm contador de comprados. */
+function qtyTarget(i){
+  if(!i||i.t)return 0;
+  var m=/^\s*(\d{1,2})(?:\s*(?:a|à|ou|-|–)\s*(\d{1,2}))?(?!\d)/.exec(i.q||''); if(!m)return 0;
+  var n=Math.max(+m[1],m[2]?+m[2]:0); return (n>1&&n<=99)?n:0;
+}
+function qtyHave(i){var T=qtyTarget(i),x=X(i.id); if(!T)return 0; if(x.s==='c')return T; return (x.s==='g'||x.s==='x')?0:Math.min(x.n||0,T);}
+function setQty(id,v){
+  var i=items().filter(function(a){return a.id===id;})[0], T=qtyTarget(i); if(!T)return;
+  v=Math.max(0,Math.min(T,v));
+  if(v>=T)setItem(id,{s:'c',n:undefined});
+  else setItem(id,{s:undefined,n:v||undefined});
+}
 var ABR=['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
 function parseD(v){var q=/^(\d{4})-(\d{2})-(\d{2})$/.exec(v||'');return q?new Date(+q[1],+q[2]-1,+q[3]):null;}
 function dueD(){return parseD(S.perfil&&S.perfil.due);}
@@ -776,7 +798,9 @@ function pill(l){return '<span class="pill lv-'+l+'">'+LV[l]+'</span>';}
 function rowHTML(i){
   var x=X(i.id), s=x.s||'f', open=!!ui.open[i.id], verb=i.t?'Feito':'Comprado';
   var tags='', tm=(s==='f')?timing(i):null, cost=(!i.t||i.pg);
+  var QT=qtyTarget(i), QH=qtyHave(i);
   if(s==='c')tags+='<span class="tag ok">'+verb+'</span>';
+  if(s==='f'&&QT&&QH>0)tags+='<span class="tag part">Faltam '+(QT-QH)+'</span>';
   if(s==='g')tags+='<span class="tag ok">Ganhou ou herdou</span>';
   if(s==='x')tags+='<span class="tag">'+(i.t?'Não vamos fazer':'Não vamos comprar')+'</span>';
   if(tm&&tm.tag)tags+='<span class="tag '+tm.k+'">'+esc(tm.tag)+'</span>';
@@ -794,7 +818,7 @@ function rowHTML(i){
       (i.seg?'<p class="hint">Item de segurança: não corte para economizar.</p>':'<label class="cb"><input type="checkbox" data-act="cbX" data-id="'+i.id+'" data-fk="cbX:'+i.id+'"'+(s==='x'?' checked':'')+'><span>'+(i.t?'Não vamos fazer (sai da conta)':'Não vamos comprar (sai da conta)')+'</span></label>')+
       (cost?'<label class="field" for="p-'+i.id+'"><span>'+(i.t?'Custo, se houver (R$)':'Preço real (R$)')+'</span></label>'+
       '<input type="text" inputmode="decimal" autocomplete="off" id="p-'+i.id+'" data-f="p" data-id="'+i.id+'" placeholder="0,00" value="'+(typeof x.p==='number'?esc(brl(x.p)):'')+'">'+
-      '<p class="hint">'+(s==='g'?'Como ganhou ou herdou, este preço não conta no gasto.':(s==='x'?'Fora da conta: este preço não conta no gasto.':(s==='c'?'Conta no gasto.':'Só conta no gasto depois de marcar '+verb.toLowerCase()+'.')))+'</p>':'')+
+      '<p class="hint">'+(s==='g'?'Como ganhou ou herdou, este preço não conta no gasto.':(s==='x'?'Fora da conta: este preço não conta no gasto.':(s==='c'?'Conta no gasto.':(QT&&QH>0?'Conta no gasto o que já foi comprado ('+QH+' de '+QT+').':'Só conta no gasto depois de marcar '+verb.toLowerCase()+'.'))))+'</p>':'')+
       (i.t?'':'<label class="field" for="st-'+i.id+'"><span>Marca ou loja</span></label>'+
       '<input type="text" autocomplete="off" id="st-'+i.id+'" data-f="st" data-id="'+i.id+'" maxlength="200" value="'+esc(x.st||'')+'">')+
       '<label class="field" for="nt-'+i.id+'"><span>'+(i.t?'Observação (telefone, data, anotações)':'Observação')+'</span></label>'+
@@ -807,7 +831,11 @@ function rowHTML(i){
     '<button type="button" class="item-main" data-act="open" data-id="'+i.id+'" data-fk="open:'+i.id+'" aria-expanded="'+open+'"'+(open?' aria-controls="det-'+i.id+'"':'')+'>'+
       '<span class="item-name user">'+esc(i.n)+'</span>'+
       '<span class="item-meta">'+pill(i.l)+(i.q&&!i.t?'<span>Qtd: '+esc(i.q)+'</span>':'')+(i.custom?'<span class="custom-tag">Seu item</span>':'')+tags+'</span>'+
-    '</button></div>'+det+'</li>';
+    '</button></div>'+
+    ((QT&&(s==='f'||s==='c'))?'<div class="qty" role="group" aria-label="'+esc('Quantos já comprou: '+i.n)+'"><button type="button" class="qb" data-act="qdec" data-id="'+i.id+'" data-fk="qdec:'+i.id+'" aria-label="'+esc('Diminuir quantidade comprada: '+i.n)+'"'+(QH<=0?' disabled':'')+'>−</button>'+
+      '<span class="qv" role="status"><b>'+QH+'</b> de '+QT+(QH<QT?' · faltam '+(QT-QH):' · completo')+'</span>'+
+      '<button type="button" class="qb" data-act="qinc" data-id="'+i.id+'" data-fk="qinc:'+i.id+'" aria-label="'+esc('Aumentar quantidade comprada: '+i.n)+'"'+(QH>=QT?' disabled':'')+'>+</button></div>':'')+
+    det+'</li>';
 }
 function crowHTML(i){
   var s=stat(i.id), tm=timing(i);
@@ -1108,7 +1136,7 @@ function refreshBinds(){
   var big=$('#bigcard'); if(big)big.classList.toggle('over',hasB&&rest<0);
   $$('[data-pid]').forEach(function(el){
     var x=X(el.dataset.pid), show=typeof x.p==='number';
-    el.hidden=!show; if(show)el.textContent=brl(x.p)+(x.s==='c'?'':' (não conta)');
+    el.hidden=!show; if(show)el.textContent=brl(x.p)+((x.s==='c'||(x.s===undefined&&x.n>0))?'':' (não conta)');
   });
 }
 
@@ -1473,7 +1501,11 @@ document.addEventListener('click',function(e){
     case 'goto': ui.tab=v; render(); window.scrollTo(0,0); break;
     case 'editPerfil': ui.tab='perfil'; render(); window.scrollTo(0,0); break;
     case 'skipPerfil': S.perfil={}; S.pt=0; save(); ui.tab='resumo'; render(); window.scrollTo(0,0); break;
-    case 'quick': setItem(id,{s:stat(id)==='c'?undefined:'c'}); render(); break;
+    case 'quick': setItem(id,{s:stat(id)==='c'?undefined:'c',n:undefined}); render(); break;
+    case 'qinc': case 'qdec':
+      var qi=items().filter(function(a){return a.id===id;})[0];
+      if(qi){setQty(id,qtyHave(qi)+(a==='qinc'?1:-1)); render();}
+      break;
     case 'open': if(ui.open[id])delete ui.open[id]; else ui.open[id]=1; render(); break;
     case 'cat': if(ui.cats[v])delete ui.cats[v]; else ui.cats[v]=1; render(); break;
     case 'catsAll': if(Object.keys(ui.cats).length>=CATS.length)ui.cats={}; else CATS.forEach(function(c){ui.cats[c.id]=1;}); render(); break;
@@ -1512,10 +1544,10 @@ document.addEventListener('click',function(e){
 });
 document.addEventListener('change',function(e){
   var el=e.target; var a=el.dataset&&el.dataset.act, id=el.dataset&&el.dataset.id;
-  if(a==='cbC'){setItem(id,{s:el.checked?'c':undefined});render();}
-  else if(a==='cbG'){setItem(id,{s:el.checked?'g':undefined});render();}
+  if(a==='cbC'){setItem(id,{s:el.checked?'c':undefined,n:undefined});render();}
+  else if(a==='cbG'){setItem(id,{s:el.checked?'g':undefined,n:undefined});render();}
   else if(a==='mala'){setItem(id,{mb:el.checked});render();}
-  else if(a==='cbX'){setItem(id,{s:el.checked?'x':undefined});render();}
+  else if(a==='cbX'){setItem(id,{s:el.checked?'x':undefined,n:undefined});render();}
 });
 document.addEventListener('input',function(e){
   var el=e.target, f=el.dataset&&el.dataset.f; if(!f||f==='due')return;
