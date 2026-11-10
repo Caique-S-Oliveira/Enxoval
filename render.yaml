@@ -5,6 +5,8 @@ services:
     name: enxoval
     buildCommand: echo "sem build"
     staticPublishPath: ./site
+    branch: main
+    autoDeployTrigger: commit
     pullRequestPreviewsEnabled: false
     headers:
       - path: /*
